@@ -1,0 +1,22 @@
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.csprojResolveAssemblyReference.cache
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\MainWindow.g.cs
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\App.g.cs
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie_MarkupCompile.cache
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie_MarkupCompile.lref
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\bin\Debug\Find My Movie.pdb
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.dll
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\bin\Debug\System.Windows.Interactivity.dll
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.pdb
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.xml
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\App.baml
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\MainWindow.baml
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.g.resources
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find_My_Movie.Properties.Resources.resources
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.csproj.GenerateResource.Cache
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
+P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
+P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
+P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
+P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb

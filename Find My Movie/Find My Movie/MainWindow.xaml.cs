@@ -39,6 +39,10 @@ namespace Find_My_Movie {
             ShowHideMenu("sbShowLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
         }
 
+        private void MetroWindow_Closed (object sender, EventArgs e) {
+            Application.Current.Shutdown();
+        }
+
         private void ShowHideMenu(string Storyboard, Button btnHide, Button btnShow, StackPanel pnl) {
             Storyboard sb = Resources[Storyboard] as Storyboard;
             sb.Begin(pnl);
@@ -73,7 +77,12 @@ namespace Find_My_Movie {
             else
                 directoryClass.Close();
 
-           
+            @interface interfaceClass = new @interface();
+            var allMovies = interfaceClass.GetAllFilename();
+            foreach (var movie in allMovies) {
+                
+            }
+            
         }
     }
 }

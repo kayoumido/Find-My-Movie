@@ -20,6 +20,24 @@ P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
 P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
 P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
 P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
-C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
-C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
-C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Find My Movie.pdb
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.dll
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.pdb
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.xml
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.csprojResolveAssemblyReference.cache
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\MainWindow.g.cs
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\App.g.cs
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie_MarkupCompile.cache
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie_MarkupCompile.lref
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\App.baml
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\MainWindow.baml
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.g.resources
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find_My_Movie.Properties.Resources.resources
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.csproj.GenerateResource.Cache
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\choose_directory.g.cs
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\choose_directory.baml

@@ -45,5 +45,10 @@ namespace Find_My_Movie {
                 btnShow.Visibility = System.Windows.Visibility.Visible;
             }
         }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("w");
+        }
     }
 }

@@ -10,7 +10,7 @@
         Title="Find my Movie" 
         Height="350" Width="525"
         Icon="favicon.ico"
-        TitleCaps="False">
+        TitleCaps="False" Loaded="MetroWindow_Loaded">
     <Window.Resources>
 
         <Storyboard x:Key="sbShowLeftMenu" >

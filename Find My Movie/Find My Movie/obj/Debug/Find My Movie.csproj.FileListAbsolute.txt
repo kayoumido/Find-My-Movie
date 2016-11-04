@@ -20,3 +20,6 @@ P:\Cours\BT\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
 P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
 P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
 P:\Cours\BTechnique\MAW11\app\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb

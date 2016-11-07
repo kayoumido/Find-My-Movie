@@ -4,10 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Find_My_Movie{
 
-    class @interface{
+    class @interface {
 
         public string[] GetAllFilename()
         {
@@ -70,7 +71,17 @@ namespace Find_My_Movie{
         }// directorySearch
 
 
+        public double getWidthMovie(double widthForm) {
+            
 
+            int moviePerLine = 4;
+            while (widthForm / moviePerLine > 300) {
+                moviePerLine++;
+            }//while
+
+            return widthForm / moviePerLine;
+
+        }//getWidthMovie
 
     }//@interface
 }

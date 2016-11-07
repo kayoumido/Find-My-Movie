@@ -117,6 +117,47 @@ namespace Find_My_Movie {
                                             "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
                                             "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
             };
-        }
+
+            //display cover
+            int i = 0;
+            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+            foreach (var cover in moviesCover) {
+                var webImage = new BitmapImage(new Uri(cover));
+                var imageControl = new Image();
+                imageControl.Name = "id_" + i;
+                imageControl.Source = webImage;
+                imageControl.MaxWidth =  maxWidth;
+                imageControl.MouseUp += new MouseButtonEventHandler(displaySingleMovie);
+                gridMovies.Children.Add(imageControl);
+                i++;
+            }
+
+        }//MetroWindow_Loaded
+
+        void displaySingleMovie (object sender, MouseEventArgs e) {
+
+
+            var mouseWasDownOn = e.Source as FrameworkElement;
+            if (mouseWasDownOn != null) {
+                string elementName = mouseWasDownOn.Name; //MessageBox.Show(elementName);
+            }
+
+            IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+            foreach (Image child in covers) {
+                child.Visibility = Visibility.Collapsed;
+            }//foreach
+            single.Visibility = Visibility.Visible;
+
+        }//displaySingleMovie
+
+        private void closeSingle_MouseUp (object sender, MouseButtonEventArgs e) {
+            IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+            foreach (Image child in covers) {
+                child.Visibility = Visibility.Visible;
+            }//foreach
+            single.Visibility = Visibility.Collapsed;
+        }//closeSingle_MouseUp
+
+
     }
 }

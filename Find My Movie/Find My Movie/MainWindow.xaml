@@ -62,6 +62,15 @@
         </StackPanel>
         <ScrollViewer x:Name="containerMovies" VerticalScrollBarVisibility="Hidden" Margin="48,0,0,0">
             <WrapPanel HorizontalAlignment="Left" x:Name="gridMovies">
+
+                <Canvas x:Name="single" Visibility="Collapsed">
+
+                    <Image x:Name="closeSingle" Width="100" Source="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/VisualEditor_-_Icon_-_Close.svg/2000px-VisualEditor_-_Icon_-_Close.svg.png" MouseUp="closeSingle_MouseUp"></Image>
+
+                    <Image Canvas.Left="210" Width="200" Source="https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg"></Image>
+
+                </Canvas>
+                
             </WrapPanel>
         </ScrollViewer>
     </Grid>

@@ -8,10 +8,11 @@
         xmlns:local="clr-namespace:Find_My_Movie"
         mc:Ignorable="d"
         Title="Find my Movie" 
-        Height="350" Width="525"
+        Height="500" Width="750"
+        MinHeight="500" MinWidth="750"
         Icon="favicon.ico"
         TitleCaps="False"
-        Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed">
+        Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" SizeChanged="MetroWindow_SizeChanged">
     <Window.Resources>
 
         <Storyboard x:Key="sbShowLeftMenu" >
@@ -59,5 +60,9 @@
                 </Button>
             </Grid>
         </StackPanel>
+        <ScrollViewer x:Name="containerMovies" VerticalScrollBarVisibility="Hidden" Margin="48,0,0,0">
+            <WrapPanel HorizontalAlignment="Left" x:Name="gridMovies">
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </Controls:MetroWindow>

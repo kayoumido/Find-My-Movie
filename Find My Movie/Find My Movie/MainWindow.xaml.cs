@@ -27,6 +27,8 @@ namespace Find_My_Movie {
                             CONFIG_FILE_NAME = "FindMyMovie.config",
                             JSON_DATA_FILE_NAME = "movie_data.json";
 
+        @interface interfaceClass = new @interface();
+
         public MainWindow() {
             InitializeComponent();
         }
@@ -42,6 +44,16 @@ namespace Find_My_Movie {
         private void MetroWindow_Closed (object sender, EventArgs e) {
             Application.Current.Shutdown();
         }
+
+        private void MetroWindow_SizeChanged (object sender, SizeChangedEventArgs e) {
+
+            IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+            foreach (Image child in covers) {
+                child.MaxWidth = maxWidth;
+            }//foreach
+
+        }//MetroWindow_SizeChanged
 
         private void ShowHideMenu(string Storyboard, Button btnHide, Button btnShow, StackPanel pnl) {
             Storyboard sb = Resources[Storyboard] as Storyboard;
@@ -77,12 +89,45 @@ namespace Find_My_Movie {
             else
                 directoryClass.Close();
 
-            @interface interfaceClass = new @interface();
             var allMovies = interfaceClass.GetAllFilename();
             foreach (var movie in allMovies) {
                 
             }
-            
+
+            //Hard Display
+            string[] moviesCover = new string[] {
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg"
+            };
+
+            //display cover
+            int i = 0;
+            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+            foreach (var cover in moviesCover) {
+                var webImage = new BitmapImage(new Uri(cover));
+                var imageControl = new Image();
+                imageControl.Name = "id_" + i;
+                imageControl.Source = webImage;
+                imageControl.MaxWidth =  maxWidth;
+                //imageControl.MouseUp += new MouseButtonEventHandler(displaySingleMovie);
+                gridMovies.Children.Add(imageControl);
+                i++;
+            }
+
         }
     }
 }

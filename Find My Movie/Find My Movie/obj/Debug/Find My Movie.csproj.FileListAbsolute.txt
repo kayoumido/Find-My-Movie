@@ -41,3 +41,6 @@ C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.csproj.GenerateResource.Cache
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\choose_directory.g.cs
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\choose_directory.baml
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb

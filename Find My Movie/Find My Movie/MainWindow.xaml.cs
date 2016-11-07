@@ -23,9 +23,9 @@ namespace Find_My_Movie {
     public partial class MainWindow : MetroWindow {
 
         // CONSTANTES
-        public const string FOLDER_NAME = "FindMyMovie",
-                            CONFIG_FILE_NAME = "FindMyMovie.config",
-                            JSON_DATA_FILE_NAME = "movie_data.json";
+        public const string FOLDER_NAME         = "FindMyMovie",
+                            CONFIG_FILE_NAME    = "FindMyMovie.config",
+                            JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         public MainWindow() {
             InitializeComponent();
@@ -57,8 +57,7 @@ namespace Find_My_Movie {
             }
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
             choose_directory directoryClass = new choose_directory();
 

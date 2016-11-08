@@ -15,6 +15,11 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Windows.Media.Animation;
 using System.IO;
+using System.Text.RegularExpressions;
+using TMDbLib.Client;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -79,9 +84,44 @@ namespace Find_My_Movie {
             @interface interfaceClass = new @interface();
             var allMovies = interfaceClass.GetAllFilename();
             foreach (var movie in allMovies) {
-                // put api stuff here
+
+                // init new api object
+                api api = new api(allMovies[3]);
+                // get movie name
+                string name = api.GetMovieName();
+
+                MessageBox.Show(name);
+                // Instantiate a new TMDb Client, an API key is needed
+                TMDbClient client = new TMDbClient("88cf1d08f60e20cf9f7d3f49e82e7c8f");
+
+                SearchContainer<SearchMovie> res = client.SearchMovieAsync(name).Result;
+                MessageBox.Show(res.TotalResults.ToString());
+                foreach (SearchMovie result in res.Results.Take(3)) {
+                    MessageBox.Show(result.Id + ": " + result.Title);
+                    MessageBox.Show(result.OriginalTitle);
+                    MessageBox.Show(result.ReleaseDate.ToString());
+                    MessageBox.Show(result.Popularity.ToString());
+                    MessageBox.Show(result.VoteCount.ToString());
+
+                    // Print out each hit
+                    /*
+                    Console.WriteLine(result.Id + ": " + result.Title);
+                    Console.WriteLine("\t Original Title: " + result.OriginalTitle);
+                    Console.WriteLine("\t Release date  : " + result.ReleaseDate);
+                    Console.WriteLine("\t Popularity    : " + result.Popularity);
+                    Console.WriteLine("\t Vote Average  : " + result.VoteAverage);
+                    Console.WriteLine("\t Vote Count    : " + result.VoteCount);
+                    Console.WriteLine();
+                    Console.WriteLine("\t Backdrop Path : " + result.BackdropPath);
+                    Console.WriteLine("\t Poster Path   : " + result.PosterPath);
+
+                    Console.WriteLine();
+                    */
+                }
+                break;
             }
-            
+
+
         }
     }
 }

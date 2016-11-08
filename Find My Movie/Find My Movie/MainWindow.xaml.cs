@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Windows.Media.Animation;
 using System.IO;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
@@ -54,6 +55,7 @@ namespace Find_My_Movie {
 
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+            single.Width = containerMovies.ActualWidth;
             foreach (Image child in covers) {
                 child.MaxWidth = maxWidth;
             }//foreach
@@ -121,6 +123,7 @@ namespace Find_My_Movie {
             //display cover
             int i = 0;
             double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+            single.Width = containerMovies.ActualWidth;
             foreach (var cover in moviesCover) {
                 var webImage = new BitmapImage(new Uri(cover));
                 var imageControl = new Image();
@@ -133,6 +136,15 @@ namespace Find_My_Movie {
             }
 
         }//MetroWindow_Loaded
+
+        private void play_MouseUp (object sender, MouseButtonEventArgs e) {
+           
+            string pathMovie = "C:\\Users\\Antoine.DESSAUGES\\Documents\\Projets\\Wildlife.wmv";
+            if (File.Exists(pathMovie))
+                Process.Start(pathMovie);
+            else
+                MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
+        }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {
 

@@ -4,12 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TMDbLib.Client;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
 
 namespace Find_My_Movie {
     class api {
-        // The Movie DB api key
-        private string key        = "88cf1d08f60e20cf9f7d3f49e82e7c8f";
+        // the Movie DB api key
+        private string key = "88cf1d08f60e20cf9f7d3f49e82e7c8f";
+        // TMDbClient object
+        TMDbClient client;
 
+        // movie name extracted from file name
+        private string movie_name;
+        // movie date extracted from file name
+        private string movie_date;
+        // movie id
+        private int movie_id;
 
 
         /// <summary>
@@ -19,49 +31,73 @@ namespace Find_My_Movie {
         /// 
         /// <author>Doran Kayoumi</author>
         public api(string file_name) {
-            // set class attribute with file name
-            this.file_name = file_name;
+            // instantiate new extractfileinfo object instance
+            extractfileinfo extract = new extractfileinfo(file_name);
+
+            // get movie name and release date and store them in attribute
+            this.movie_name = extract.GetMovieName();
+            this.movie_date = extract.GetMovieDate();
+
+            // Instantiate a new TMDb Client, an API key is needed
+            this.client = new TMDbClient(this.key);
+
+            // get movie ID
+            this.movie_id = 198287;// this.GetMovieID();
         }
 
         /// <summary>
-        /// Extract information from file name.
-        /// e.g. 
-        /// After.Earth.2013.TRUEFRENCH.DVDRiP.XViD-AViTECH --> Name : After Earth , Date : 2013
+        /// Search for movie in TMDb and returns movie ID
         /// </summary>
-        /// <param name="file_name">Name of the file to extract information from</param>
-        /// <returns>Returns a match object</returns>
         /// 
         /// <author>Doran Kayoumi</author>
-        private Match ExtractDataFromFileName(string file_name) {
-            // building new regex object
-            // regex found : http://stackoverflow.com/questions/34712335/get-title-and-year-from-file-name-using-regex
-            // regex extracts movie title and date from a file name like : Big.Hero.6.2014.FRENCH.BRRip.XviD-DesTroY.avi
-            // files without a date in them won't work
-            // @FIXME
-            Regex regex = new Regex(@"^(.+?)[.( \t]*(?:(19\d{2}|20(?:0\d|1[0-6])).*|(?:(?=bluray|\d+p|brrip)..*)?[.](mkv|avi|mpe?g|divx)$)i");
+        private int GetMovieID() {
+            // search for movie in TMDb
+            SearchContainer<SearchMovie> res = this.client.SearchMovieAsync(this.movie_name).Result;
 
-            // Match file name with regex
-            Match match = regex.Match(this.file_name);
+            // check if any movies were found
+            if (res.TotalResults > 0) {
+                // normaly first value returned is what we are searching for, so we can get the id of that movie
+                return res.Results[0].Id;
+            }
+            else {
+                return -1;
+            }
+        }
 
-            // return result
-            return match;
+        /// <summary>
+        /// Get movie information using movie id
+        /// </summary>
+        /// <returns>Returns movie info</returns>
+        /// 
+        /// <author>Doran Kayoumi</author>
+        public Movie GetMovieInfo() {
+            return this.client.GetMovieAsync(this.movie_id).Result;
+        }
+
+        /// <summary>
+        /// Get movie Cast info
+        /// </summary>
+        /// <returns>Returns movie poster</returns>
+        /// 
+        /// <author>Doran Kayoumi</author>
+        public Credits GetMovieCast() {
+            return this.client.GetMovieCreditsAsync(this.movie_id).Result;
+        }
+
+        /// <summary>
+        /// Get movie Poster
+        /// </summary>
+        /// <returns>Returns movie poster</returns>
+        /// <notes>https://image.tmdb.org/t/p/w500/ is the path to the images</notes>
+        /// 
+        /// <author>Doran Kayoumi</author>
+        public Images GetMoviePoster() {
+            return this.client.GetMovieImagesAsync(this.movie_id).Result;
         }
 
         public string GetMovieName() {
-            // get movie info from file name
-            Match info = this.ExtractDataFromFileName();
-
-            // return movie name without "." between words
-            return info.Groups[1].ToString().Replace(".", " ");
+            return this.movie_name;
         }
 
-        public string GetMovieDate() {
-            // get movie info from file name
-            Match info = this.ExtractDataFromFileName();
-
-            // return movie date
-            return info.Groups[2].ToString();
-        }
- 
     }
 }

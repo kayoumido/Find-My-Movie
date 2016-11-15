@@ -75,7 +75,7 @@ namespace Find_My_Movie {
             if (File.Exists(file_path))
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
 
-            // Open the second form if it's the first launch
+            // open the second form if it's the first launch
             if (movie_path == "")
                 directoryClass.ShowDialog();
             else
@@ -87,37 +87,12 @@ namespace Find_My_Movie {
 
                 // init new api object
                 api api = new api(allMovies[3]);
-                // get movie name
-                string name = api.GetMovieName();
 
-                MessageBox.Show(name);
-                // Instantiate a new TMDb Client, an API key is needed
-                TMDbClient client = new TMDbClient("88cf1d08f60e20cf9f7d3f49e82e7c8f");
+                MessageBox.Show(api.GetMovieName());
 
-                SearchContainer<SearchMovie> res = client.SearchMovieAsync(name).Result;
-                MessageBox.Show(res.TotalResults.ToString());
-                foreach (SearchMovie result in res.Results.Take(3)) {
-                    MessageBox.Show(result.Id + ": " + result.Title);
-                    MessageBox.Show(result.OriginalTitle);
-                    MessageBox.Show(result.ReleaseDate.ToString());
-                    MessageBox.Show(result.Popularity.ToString());
-                    MessageBox.Show(result.VoteCount.ToString());
+                Movie infos = api.GetMovieInfo();
 
-                    // Print out each hit
-                    /*
-                    Console.WriteLine(result.Id + ": " + result.Title);
-                    Console.WriteLine("\t Original Title: " + result.OriginalTitle);
-                    Console.WriteLine("\t Release date  : " + result.ReleaseDate);
-                    Console.WriteLine("\t Popularity    : " + result.Popularity);
-                    Console.WriteLine("\t Vote Average  : " + result.VoteAverage);
-                    Console.WriteLine("\t Vote Count    : " + result.VoteCount);
-                    Console.WriteLine();
-                    Console.WriteLine("\t Backdrop Path : " + result.BackdropPath);
-                    Console.WriteLine("\t Poster Path   : " + result.PosterPath);
 
-                    Console.WriteLine();
-                    */
-                }
                 break;
             }
 

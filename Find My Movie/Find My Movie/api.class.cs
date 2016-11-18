@@ -42,7 +42,7 @@ namespace Find_My_Movie {
             this.client = new TMDbClient(this.key);
 
             // get movie ID
-            this.movie_id = 198287;// this.GetMovieID();
+            this.movie_id = this.GetMovieID();
         }
 
         /// <summary>
@@ -68,6 +68,7 @@ namespace Find_My_Movie {
         /// Get movie information using movie id
         /// </summary>
         /// <returns>Returns movie info</returns>
+        /// <notes>https://image.tmdb.org/t/p/w500/ is the path to the images</notes>
         /// 
         /// <author>Doran Kayoumi</author>
         public Movie GetMovieInfo() {
@@ -80,7 +81,7 @@ namespace Find_My_Movie {
         /// <returns>Returns movie poster</returns>
         /// 
         /// <author>Doran Kayoumi</author>
-        public Credits GetMovieCast() {
+        public Credits GetMovieCredits() {
             return this.client.GetMovieCreditsAsync(this.movie_id).Result;
         }
 
@@ -89,6 +90,7 @@ namespace Find_My_Movie {
         /// </summary>
         /// <returns>Returns movie poster</returns>
         /// <notes>https://image.tmdb.org/t/p/w500/ is the path to the images</notes>
+        /// @REM
         /// 
         /// <author>Doran Kayoumi</author>
         public Images GetMoviePoster() {

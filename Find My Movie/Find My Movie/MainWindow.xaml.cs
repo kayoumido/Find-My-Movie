@@ -86,17 +86,16 @@ namespace Find_My_Movie {
             foreach (var movie in allMovies) {
 
                 // init new api object
-                api api = new api(allMovies[3]);
-
-                MessageBox.Show(api.GetMovieName());
-
-                Movie infos = api.GetMovieInfo();
+                api api = new api(movie);
 
 
-                break;
+                // MessageBox.Show(api.GetMovieName());
+
+                Movie infos    = api.GetMovieInfo();
+
+                Credits credit = api.GetMovieCredits();
+
             }
-
-
         }
     }
 }

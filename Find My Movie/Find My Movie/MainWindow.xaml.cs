@@ -15,6 +15,11 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Windows.Media.Animation;
 using System.IO;
+using System.Text.RegularExpressions;
+using TMDbLib.Client;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -23,9 +28,9 @@ namespace Find_My_Movie {
     public partial class MainWindow : MetroWindow {
 
         // CONSTANTES
-        public const string FOLDER_NAME = "FindMyMovie",
-                            CONFIG_FILE_NAME = "FindMyMovie.config",
-                            JSON_DATA_FILE_NAME = "movie_data.json";
+        public const string FOLDER_NAME         = "FindMyMovie",
+                            CONFIG_FILE_NAME    = "FindMyMovie.config",
+                            JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         @interface interfaceClass = new @interface();
 
@@ -69,8 +74,7 @@ namespace Find_My_Movie {
             }
         }
 
-        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
-        {
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
             choose_directory directoryClass = new choose_directory();
 
@@ -83,7 +87,7 @@ namespace Find_My_Movie {
             if (File.Exists(file_path))
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
 
-            // Open the second form if it's the first launch
+            // open the second form if it's the first launch
             if (movie_path == "")
                 directoryClass.ShowDialog();
             else
@@ -91,43 +95,23 @@ namespace Find_My_Movie {
 
             var allMovies = interfaceClass.GetAllFilename();
             foreach (var movie in allMovies) {
-                
+
+                // init new api object
+                api api = new api(movie);
+
+
+                // MessageBox.Show(api.GetMovieName());
+
+                Movie infos    = api.GetMovieInfo();
+
+                Credits credit = api.GetMovieCredits();
+
             }
 
             //Hard Display
             string[] moviesCover = new string[] {
                                             "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
                                             "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg"
-            };
-
-            //display cover
-            int i = 0;
-            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
-            foreach (var cover in moviesCover) {
-                var webImage = new BitmapImage(new Uri(cover));
-                var imageControl = new Image();
-                imageControl.Name = "id_" + i;
-                imageControl.Source = webImage;
-                imageControl.MaxWidth =  maxWidth;
-                //imageControl.MouseUp += new MouseButtonEventHandler(displaySingleMovie);
-                gridMovies.Children.Add(imageControl);
-                i++;
-            }
-
         }
     }
 }

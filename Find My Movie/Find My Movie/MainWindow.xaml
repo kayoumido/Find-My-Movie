@@ -62,6 +62,56 @@
         </StackPanel>
         <ScrollViewer x:Name="containerMovies" VerticalScrollBarVisibility="Hidden" Margin="48,0,0,0">
             <WrapPanel HorizontalAlignment="Left" x:Name="gridMovies">
+
+                <Grid Margin="20" x:Name="single" Visibility="Collapsed">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100*"></ColumnDefinition>
+                        <ColumnDefinition Width="200*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Image VerticalAlignment="Top" x:Name="closeSingle" Grid.Column="2" Grid.Row="2" Height="43" Width="35" Source="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/VisualEditor_-_Icon_-_Close.svg/2000px-VisualEditor_-_Icon_-_Close.svg.png" MouseUp="closeSingle_MouseUp" ></Image>
+                    <Border BorderBrush="#FFFB8633" BorderThickness="0 0 2 0" Grid.Column="0">
+                        <Image Margin=" 0 0 10 0" Source="https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg"/>
+                    </Border>
+                    <Image x:Name="play" Grid.Row="2" Width="100" Source="http://www.nexenlifttrucks.com/images/play_button.png" MouseUp="play_MouseUp"></Image>
+                    <Border Margin="0 10 0 0" Grid.Row="1" BorderBrush="#FFFB8633" BorderThickness="0 2 0 0" Grid.ColumnSpan="2">
+                        <TextBlock Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,10,4,0">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet</TextBlock>
+                    </Border>
+
+                    <Grid Grid.Column="1" Margin="10 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0">Title</Label>
+                        <Label Grid.Row="1">Runtime</Label>
+                        <Label Grid.Row="2">Genre</Label>
+                        <Label Grid.Row="3">Rated</Label>
+                        <Label Grid.Row="4">Actors</Label>
+
+                        <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap">La revanche de Thor (2015)</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap">129 min</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="2" TextWrapping="Wrap">Action, Aventure</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap">R</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap">Mischa Barton, Devon Sawa, Michael Clarke Duncan, J. Michael Trautmann</TextBlock>
+                    </Grid>
+
+                </Grid>
+
             </WrapPanel>
         </ScrollViewer>
     </Grid>

@@ -122,9 +122,7 @@ namespace Find_My_Movie {
                     not_found++;
                 }
             }
-
-
-            }
+            MessageBox.Show(not_found + " movies wern't found");
 
             //Hard Display
             string[] moviesCover = new string[] {
@@ -170,7 +168,6 @@ namespace Find_My_Movie {
                 Process.Start(pathMovie);
             else
                 MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
-            MessageBox.Show(not_found + " movies wern't found");
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

@@ -12,6 +12,7 @@
         MinHeight="500" MinWidth="750"
         Icon="favicon.ico"
         TitleCaps="False"
+        WindowStartupLocation="CenterScreen"
         Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" SizeChanged="MetroWindow_SizeChanged">
     <Window.Resources>
 

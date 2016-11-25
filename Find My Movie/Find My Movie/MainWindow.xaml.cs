@@ -34,7 +34,7 @@ namespace Find_My_Movie {
                             JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         @interface interfaceClass = new @interface();
-        choose_directory directoryClass = new choose_directory();
+        
 
         public MainWindow() {
             InitializeComponent();
@@ -85,13 +85,16 @@ namespace Find_My_Movie {
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
 
+            choose_directory directoryClass = new choose_directory();
+
             if (File.Exists(file_path))
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
 
             // open the second form if it's the first launch
-            if (movie_path == "")
+            if (movie_path == "") {
                 directoryClass.ShowDialog();
-
+                directoryClass.Close();
+            }
 
             var allMovies = interfaceClass.GetAllFilename();
             foreach (var movie in allMovies) {
@@ -155,7 +158,9 @@ namespace Find_My_Movie {
         }
 
         private void btnFolder_Click (object sender, RoutedEventArgs e) {
+            choose_directory directoryClass = new choose_directory();
             directoryClass.ShowDialog();
+            directoryClass.Close();
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

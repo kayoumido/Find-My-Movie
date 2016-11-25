@@ -9,6 +9,7 @@
         Height="168.207" Width="467.935"
         Icon="favicon.ico"
         Title="Emplacement des films"
+        WindowStartupLocation="CenterScreen"
         TitleCaps="False" ResizeMode="NoResize" IsCloseButtonEnabled="False" Loaded="MetroWindow_Loaded">
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>

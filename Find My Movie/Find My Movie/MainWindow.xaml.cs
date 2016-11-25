@@ -76,6 +76,8 @@ namespace Find_My_Movie {
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
+            dbhandler db = new dbhandler();
+
             choose_directory directoryClass = new choose_directory();
 
             // get path movie in config file
@@ -84,14 +86,17 @@ namespace Find_My_Movie {
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
 
-            if (File.Exists(file_path))
+            if (File.Exists(file_path)) {
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
+            }
 
             // open the second form if it's the first launch
-            if (movie_path == "")
+            if (movie_path == "") {
                 directoryClass.ShowDialog();
-            else
+            }
+            else {
                 directoryClass.Close();
+            }
 
             var allMovies = interfaceClass.GetAllFilename();
             foreach (var movie in allMovies) {

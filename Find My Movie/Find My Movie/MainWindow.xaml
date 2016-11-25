@@ -61,7 +61,7 @@
                 <Button Name="btnFolder" 
                         Width="48" Height="48"
                         VerticalAlignment="Bottom" Margin="-48,0,48,0"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnFolder_Click">
                     <Image Width="30" Height="30" Source="assets/img/icon-folder.png"/>
                 </Button>
             </Grid>

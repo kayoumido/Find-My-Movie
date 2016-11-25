@@ -34,6 +34,7 @@ namespace Find_My_Movie {
                             JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         @interface interfaceClass = new @interface();
+        choose_directory directoryClass = new choose_directory();
 
         public MainWindow() {
             InitializeComponent();
@@ -78,8 +79,6 @@ namespace Find_My_Movie {
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
-            choose_directory directoryClass = new choose_directory();
-
             // get path movie in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
@@ -92,8 +91,7 @@ namespace Find_My_Movie {
             // open the second form if it's the first launch
             if (movie_path == "")
                 directoryClass.ShowDialog();
-            else
-                directoryClass.Close();
+
 
             var allMovies = interfaceClass.GetAllFilename();
             foreach (var movie in allMovies) {
@@ -154,6 +152,10 @@ namespace Find_My_Movie {
                 Process.Start(pathMovie);
             else
                 MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
+        }
+
+        private void btnFolder_Click (object sender, RoutedEventArgs e) {
+            directoryClass.ShowDialog();
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

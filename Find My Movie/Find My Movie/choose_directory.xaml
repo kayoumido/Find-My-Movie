@@ -9,7 +9,8 @@
         Height="168.207" Width="467.935"
         Icon="favicon.ico"
         Title="Emplacement des films"
-        TitleCaps="False" ResizeMode="NoResize" IsCloseButtonEnabled="False">
+        WindowStartupLocation="CenterScreen"
+        TitleCaps="False" ResizeMode="NoResize" IsCloseButtonEnabled="False" Loaded="MetroWindow_Loaded">
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <Grid Width="{TemplateBinding Width}"
@@ -25,8 +26,8 @@
 
     <Canvas Margin="10">
         <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Séléctionner" Canvas.Left="342" Canvas.Top="40"/>
-        <TextBox x:Name="path" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="312" Canvas.Left="14" Canvas.Top="40"/>
-        <Button x:Name="button" Content="Confirmer" Canvas.Left="342" Canvas.Top="83" Width="82" Click="button_Click"/>
+        <TextBox IsEnabled="False" x:Name="path" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="312" Canvas.Left="14" Canvas.Top="40"/>
+        <Button IsEnabled="False" x:Name="button" Content="Confirmer" Canvas.Left="342" Canvas.Top="83" Width="82" Click="button_Click"/>
     </Canvas>
 </Controls:MetroWindow>
     

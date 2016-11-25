@@ -37,9 +37,11 @@ namespace Find_My_Movie
 
             var dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
-            path.Text = dialog.SelectedPath;
-            selected_path = dialog.SelectedPath;
-
+            if (dialog.SelectedPath != "") {
+                path.Text = dialog.SelectedPath;
+                selected_path = dialog.SelectedPath;
+                button.IsEnabled = true;
+            }
 
         }
 
@@ -74,5 +76,23 @@ namespace Find_My_Movie
             return node.InnerText;
 
         }// GetPathConfig
+
+        private void MetroWindow_Loaded (object sender, RoutedEventArgs e) {
+
+            // get path movie in config file
+            string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
+            string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
+            string movie_path = "";
+
+            if (File.Exists(file_path))
+                movie_path = GetPathConfig(file_path, "/config/path_movies");
+
+            if (movie_path != "") {
+                path.Text = movie_path;
+                this.IsCloseButtonEnabled = true;
+            }
+
+        }
     }
 }

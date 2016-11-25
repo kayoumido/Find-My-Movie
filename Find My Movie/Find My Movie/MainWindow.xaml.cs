@@ -87,7 +87,7 @@ namespace Find_My_Movie {
 
             choose_directory directoryClass = new choose_directory();
 
-            if (File.Exists(file_path))
+            if (File.Exists(file_path)) { 
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
             }
 

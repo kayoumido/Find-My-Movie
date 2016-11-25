@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
 using System.Windows;
+using TMDbLib.Objects.Movies;
 
 namespace Find_My_Movie {
     class dbhandler {
@@ -229,6 +230,12 @@ namespace Find_My_Movie {
             connection.Close();
         }
 
+        public void InsertInDB(Movie movie, Credits cast) {
 
+        }
+
+        private void InsertCollection() {
+
+        }
     }
 }

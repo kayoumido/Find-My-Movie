@@ -127,12 +127,7 @@ namespace Find_My_Movie {
                     not_found++;
                 }
             }
-
             MessageBox.Show(not_found + " movies wern't found");
-                Movie infos    = api.GetMovieInfo();
-
-                Credits credit = api.GetMovieCredits();
-            }
 
             //Hard Display
             string[] moviesCover = new string[] {

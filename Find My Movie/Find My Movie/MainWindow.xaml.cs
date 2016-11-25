@@ -99,14 +99,14 @@ namespace Find_My_Movie {
             foreach (var movie in allMovies) {
 
                 // init new api object
-                api api = new api(movie);
+               // api api = new api(movie);
 
 
                 // MessageBox.Show(api.GetMovieName());
 
-                Movie infos    = api.GetMovieInfo();
+                //Movie infos    = api.GetMovieInfo();
 
-                Credits credit = api.GetMovieCredits();
+                //Credits credit = api.GetMovieCredits();
 
             }
 

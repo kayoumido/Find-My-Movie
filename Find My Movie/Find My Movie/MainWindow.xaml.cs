@@ -76,7 +76,7 @@ namespace Find_My_Movie {
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
-            dbhandler db = new dbhandler();
+            // dbhandler db = new dbhandler();
 
             choose_directory directoryClass = new choose_directory();
 

@@ -31,13 +31,14 @@ namespace Find_My_Movie {
             command = new SQLiteCommand(sql, connection);
             command.ExecuteNonQuery();
 
-            sql = "select * from highscores order by score desc";
+            sql = "select * from highscores";
             command = new SQLiteCommand(sql, connection);
             SQLiteDataReader reader = command.ExecuteReader();
 
-            MessageBox.Show(reader.Read().ToString());
+            MessageBox.Show(sql);
             while (reader.Read()) {
-                MessageBox.Show(reader["id"].ToString() + " Name : " + reader["name"] + " Score : " + reader["score"]);
+                MessageBox.Show("I'm in");
+                // MessageBox.Show(reader["id"].ToString() + " Name : " + reader["name"] + " Score : " + reader["score"]);
             }
 
             connection.Close();

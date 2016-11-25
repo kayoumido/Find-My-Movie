@@ -96,17 +96,33 @@ namespace Find_My_Movie {
                 directoryClass.Close();
 
             var allMovies = interfaceClass.GetAllFilename();
+            int not_found = 0;
+            int foo = 0;
             foreach (var movie in allMovies) {
-
+                
                 // init new api object
                 api api = new api(movie);
+                //MessageBox.Show(api.DidItWork().ToString());
+                // check if request to api worked
+                if (api.DidItWork()) {
+                    // increment number of films found
+                    foo++;
 
+                    // check number of film founds
+                    if (foo == 1) {
+                        // break out of loop
+                        // this is emporary code
+                        break;
+                    }
 
-                // MessageBox.Show(api.GetMovieName());
+                    Movie infos    = api.GetMovieInfo();
+                    Credits credit = api.GetMovieCredits();
+                }
+                else {
+                    not_found++;
+                }
+            }
 
-                Movie infos    = api.GetMovieInfo();
-
-                Credits credit = api.GetMovieCredits();
 
             }
 
@@ -154,6 +170,7 @@ namespace Find_My_Movie {
                 Process.Start(pathMovie);
             else
                 MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
+            MessageBox.Show(not_found + " movies wern't found");
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

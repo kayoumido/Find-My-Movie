@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
@@ -43,6 +44,7 @@ namespace Find_My_Movie {
 
             // get movie ID
             this.movie_id = this.GetMovieID();
+            
         }
 
         /// <summary>
@@ -99,6 +101,24 @@ namespace Find_My_Movie {
 
         public string GetMovieName() {
             return this.movie_name;
+        }
+
+        /// <summary>
+        /// Check if movie was foudn
+        /// </summary>
+        /// <returns>Result of request to tm movie db</returns>
+        /// 
+        /// <author>Doran Kayoumi</author>
+        public bool DidItWork() {
+            bool res = true;
+
+            // check if movie was found
+            if (this.movie_id == -1) {
+                // if not set result to false
+                res = false;
+            }
+            // return result
+            return res;
         }
 
     }

@@ -71,3 +71,4 @@ C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\TMDbLib.pdb
 C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll

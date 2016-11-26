@@ -22,6 +22,27 @@
         <Storyboard x:Key="sbHideLeftMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-304,0,0,0" AccelerationRatio=".9" Duration="0:0:1" />
         </Storyboard>
+        
+        <Style x:Key="btnWithoutHower" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="0" BorderBrush="Black" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+
     </Window.Resources>
     <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
@@ -49,20 +70,20 @@
                         Click="btnLeftMenuHide_Click" 
                         VerticalAlignment="Top" Margin="-48,0,48,0" 
                         Visibility="Hidden"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        Style="{StaticResource btnWithoutHower}">
                     <Image Width="30" Height="30" Source="assets/img/white-hamburger-menu.png"/>
                 </Button>
                 <Button Name="btnLeftMenuShow" 
                         Width="48" Height="48" 
                         Click="btnLeftMenuShow_Click" 
                         VerticalAlignment="Top" Margin="-48,0,48,0"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                        Style="{StaticResource btnWithoutHower}">
                     <Image Width="30" Height="30" Source="assets/img/white-hamburger-menu.png"/>
                 </Button>
                 <Button Name="btnFolder" 
                         Width="48" Height="48"
                         VerticalAlignment="Bottom" Margin="-48,0,48,0"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnFolder_Click">
+                         Style="{StaticResource btnWithoutHower}" Click="btnFolder_Click">
                     <Image Width="30" Height="30" Source="assets/img/icon-folder.png"/>
                 </Button>
             </Grid>

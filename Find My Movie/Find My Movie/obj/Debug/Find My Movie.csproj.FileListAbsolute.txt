@@ -72,3 +72,41 @@ C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\TMDbLib.pdb
 C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Find My Movie.pdb
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Newtonsoft.Json.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Windows.Interactivity.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\TMDbLib.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.pdb
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\MahApps.Metro.xml
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Newtonsoft.Json.xml
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\TMDbLib.pdb
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.csprojResolveAssemblyReference.cache
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\choose_directory.g.cs
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\MainWindow.g.cs
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\App.g.cs
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie_MarkupCompile.cache
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie_MarkupCompile.lref
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\App.baml
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\choose_directory.baml
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\MainWindow.baml
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.g.resources
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find_My_Movie.Properties.Resources.resources
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.csproj.GenerateResource.Cache
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.ActiveRecord.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.Components.Validator.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.Core.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Iesi.Collections.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\log4net.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\NHibernate.ByteCode.Castle.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\NHibernate.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\NHibernate.Search.dll
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.ActiveRecord.pdb
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.ActiveRecord.xml
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.Components.Validator.xml
+P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.Core.xml

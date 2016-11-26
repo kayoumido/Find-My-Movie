@@ -91,6 +91,7 @@
     <Compile Include="choose_directory.xaml.cs">
       <DependentUpon>choose_directory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="classes\collection.class.cs" />
     <Compile Include="dbhandler.class.cs" />
     <Compile Include="extractfileinfo.class.cs" />
     <Compile Include="interface.class.cs" />

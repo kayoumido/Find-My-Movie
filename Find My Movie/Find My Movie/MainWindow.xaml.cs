@@ -124,7 +124,7 @@ namespace Find_My_Movie {
                     not_found++;
                 }
             }
-            MessageBox.Show(not_found + " movies wern't found");
+            //MessageBox.Show(not_found + " movies wern't found");
 
             //Hard Display
             string[] moviesCover = new string[] {

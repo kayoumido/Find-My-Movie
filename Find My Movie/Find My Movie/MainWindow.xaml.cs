@@ -26,6 +26,7 @@ namespace Find_My_Movie {
                             JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         @interface interfaceClass = new @interface();
+        
 
         public MainWindow() {
             InitializeComponent();
@@ -73,11 +74,6 @@ namespace Find_My_Movie {
         }
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
-            // create new DB handler object
-            dbhandler FMMDb = new dbhandler();
-
-            // create new choose_directory object
-            choose_directory directoryClass = new choose_directory();
 
             // get path movie in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -85,15 +81,15 @@ namespace Find_My_Movie {
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
 
-            if (File.Exists(file_path)) {
+            choose_directory directoryClass = new choose_directory();
+
+            if (File.Exists(file_path)) { 
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
             }
 
             // open the second form if it's the first launch
             if (movie_path == "") {
                 directoryClass.ShowDialog();
-            }
-            else {
                 directoryClass.Close();
             }
 
@@ -110,20 +106,15 @@ namespace Find_My_Movie {
                     // increment number of films found
                     foo++;
 
-                    Movie infos    = api.GetMovieInfo();
-                    Credits credit = api.GetMovieCredits();
-
-
-                    MessageBox.Show(infos.Title.ToString());
-
-                    FMMDb.InsertInDB(infos, credit);
-
                     // check number of film founds
                     if (foo == 1) {
                         // break out of loop
                         // this is emporary code
                         break;
                     }
+
+                    Movie infos    = api.GetMovieInfo();
+                    Credits credit = api.GetMovieCredits();
                 }
                 else {
                     not_found++;
@@ -133,22 +124,22 @@ namespace Find_My_Movie {
 
             //Hard Display
             string[] moviesCover = new string[] {
-                "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg"
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
+                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
+                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
+                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg"
             };
 
             //display cover
@@ -175,6 +166,12 @@ namespace Find_My_Movie {
                 Process.Start(pathMovie);
             else
                 MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
+        }
+
+        private void btnFolder_Click (object sender, RoutedEventArgs e) {
+            choose_directory directoryClass = new choose_directory();
+            directoryClass.ShowDialog();
+            directoryClass.Close();
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

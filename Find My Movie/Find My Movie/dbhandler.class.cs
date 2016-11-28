@@ -244,7 +244,11 @@ namespace Find_My_Movie {
         /// 
         /// <author>Doran Kayoumi</author>
         private void Disconnect() {
+            // en connection
             this.connection.Close();
+
+            // empty out variable
+            this.connection = null;
         }
 
         /// <summary>
@@ -254,7 +258,7 @@ namespace Find_My_Movie {
         /// <param name="sql">Request to execute</param>
         /// 
         /// <author>Doran Kayoumi</author>
-        private void ExecuteInsert( string sql) {
+        private void ExecuteInsert(string sql) {
             // prepare new sql command
             SQLiteCommand command = new SQLiteCommand(sql, this.connection);
             // execute command
@@ -323,15 +327,50 @@ namespace Find_My_Movie {
         /// 
         /// <author>Doran Kayoumi</author>
         private void InsertMovie(Movie movie) {
-            // get id of collection linked to movie
-            // creating request
-            string sql = "select id from collection where name = '" + movie.BelongsToCollection.Name + "';";
+            // check if movie is already in DB
+            // create request
+            string sql = "select id from name where id = " + movie.Id + ";";
 
             // execute request
-            SQLiteDataReader reader = this.ExecuteSelect(connection, sql);
+            SQLiteDataReader reader = this.ExecuteSelect(this.connection, sql);
+
+            // check if movie was found
+            if (reader.HasRows) {
+                // stop execution of method
+                return;
+            }
+
+            // get id of collection linked to movie
+            // creating request
+            sql = "select id from collection where name = '" + movie.BelongsToCollection.Name + "';";
+
+            // execute request
+            reader = this.ExecuteSelect(this.connection, sql);
 
             // check if collection was found
             if (reader.HasRows) {
+                // creting request to insert movie in DB
+                sql = @"insert into movie values("
+                            + movie.Id + ","
+                            + movie.ImdbId + ","
+                            + movie.Title + ","
+                            + movie.OriginalTitle + "," 
+                            + movie.AlternativeTitles + "," 
+                            + movie.Adult + "," 
+                            + movie.Budget + ","
+                            + movie.Homepage + ","
+                            + movie.Runtime + ","
+                            + movie.Tagline + ","
+                            + movie.VoteAverage + ","
+                            + movie.OriginalLanguage + ","
+                            + movie.Overview + ","
+                            + movie.Popularity + ","
+                            + movie.PosterPath + ","
+                            + movie.ReleaseDate + ","
+                            + reader["id"].ToString() +");"
+                ;
+
+
                 MessageBox.Show(reader["id"].ToString());
                 MessageBox.Show(reader.GetValue(0).ToString());
             }
@@ -339,9 +378,6 @@ namespace Find_My_Movie {
             reader.Read();
 
             if (true) { }
-
-            // create request to insert in DB
-            // string sql = "insert into movie values()";
         }
     }
 }

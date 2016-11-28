@@ -5,14 +5,19 @@ winexe
 C#
 .cs
 <<<<<<< DatabaseClasses
+<<<<<<< DatabaseClasses
 P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\
 =======
 Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\obj\Debug\
 >>>>>>> Delete - Removed unnecessary file
+=======
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\
+>>>>>>> Change - N/A
 Find_My_Movie
 none
 false
 DEBUG;TRACE
+<<<<<<< DatabaseClasses
 <<<<<<< DatabaseClasses
 P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\App.xaml
 279065579
@@ -26,7 +31,14 @@ Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\App.xaml
 14-374650735
 191863495229
 >>>>>>> Delete - Removed unnecessary file
+=======
+C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\App.xaml
+279065579
+
+14808004943
+19-784455618
+>>>>>>> Change - N/A
 choose_directory.xaml;MainWindow.xaml;
 
-False
+True
 

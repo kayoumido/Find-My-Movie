@@ -111,7 +111,10 @@ namespace Find_My_Movie {
                     Movie infos    = api.GetMovieInfo();
                     Credits credit = api.GetMovieCredits();
 
+
                     MessageBox.Show(infos.Title.ToString());
+
+                    FMMDb.InsertInDB(infos, credit);
 
                     // check number of film founds
                     if (foo == 1) {

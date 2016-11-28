@@ -75,11 +75,15 @@ namespace Find_My_Movie {
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
-            // get path movie in config file
+            // get movie path in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
+
+
+            // create new DBHandler object
+            dbhandler FMMDb = new dbhandler();
 
             choose_directory directoryClass = new choose_directory();
 
@@ -106,6 +110,11 @@ namespace Find_My_Movie {
                     // increment number of films found
                     foo++;
 
+                    Movie infos    = api.GetMovieInfo();
+                    Credits credit = api.GetMovieCredits();
+
+                    FMMDb.InsertInDB(infos, credit);
+
                     // check number of film founds
                     if (foo == 1) {
                         // break out of loop
@@ -113,8 +122,6 @@ namespace Find_My_Movie {
                         break;
                     }
 
-                    Movie infos    = api.GetMovieInfo();
-                    Credits credit = api.GetMovieCredits();
                 }
                 else {
                     not_found++;

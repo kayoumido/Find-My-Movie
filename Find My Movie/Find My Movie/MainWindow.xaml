@@ -12,7 +12,6 @@
         MinHeight="500" MinWidth="750"
         Icon="favicon.ico"
         TitleCaps="False"
-        WindowStartupLocation="CenterScreen"
         Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" SizeChanged="MetroWindow_SizeChanged">
     <Window.Resources>
 
@@ -57,7 +56,7 @@
         </DataTemplate>
     </Controls:MetroWindow.IconTemplate>
     <Grid Background="#FFFAFAFA">
-        <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="-304,0,0,0" Width="422">
+        <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="-304,0,0,-80" Width="422">
             <Border BorderThickness="1" Width="352" Background="#FFFB8633" >
                 <Border.BorderBrush>
                     <SolidColorBrush Color="#FFFB8633"/>
@@ -79,12 +78,6 @@
                         VerticalAlignment="Top" Margin="-48,0,48,0"
                         Style="{StaticResource btnWithoutHower}">
                     <Image Width="30" Height="30" Source="assets/img/white-hamburger-menu.png"/>
-                </Button>
-                <Button Name="btnFolder" 
-                        Width="48" Height="48"
-                        VerticalAlignment="Bottom" Margin="-48,0,48,0"
-                        Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" Click="btnFolder_Click">
-                    <Image Width="30" Height="30" Source="assets/img/icon-folder.png"/>
                 </Button>
             </Grid>
         </StackPanel>

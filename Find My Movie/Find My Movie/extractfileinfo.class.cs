@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace Find_My_Movie {
     class extractfileinfo {
@@ -34,10 +35,16 @@ namespace Find_My_Movie {
             // regex extracts movie title and date from a file name like : Big.Hero.6.2014.FRENCH.BRRip.XviD-DesTroY.avi
             // files without a date in them won't work
             // @FIXME This regex doesn't match all file names
-            Regex regex = new Regex(@"^(.+?)[.( \t]*(?:(19\d{2}|20(?:0\d|1[0-6])).*|(?:(?=bluray|\d+p|brrip)..*)?[.](mkv|avi|mpe?g|divx)$)i");
+            
+            // OLD Regex regex = new Regex(@"^(.+?)[.( \t]*(?:(19\d{2}|20(?:0\d|1[0-6])).*|(?:(?=bluray|\d+p|brrip)..*)?[.](mkv|avi|mpe?g|divx)$)i");
+            Regex regex = new Regex(@"(\[.+\]|)(.*?)(dvdrip|byPhilou|TRUEFRENCH|READNFO|avi|\.avi|EDITION|FRENCH|xvid| cd[0-9]|dvdscr|brrip|divx|[\{\(\[]?[0-9]{4}).*", RegexOptions.IgnoreCase);
 
             // Match file name with regex
             Match match = regex.Match(file_name);
+
+            if (match.Success) {
+                string nameMovie = match.Groups[2].Value;
+            }
 
             // store match in attribut
             this.file_info = match;
@@ -49,7 +56,7 @@ namespace Find_My_Movie {
         /// <returns></returns>
         public string GetMovieName() {
             // return movie name without "." between words
-            return this.file_info.Groups[1].ToString().Replace(".", " ");
+            return this.file_info.Groups[2].ToString().Replace(".", " ");
         }
 
         /// <summary>
@@ -59,7 +66,7 @@ namespace Find_My_Movie {
         public string GetMovieDate() {
 
             // return movie date
-            return this.file_info.Groups[2].ToString();
+            return this.file_info.Groups[3].ToString();
         }
     }
 }

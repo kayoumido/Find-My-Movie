@@ -251,6 +251,10 @@ namespace Find_My_Movie {
             this.connection = null;
         }
 
+
+
+        /// REM
+
         /// <summary>
         /// Execute an insert type request
         /// </summary>
@@ -273,9 +277,9 @@ namespace Find_My_Movie {
         /// <returns>Request result</returns>
         /// 
         /// <author>Doran Kayoumi</author>
-        private SQLiteDataReader ExecuteSelect(SQLiteConnection connection, string sql) {
+        private SQLiteDataReader ExecuteSelect(string sql) {
             // prepare new sql command
-            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteCommand command = new SQLiteCommand(sql, this.connection);
             // execute command
             return command.ExecuteReader();
         }
@@ -291,10 +295,13 @@ namespace Find_My_Movie {
             // open connection to DB
             this.Connect();
 
-            MessageBox.Show("Inserting stuff");
+            if (movie.BelongsToCollection != null) {
+                MessageBox.Show(movie.BelongsToCollection.ToString());
 
-            this.InsertCollection(movie.BelongsToCollection);
+                MessageBox.Show("");
 
+                this.InsertCollection(movie.BelongsToCollection);
+            }
             this.InsertMovie(movie);
 
             // end connection to DB
@@ -306,11 +313,12 @@ namespace Find_My_Movie {
         /// </summary>
         /// <param name="collection"></param>
         private void InsertCollection(SearchCollection collection) {
+
             // search for select in DB
             string sql = "select name from collection where name = '" + collection.Name + "';";
 
             // execute request
-            SQLiteDataReader reader = this.ExecuteSelect(connection, sql);
+            SQLiteDataReader reader = this.ExecuteSelect(sql);
             // check if select returned anything
             if (!reader.HasRows) {
                 // creating SQL request to insert data
@@ -329,10 +337,11 @@ namespace Find_My_Movie {
         private void InsertMovie(Movie movie) {
             // check if movie is already in DB
             // create request
-            string sql = "select id from name where id = " + movie.Id + ";";
+            string sql = "select id from movie where id = '" + movie.Id + "';";
+
 
             // execute request
-            SQLiteDataReader reader = this.ExecuteSelect(this.connection, sql);
+            SQLiteDataReader reader = this.ExecuteSelect(sql);
 
             // check if movie was found
             if (reader.HasRows) {
@@ -340,44 +349,43 @@ namespace Find_My_Movie {
                 return;
             }
 
-            // get id of collection linked to movie
-            // creating request
-            sql = "select id from collection where name = '" + movie.BelongsToCollection.Name + "';";
+            sql = @"insert into movie values("
+                + movie.Id + ",'"
+                + movie.ImdbId + "','"
+                + movie.Title + "','"
+                + movie.OriginalTitle + "','"
+                + movie.AlternativeTitles + "',"
+                + Convert.ToInt32(movie.Adult) + ","
+                + movie.Budget + ",'"
+                + movie.Homepage + "',"
+                + movie.Runtime + ",'"
+                + movie.Tagline + "',"
+                + movie.VoteAverage + ",'"
+                + movie.OriginalLanguage + "','"
+                + movie.Overview + "',"
+                + movie.Popularity + ",'"
+                + movie.PosterPath + "','"
+                + movie.ReleaseDate + "',"
 
-            // execute request
-            reader = this.ExecuteSelect(this.connection, sql);
+            ;
 
-            // check if collection was found
-            if (reader.HasRows) {
-                // creting request to insert movie in DB
-                sql = @"insert into movie values("
-                            + movie.Id + ","
-                            + movie.ImdbId + ","
-                            + movie.Title + ","
-                            + movie.OriginalTitle + "," 
-                            + movie.AlternativeTitles + "," 
-                            + movie.Adult + "," 
-                            + movie.Budget + ","
-                            + movie.Homepage + ","
-                            + movie.Runtime + ","
-                            + movie.Tagline + ","
-                            + movie.VoteAverage + ","
-                            + movie.OriginalLanguage + ","
-                            + movie.Overview + ","
-                            + movie.Popularity + ","
-                            + movie.PosterPath + ","
-                            + movie.ReleaseDate + ","
-                            + reader["id"].ToString() +");"
-                ;
+            if (movie.BelongsToCollection != null) {
+                // get id of collection linked to movie
+                string sqlCollection = "select id from collection where name = '" + movie.BelongsToCollection.Name + "';";
+                reader = this.ExecuteSelect(sqlCollection);
 
-
-                MessageBox.Show(reader["id"].ToString());
-                MessageBox.Show(reader.GetValue(0).ToString());
+                // check if collection was found
+                if (reader.HasRows) {
+                    sql += reader["id"].ToString() + ");";
+                }
+            }
+            else {
+                sql += ");";
             }
 
-            reader.Read();
 
-            if (true) { }
+            this.ExecuteInsert(sql);
+
         }
     }
 }

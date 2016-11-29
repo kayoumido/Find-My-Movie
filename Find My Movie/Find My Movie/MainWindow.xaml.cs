@@ -1,26 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Windows.Media.Animation;
 using System.IO;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
-using TMDbLib.Client;
-using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
-using TMDbLib.Objects.Search;
+using Castle.ActiveRecord.Framework;
+using Castle.ActiveRecord;
+using classes;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -38,6 +30,10 @@ namespace Find_My_Movie {
 
         public MainWindow() {
             InitializeComponent();
+
+            IConfigurationSource source = System.Configuration.ConfigurationSettings.AppSettings.Add("hibernate.connection.driver_class", "NHibernate.Driver.SQLiteDriver");
+            ActiveRecordStarter.Initialize(source, typeof(collection));
+
         }
 
         private void btnLeftMenuHide_Click(object sender, RoutedEventArgs e) {

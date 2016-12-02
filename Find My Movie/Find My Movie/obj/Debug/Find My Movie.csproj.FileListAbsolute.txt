@@ -71,4 +71,10 @@ C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\TMDbLib.pdb
 C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
+<<<<<<< HEAD
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
+=======
+Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
+Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
+Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
+>>>>>>> DB-SQLite

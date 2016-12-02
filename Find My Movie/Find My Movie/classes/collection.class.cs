@@ -4,20 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Find_My_Movie;
-using Castle.ActiveRecord;
 
 namespace classes {
-    [ActiveRecord("collection")]
-    class collection : ActiveRecordBase<collection> {
+    class collection {
 
-        [PrimaryKey(PrimaryKeyType.Native, "id")]
-        public int id { get; set; }
+        private int id;
+        private string name;
+        private string poster;
 
-        [Property("name")]
-        public string name { get; set; }
+        public collection() {
 
-        [Property("poster")]
-        public string poster { get; set; }
+        }
 
+        public int Id {
+            get {
+                return id;
+            }
+
+            set {
+                id = value;
+            }
+        }
+
+        public string Name {
+            get {
+                return name;
+            }
+
+            set {
+                name = value;
+            }
+        }
+
+        public string Poster {
+            get {
+                return poster;
+            }
+
+            set {
+                poster = value;
+            }
+        }
     }
 }

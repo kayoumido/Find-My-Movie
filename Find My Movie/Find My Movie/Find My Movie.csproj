@@ -35,21 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.ActiveRecord">
-      <HintPath>..\dll\Castle.ActiveRecord.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Components.Validator">
-      <HintPath>..\dll\Castle.Components.Validator.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core">
-      <HintPath>..\dll\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Iesi.Collections">
-      <HintPath>..\dll\Iesi.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\dll\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="MahApps.Metro, Version=1.3.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
@@ -57,15 +42,6 @@
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="NHibernate">
-      <HintPath>..\dll\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.ByteCode.Castle">
-      <HintPath>..\dll\NHibernate.ByteCode.Castle.dll</HintPath>
-    </Reference>
-    <Reference Include="NHibernate.Search">
-      <HintPath>..\dll\NHibernate.Search.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -115,16 +91,7 @@
     <Compile Include="choose_directory.xaml.cs">
       <DependentUpon>choose_directory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="classes\cast.class.cs" />
     <Compile Include="classes\collection.class.cs" />
-    <Compile Include="classes\company.class.cs" />
-    <Compile Include="classes\country.class.cs" />
-    <Compile Include="classes\crew.class.cs" />
-    <Compile Include="classes\genre.class.cs" />
-    <Compile Include="classes\keyword.class.cs" />
-    <Compile Include="classes\language.class.cs" />
-    <Compile Include="classes\movie.class.cs" />
-    <Compile Include="classes\movieHasKeyword.cs" />
     <Compile Include="dbhandler.class.cs" />
     <Compile Include="extractfileinfo.class.cs" />
     <Compile Include="interface.class.cs" />

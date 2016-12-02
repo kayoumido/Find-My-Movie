@@ -4,48 +4,16 @@
 winexe
 C#
 .cs
-<<<<<<< DatabaseClasses
-<<<<<<< DatabaseClasses
-P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\
-=======
-Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\obj\Debug\
->>>>>>> Delete - Removed unnecessary file
-=======
-C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\obj\Debug\
->>>>>>> Change - N/A
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\obj\Debug\
 Find_My_Movie
 none
 false
 DEBUG;TRACE
-<<<<<<< DatabaseClasses
-<<<<<<< DatabaseClasses
-P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\App.xaml
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\App.xaml
 279065579
 
-<<<<<<< HEAD
-<<<<<<< DatabaseClasses
-24-1093463937
-27-731935662
-=======
-Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\App.xaml
-279065579
-
-14-374650735
-191863495229
->>>>>>> Delete - Removed unnecessary file
-=======
-C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\App.xaml
-279065579
-
-14808004943
-19-784455618
->>>>>>> Change - N/A
-=======
-=======
->>>>>>> master
 15813908352
 19-470734018
->>>>>>> Edit - Optimize Regex
 choose_directory.xaml;MainWindow.xaml;
 
 False

@@ -21,6 +21,8 @@ using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using System.Threading;
+using System.ComponentModel;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -49,7 +51,7 @@ namespace Find_My_Movie {
         }
 
         private void MetroWindow_Closed (object sender, EventArgs e) {
-            Application.Current.Shutdown();
+            Environment.Exit(0);
         }
 
         private void MetroWindow_SizeChanged (object sender, SizeChangedEventArgs e) {
@@ -97,70 +99,6 @@ namespace Find_My_Movie {
                 directoryClass.Close();
             }
 
-            var allMovies = interfaceClass.GetAllFilename();
-            int not_found = 0;
-            int foo = 0;
-            foreach (var movie in allMovies) {
-                
-                // init new api object
-                api api = new api(movie);
-                //MessageBox.Show(api.DidItWork().ToString());
-                // check if request to api worked
-                if (api.DidItWork()) {
-                    // increment number of films found
-                    foo++;
-
-                    // check number of film founds
-                    if (foo == 1) {
-                        // break out of loop
-                        // this is emporary code
-                        break;
-                    }
-
-                    Movie infos    = api.GetMovieInfo();
-                    Credits credit = api.GetMovieCredits();
-                }
-                else {
-                    not_found++;
-                }
-            }
-            //MessageBox.Show(not_found + " movies wern't found");
-
-            //Hard Display
-            string[] moviesCover = new string[] {
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg",
-                                            "https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg",
-                                            "https://jacobboombar.files.wordpress.com/2014/03/oblivion-dvd-cover-55.jpg",
-                                            "http://violentworldofparker.com/wordpress/wp-content/uploads/2012/10/Flashfire2013.jpg"
-            };
-
-            //display cover
-            int i = 0;
-            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
-            single.Width = containerMovies.ActualWidth;
-            foreach (var cover in moviesCover) {
-                var webImage = new BitmapImage(new Uri(cover));
-                var imageControl = new Image();
-                imageControl.Name = "id_" + i;
-                imageControl.Source = webImage;
-                imageControl.MaxWidth =  maxWidth;
-                imageControl.MouseUp += new MouseButtonEventHandler(displaySingleMovie);
-                gridMovies.Children.Add(imageControl);
-                i++;
-            }
-
         }//MetroWindow_Loaded
 
         private void play_MouseUp (object sender, MouseButtonEventArgs e) {
@@ -176,6 +114,75 @@ namespace Find_My_Movie {
             choose_directory directoryClass = new choose_directory();
             directoryClass.ShowDialog();
             directoryClass.Close();
+        }
+    
+        private void displayMovies () {
+            
+            var allMovies = interfaceClass.GetAllFilename();
+            int not_found = 0;
+            int foo = 0;
+            foreach (var movie in allMovies) {
+
+                // init new api object
+                api api = new api(movie);
+
+                // check if request to api worked
+                if (api.DidItWork()) {
+                    // increment number of films found
+                    foo++;
+
+                    // check number of film founds
+                    if (foo == 200) {
+                        // break out of loop
+                        // this is emporary code
+                        break;
+                    }
+
+                    Movie infos = api.GetMovieInfo();
+                    //Credits credit = api.GetMovieCredits();
+
+                    Images cover = api.GetMoviePoster();
+                   //MessageBox.Show(api.GetMoviePoster().ToString());
+                    string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+                    if (cover.Posters.Count != 0) {
+                        urlImg = "https://image.tmdb.org/t/p/w500" + cover.Posters[0].FilePath;
+                    }
+               
+                    //display cover
+                    this.Dispatcher.BeginInvoke(new Action(() => addMovieGrid(urlImg)), System.Windows.Threading.DispatcherPriority.Background, null);                                 
+
+                }
+                else {
+                    not_found++;
+                }
+            }
+            //MessageBox.Show(not_found + " movies wern't found");
+        }
+
+        private void addMovieGrid (string urlImg) {
+            int i = 0;
+            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+            single.Width = containerMovies.ActualWidth;          
+            var webImage = new BitmapImage(new Uri(urlImg));
+            var imageControl = new Image();
+            imageControl.Name = "id_" + i;
+            imageControl.Source = webImage;
+            imageControl.MaxWidth = maxWidth;
+            imageControl.MouseUp += new MouseButtonEventHandler(displaySingleMovie);
+
+            if (single.Visibility == Visibility.Visible)
+                imageControl.Visibility = Visibility.Collapsed;
+
+            gridMovies.Children.Add(imageControl);
+        }
+
+        private void MetroWindow_ContentRendered (object sender, EventArgs e) {
+
+            ThreadStart childref = new ThreadStart(displayMovies);
+            Thread childThread = new Thread(childref);
+            childThread.SetApartmentState(ApartmentState.STA);
+            childThread.Start();
+            
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

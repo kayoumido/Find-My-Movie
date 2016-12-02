@@ -13,7 +13,7 @@
         Icon="favicon.ico"
         TitleCaps="False"
         WindowStartupLocation="CenterScreen"
-        Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" SizeChanged="MetroWindow_SizeChanged">
+        Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" SizeChanged="MetroWindow_SizeChanged" ContentRendered="MetroWindow_ContentRendered">
     <Window.Resources>
 
         <Storyboard x:Key="sbShowLeftMenu" >

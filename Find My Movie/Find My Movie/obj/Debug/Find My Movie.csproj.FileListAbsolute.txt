@@ -71,6 +71,7 @@ C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\TMDbLib.pdb
 C:\Users\Doran.KAYOUMI\Documents\_Cours\MAW1\Find My Movie\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
+<<<<<<< HEAD
 <<<<<<< DatabaseClasses
 C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
 P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
@@ -112,7 +113,15 @@ P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\De
 P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.Components.Validator.xml
 P:\-- Projects --\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\Castle.Core.xml
 =======
+<<<<<<< HEAD
+C:\Users\Antoine.DESSAUGES\Documents\Projets\find-my-movie-new-interface\Find My Movie\Find My Movie\bin\Debug\System.Data.SQLite.dll
+>>>>>>> master
+=======
 Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\bin\Debug\Find My Movie.exe.config
 Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\obj\Debug\Find My Movie.exe
 Z:\dkayoumi On My Mac\zDev\C#\FMM\Find My Movie\Find My Movie\obj\Debug\Find My Movie.pdb
+<<<<<<< HEAD
 >>>>>>> Delete - Removed unnecessary file
+=======
+>>>>>>> DB-SQLite
+>>>>>>> master

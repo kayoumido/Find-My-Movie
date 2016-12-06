@@ -88,7 +88,6 @@
     <Compile Include="choose_directory.xaml.cs">
       <DependentUpon>choose_directory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="classes\collection.class.cs" />
     <Compile Include="extractfileinfo.class.cs" />
     <Compile Include="interface.class.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -134,6 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\img\icon-folder.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

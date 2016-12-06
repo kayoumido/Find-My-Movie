@@ -125,11 +125,11 @@
                             <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0">Title</Label>
-                        <Label Grid.Row="1">Runtime</Label>
-                        <Label Grid.Row="2">Genre</Label>
-                        <Label Grid.Row="3">Rated</Label>
-                        <Label Grid.Row="4">Actors</Label>
+                        <TextBlock Grid.Row="0">Title</TextBlock>
+                        <TextBlock Grid.Row="1">Runtime</TextBlock>
+                        <TextBlock Grid.Row="2">Genre</TextBlock>
+                        <TextBlock Grid.Row="3">Rated</TextBlock>
+                        <TextBlock Grid.Row="4">Actors</TextBlock>
 
                         <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Name="titleSingle"></TextBlock>
                         <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Name="durationSingle"></TextBlock>

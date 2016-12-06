@@ -13,7 +13,7 @@
         Icon="favicon.ico"
         TitleCaps="False"
         WindowStartupLocation="CenterScreen"
-        Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" SizeChanged="MetroWindow_SizeChanged">
+        Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed" SizeChanged="MetroWindow_SizeChanged" ContentRendered="MetroWindow_ContentRendered">
     <Window.Resources>
 
         <Storyboard x:Key="sbShowLeftMenu" >
@@ -106,11 +106,11 @@
 
                     <Image VerticalAlignment="Top" x:Name="closeSingle" Grid.Column="2" Grid.Row="2" Height="43" Width="35" Source="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/VisualEditor_-_Icon_-_Close.svg/2000px-VisualEditor_-_Icon_-_Close.svg.png" MouseUp="closeSingle_MouseUp" ></Image>
                     <Border BorderBrush="#FFFB8633" BorderThickness="0 0 2 0" Grid.Column="0">
-                        <Image Margin=" 0 0 10 0" Source="https://s-media-cache-ak0.pinimg.com/236x/82/f0/15/82f01596145820a6f8ab76f191ae346d.jpg"/>
+                        <Image Margin=" 0 0 10 0" Name="coverSingle" />
                     </Border>
                     <Image x:Name="play" Grid.Row="2" Width="100" Source="http://www.nexenlifttrucks.com/images/play_button.png" MouseUp="play_MouseUp"></Image>
                     <Border Margin="0 10 0 0" Grid.Row="1" BorderBrush="#FFFB8633" BorderThickness="0 2 0 0" Grid.ColumnSpan="2">
-                        <TextBlock Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,10,4,0">Lorem ipsum dolor sit amet Lorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit ametLorem ipsum dolor sit amet</TextBlock>
+                        <TextBlock Grid.ColumnSpan="3" TextWrapping="Wrap" Margin="0,10,50,0" Name="descSingle"></TextBlock>
                     </Border>
 
                     <Grid Grid.Column="1" Margin="10 0 0 0">
@@ -125,17 +125,17 @@
                             <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0">Title</Label>
-                        <Label Grid.Row="1">Runtime</Label>
-                        <Label Grid.Row="2">Genre</Label>
-                        <Label Grid.Row="3">Rated</Label>
-                        <Label Grid.Row="4">Actors</Label>
+                        <TextBlock Grid.Row="0">Title</TextBlock>
+                        <TextBlock Grid.Row="1">Runtime</TextBlock>
+                        <TextBlock Grid.Row="2">Genre</TextBlock>
+                        <TextBlock Grid.Row="3">Rated</TextBlock>
+                        <TextBlock Grid.Row="4">Actors</TextBlock>
 
-                        <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap">La revanche de Thor (2015)</TextBlock>
-                        <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap">129 min</TextBlock>
-                        <TextBlock Grid.Column="1" Grid.Row="2" TextWrapping="Wrap">Action, Aventure</TextBlock>
-                        <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap">R</TextBlock>
-                        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap">Mischa Barton, Devon Sawa, Michael Clarke Duncan, J. Michael Trautmann</TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Name="titleSingle"></TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Name="durationSingle"></TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Name="genresSingle"></TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Name="ratedSingle"></TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Name="authorSingle" Margin="0,0,50,0"></TextBlock>
                     </Grid>
 
                 </Grid>

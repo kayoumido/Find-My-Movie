@@ -85,10 +85,6 @@ namespace Find_My_Movie {
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
 
-
-            // create new DBHandler object
-            dbhandler FMMDb = new dbhandler();
-
             choose_directory directoryClass = new choose_directory();
 
             if (File.Exists(file_path)) { 

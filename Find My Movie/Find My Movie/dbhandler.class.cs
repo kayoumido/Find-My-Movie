@@ -214,7 +214,7 @@ namespace Find_My_Movie {
         /// <returns>SQLiteConnection object</returns>
         /// 
         /// <author>Doran Kayoumi</author>
-        private void Connect() {
+        public void Connect() {
             
             this.connection = new SQLiteConnection("Data Source=FMMDb.db;Version=3;");
             
@@ -227,7 +227,7 @@ namespace Find_My_Movie {
         /// <param name="connection">SQLiteConnection that initialized connection</param>
         /// 
         /// <author>Doran Kayoumi</author>
-        private void Disconnect() {
+        public void Disconnect() {
             
             this.connection.Close();
 

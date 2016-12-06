@@ -133,6 +133,7 @@
     <Compile Include="model\Genre.cs" />
     <Compile Include="model\Keyword.cs" />
     <Compile Include="model\Language.cs" />
+    <Compile Include="model\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -36,7 +36,8 @@ namespace Find_My_Movie {
                             JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         @interface interfaceClass = new @interface();
-        
+        List<Movie> listOfMovie = new List<Movie>();
+        List<Credits> listOfCrew = new List<Credits>();
 
         public MainWindow() {
             InitializeComponent();
@@ -120,7 +121,7 @@ namespace Find_My_Movie {
             
             var allMovies = interfaceClass.GetAllFilename();
             int not_found = 0;
-            int foo = 0;
+            int i = 0;
             foreach (var movie in allMovies) {
 
                 // init new api object
@@ -128,28 +129,21 @@ namespace Find_My_Movie {
 
                 // check if request to api worked
                 if (api.DidItWork()) {
-                    // increment number of films found
-                    foo++;
-
-                    // check number of film founds
-                    if (foo == 200) {
-                        // break out of loop
-                        // this is emporary code
-                        break;
-                    }
 
                     Movie infos = api.GetMovieInfo();
-                    //Credits credit = api.GetMovieCredits();
+                    listOfMovie.Add(infos);
+                    Credits credit = api.GetMovieCredits();
+                    listOfCrew.Add(credit);
 
                     Images cover = api.GetMoviePoster();
                    //MessageBox.Show(api.GetMoviePoster().ToString());
                     string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                    if (cover.Posters.Count != 0) {
+                    if (cover.Posters.Count > 0) {
                         urlImg = "https://image.tmdb.org/t/p/w500" + cover.Posters[0].FilePath;
                     }
-               
+
                     //display cover
-                    this.Dispatcher.BeginInvoke(new Action(() => addMovieGrid(urlImg)), System.Windows.Threading.DispatcherPriority.Background, null);                                 
+                    this.Dispatcher.BeginInvoke(new Action(() => i = addMovieGrid(urlImg, i)), System.Windows.Threading.DispatcherPriority.Background, null);
 
                 }
                 else {
@@ -159,8 +153,7 @@ namespace Find_My_Movie {
             //MessageBox.Show(not_found + " movies wern't found");
         }
 
-        private void addMovieGrid (string urlImg) {
-            int i = 0;
+        private int  addMovieGrid (string urlImg, int i) {
             double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
             single.Width = containerMovies.ActualWidth;          
             var webImage = new BitmapImage(new Uri(urlImg));
@@ -174,6 +167,8 @@ namespace Find_My_Movie {
                 imageControl.Visibility = Visibility.Collapsed;
 
             gridMovies.Children.Add(imageControl);
+            i++;
+            return i;
         }
 
         private void MetroWindow_ContentRendered (object sender, EventArgs e) {
@@ -187,10 +182,54 @@ namespace Find_My_Movie {
 
         void displaySingleMovie (object sender, MouseEventArgs e) {
 
-
             var mouseWasDownOn = e.Source as FrameworkElement;
             if (mouseWasDownOn != null) {
-                string elementName = mouseWasDownOn.Name; //MessageBox.Show(elementName);
+
+                //get infos
+                string elementName = mouseWasDownOn.Name;
+                elementName = elementName.Replace("id_", "");
+                Movie infos = listOfMovie[Convert.ToInt32(elementName)];
+                Credits crews = listOfCrew[Convert.ToInt32(elementName)];
+                var webImage = new BitmapImage(new Uri("https://image.tmdb.org/t/p/w500" + infos.PosterPath));
+
+                //cover
+                coverSingle.Source = webImage;
+
+                //reset field
+                genresSingle.Text = "";
+                authorSingle.Text = "";
+
+                //title
+                titleSingle.Text = infos.Title + " (" + infos.ReleaseDate.ToString().Substring(6, 4) + ")";
+
+                //duration
+                durationSingle.Text = infos.Runtime + " min";
+
+                //gender
+                foreach (var genre in infos.Genres) {
+                    if (!(infos.Genres.First() == genre))
+                        genresSingle.Text += ", ";
+
+                    genresSingle.Text += genre.Name;
+                }
+
+                //rated
+                if (infos.Adult)
+                    ratedSingle.Text = "Adult";
+                else
+                    ratedSingle.Text = "All publics";
+
+                //actors
+                foreach (var crew in crews.Cast) {
+                    if (!(crews.Cast.First() == crew))
+                        authorSingle.Text += ", ";
+
+                    authorSingle.Text += crew.Name;
+
+                }
+
+                //description
+                descSingle.Text = infos.Overview;
             }
 
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();

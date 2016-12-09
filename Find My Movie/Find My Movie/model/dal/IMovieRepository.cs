@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 namespace Find_My_Movie.model.dal {
     internal interface IMovieRepository {
 
-        List<Movie> GetMovies();
+        List<fmmMovie> GetMovies();
 
-        Movie GetMovie(int id);
+        fmmMovie GetMovie(int id);
 
-        bool InsertMovie(Movie movie);
+        bool InsertMovie(fmmMovie movie);
 
         bool DeleteMovie(int id);
 
         List<fmmCast> GetMovieCasts(int movieId);
+
+        List<fmmGenre> GetMovieGenres(int movieId);
         
     }
 }

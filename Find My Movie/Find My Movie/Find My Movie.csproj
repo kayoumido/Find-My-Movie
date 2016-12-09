@@ -124,6 +124,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="model\dal\ILanguageRepository.cs" />
     <Compile Include="model\fmmCast.cs" />
     <Compile Include="model\fmmCollection.cs" />
     <Compile Include="model\fmmCompany.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="model\repository\CountryRepository.cs" />
     <Compile Include="model\repository\CrewRepository.cs" />
     <Compile Include="model\repository\GenreRepository.cs" />
+    <Compile Include="model\repository\LanguageRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -11,9 +11,9 @@ namespace Find_My_Movie.model.dal {
 
         fmmMovie GetMovie(int id);
 
-        bool InsertMovie(fmmMovie movie);
+        bool Insert(fmmMovie movie);
 
-        bool DeleteMovie(int id);
+        bool Delete(int id);
 
         List<fmmCast> GetMovieCasts(int movieId);
 

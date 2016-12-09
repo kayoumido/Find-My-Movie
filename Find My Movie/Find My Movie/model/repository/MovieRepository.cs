@@ -11,10 +11,113 @@ namespace Find_My_Movie.model.repository {
 
     class MovieRepository : IMovieRepository {
 
-        private SQLiteConnection db = new dbhandler().Connect();
+        static private SQLiteConnection db = new dbhandler().Connect();
 
         public fmmMovie GetMovie(int id) {
-            throw new NotImplementedException();
+
+            string sql = @"
+                SELECT
+                    id,
+                    imdbid,
+                    title,
+                    ogtitle,
+                    adult,
+                    budget,
+                    homepage,
+                    runtime,
+                    tagline,
+                    voteaverage,
+                    oglanguage,
+                    overview,
+                    popularity,
+                    poster,
+                    releasedate,
+                    fk_collection
+                FROM
+                    movie
+                WHERE
+                    id = " + id + ";"
+            ;
+            IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
+            
+            return movie.FirstOrDefault();
+        }
+
+        public List<fmmMovie> GetMovies() {
+            string sql = @"
+                SELECT
+                    id,
+                    imdbid,
+                    title,
+                    ogtitle,
+                    adult,
+                    budget,
+                    homepage,
+                    runtime,
+                    tagline,
+                    voteaverage,
+                    oglanguage,
+                    overview,
+                    popularity,
+                    poster,
+                    releasedate,
+                    fk_collection
+                FROM
+                    movie;"
+            ;
+            IEnumerable<fmmMovie> movies = db.Query<fmmMovie>(sql);
+
+            return movies.ToList();
+
+        }
+
+        public bool Insert(fmmMovie movie) {
+
+             int rowsAffected = db.Execute(@"
+                INSERT OR IGNORE INTO
+                    movie
+                VALUES (
+                    @id,
+                    @imdbid,
+                    @title,
+                    @ogtitle,
+                    @adult,
+                    @budget,
+                    @homepage,
+                    @runtime,
+                    @tagline,
+                    @voteaverage,
+                    @oglanguage,
+                    @overview,
+                    @popularity,
+                    @poster,
+                    @releasedate,
+                    @fk_collection
+                );",
+            movie
+            );
+
+            if (rowsAffected > 0) {
+                return true;
+            }
+            return false;
+
+        }
+
+        public bool Delete(int id) {
+
+            int rowsAffected = db.Execute(@"
+                DELETE FROM
+                    movie
+                WHERE
+                    id = " + id + ";"
+            );
+
+            if (rowsAffected > 0) {
+                return true;
+            }
+            return false;
+
         }
 
         public List<fmmCast> GetMovieCasts(int movieId) {
@@ -25,36 +128,5 @@ namespace Find_My_Movie.model.repository {
             throw new NotImplementedException();
         }
 
-        public List<fmmMovie> GetMovies() {
-            throw new NotImplementedException();
-        }
-
-        public bool InsertMovie(fmmMovie movie) {
-
-            db.Execute(@"INSERT INTO movie VALUES (@id,
-                                                    @imdbid,
-                                                    @title,
-                                                    @ogtitle,
-                                                    @alttitle,
-                                                    @adult,
-                                                    @budget,
-                                                    @homepage,
-                                                    @runtime,
-                                                    @tagline,
-                                                    @voteaverage,
-                                                    @oglanguage,
-                                                    @overview,
-                                                    @popularity,
-                                                    @poster,
-                                                    @releasedate,
-                                                    @fk_collection);", movie);
-
-            return true;
-
-        }
-
-        public bool DeleteMovie(int id) {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -49,7 +49,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Name="border" BorderThickness="1" Padding="5" BorderBrush="white" Background="Transparent">
+                        <Border Name="border" BorderThickness="1" BorderBrush="white" Background="Transparent">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
@@ -90,17 +90,25 @@
         <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="-304,0,0,0" Width="422">
             <Border BorderThickness="1" Width="352" Background="#FFFB8633" BorderBrush="#FFFB8633" >
                 <Canvas>
-                    <TextBox Padding="4" Canvas.Left="75" Style="{StaticResource textboxFilter}" Canvas.Top="88" Width="95" Height="26"></TextBox>
-                    <Border BorderBrush="White" BorderThickness="1" Height="26" Width="29" Canvas.Left="170" Canvas.Top="88">
-                        <Image Cursor="Hand" Margin="3"  Source="assets/img/search.png"/>
-                    </Border>
-                    <ComboBox BorderBrush="White" SelectedIndex="0" BorderThickness="0" Canvas.Left="224" Canvas.Top="88" Width="91">
+                    <TextBox Padding="4" Canvas.Left="175" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"></TextBox>
+                    <ComboBox SelectedIndex="0" BorderBrush="White" BorderThickness="0" Canvas.Left="37" Canvas.Top="59" Width="108">
+                        <ComboBoxItem Tag="All" Visibility="Collapsed" IsEnabled="False">Search in</ComboBoxItem>
                         <ComboBoxItem Tag="All">All</ComboBoxItem>
                         <ComboBoxItem Tag="Title">Title</ComboBoxItem>
                         <ComboBoxItem Tag="Actor">Actor</ComboBoxItem>
                         <ComboBoxItem Tag="Director">Director</ComboBoxItem>
                     </ComboBox>
-                    <Button Content="Search" Style="{StaticResource btnFilter}" Height="40px" Width="80px" RenderTransformOrigin="0.494,2.188" Canvas.Left="184" Canvas.Top="242"/>
+                    
+                    <Button Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="337"/>
+
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="152">Year</TextBlock>
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="177">From</TextBlock>
+                    <TextBox Padding="4" Canvas.Left="77" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"></TextBox>
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="178" Canvas.Top="177">To</TextBlock>
+                    <TextBox Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"></TextBox>
+
+
+                    <Button Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102"/>
                 </Canvas>
 
             </Border>

@@ -23,7 +23,6 @@ using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
 using Find_My_Movie.model;
 using Find_My_Movie.model.repository;
-using TMDbLib.Objects.Companies;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -37,7 +36,6 @@ namespace Find_My_Movie {
                             JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         @interface interfaceClass = new @interface();
-        
 
         public MainWindow() {
             InitializeComponent();
@@ -82,6 +80,10 @@ namespace Find_My_Movie {
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
+            dbhandler FMDb = new dbhandler();
+            MovieRepository movieRepo = new MovieRepository();
+            CollectionRepository collectionRepo = new CollectionRepository();
+
             // get movie path in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
@@ -103,17 +105,56 @@ namespace Find_My_Movie {
             var allMovies = interfaceClass.GetAllFilename();
             int not_found = 0;
             int foo = 0;
-            foreach (var movie in allMovies) {
+            foreach (var movieName in allMovies) {
                 
                 // init new api object
-                api api = new api(movie);
+                api api = new api(movieName);
                 //MessageBox.Show(api.DidItWork().ToString());
                 // check if request to api worked
                 if (api.DidItWork()) {
                     // increment number of films found
                     foo++;
 
-                    Movie infos    = api.GetMovieInfo();
+                    Movie infos = api.GetMovieInfo();
+
+                    bool collectionAdded = false; 
+
+                    if (infos.BelongsToCollection != null) {
+                        fmmCollection collection = new fmmCollection {
+                            id = infos.BelongsToCollection.Id,
+                            name = infos.BelongsToCollection.Name,
+                            poster = infos.BelongsToCollection.PosterPath
+                        };
+                        collectionRepo.Insert(collection);
+
+                        collectionAdded = true;
+
+                    }
+
+                    fmmMovie movie = new fmmMovie {
+                        id = infos.Id,
+                        imdbid = infos.ImdbId,
+                        title = infos.Title,
+                        ogtitle = infos.OriginalTitle,
+                        adult = infos.Adult,
+                        budget = infos.Budget,
+                        homepage = infos.Homepage,
+                        runtime = infos.Runtime,
+                        tagline = infos.Tagline,
+                        voteaverage = infos.VoteAverage,
+                        oglanguage = infos.OriginalLanguage,
+                        overview = infos.Overview,
+                        popularity = infos.Popularity,
+                        poster = infos.PosterPath,
+                        releasedate = infos.ReleaseDate.ToString().Substring(0,10)
+                    };
+
+                    if (collectionAdded) {
+                        movie.fk_collection = infos.BelongsToCollection.Id;
+                    }
+
+                    bool movieAdded = movieRepo.Insert(movie);
+
                     Credits credit = api.GetMovieCredits();
 
                     CrewRepository     _crewrepo     = new CrewRepository();

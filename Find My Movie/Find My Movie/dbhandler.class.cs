@@ -49,9 +49,7 @@ namespace Find_My_Movie {
                   `castid` INTEGER NOT NULL,
                   `creditid` TEXT NOT NULL,
                   `name` TEXT NOT NULL,
-                  `image` TEXT NOT NULL,
-                  `character` TEXT NOT NULL,
-                  `order` INTEGER NOT NULL)
+                  `image` TEXT NOT NULL)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `crew` (
@@ -72,13 +70,11 @@ namespace Find_My_Movie {
                 ;
 
                 CREATE TABLE IF NOT EXISTS `country` (
-                  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `name` TEXT NOT NULL)
+                  `name` TEXT NOT NULL PRIMARY KEY)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `language` (
-                  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `name` TEXT NOT NULL)
+                  `name` TEXT NOT NULL PRIMARY KEY)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `spoken_language` (
@@ -100,6 +96,8 @@ namespace Find_My_Movie {
                 CREATE TABLE IF NOT EXISTS `movie_has_cast` (
                   `fk_movie` INTEGER NOT NULL,
                   `fk_cast` INTEGER NOT NULL,
+                  `character` TEXT NOT NULL,
+                  `order` INTEGER NOT NULL,
                   PRIMARY KEY (`fk_movie`, `fk_cast`),
                   CONSTRAINT `fk_movie_has_cast_movie1`
                     FOREIGN KEY (`fk_movie`)
@@ -180,10 +178,10 @@ namespace Find_My_Movie {
                 ;
             ";
 
-            SQLiteCommand command = new SQLiteCommand(sql, this.connection);
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
             command.ExecuteNonQuery();
 
-            this.Disconnect();
+            this.Disconnect(this.connection);
         }
 
         /// <summary>
@@ -194,11 +192,11 @@ namespace Find_My_Movie {
         /// <author>Doran Kayoumi</author>
         public SQLiteConnection Connect() {
 
-            this.connection = new SQLiteConnection("Data Source=FMMDb.db;Version=3;");
+            connection = new SQLiteConnection("Data Source=FMMDb.db;Version=3;");
 
-            this.connection.Open();
+            connection.Open();
 
-            return this.connection;
+            return connection;
         }
 
         /// <summary>
@@ -207,11 +205,11 @@ namespace Find_My_Movie {
         /// <param name="connection">SQLiteConnection that initialized connection</param>
         /// 
         /// <author>Doran Kayoumi</author>
-        public void Disconnect() {
+        public void Disconnect(SQLiteConnection c) {
             
-            this.connection.Close();
+            c.Close();
 
-            this.connection = null;
+            c = null;
         }
     }
 }

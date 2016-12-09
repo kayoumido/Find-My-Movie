@@ -214,11 +214,13 @@ namespace Find_My_Movie {
         /// <returns>SQLiteConnection object</returns>
         /// 
         /// <author>Doran Kayoumi</author>
-        public void Connect() {
-            
+        public SQLiteConnection Connect() {
+
             this.connection = new SQLiteConnection("Data Source=FMMDb.db;Version=3;");
-            
+
             this.connection.Open();
+
+            return this.connection;
         }
 
         /// <summary>

@@ -21,6 +21,9 @@ using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using Find_My_Movie.model;
+using Find_My_Movie.model.repository;
+using TMDbLib.Objects.Companies;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -113,15 +116,77 @@ namespace Find_My_Movie {
                     Movie infos    = api.GetMovieInfo();
                     Credits credit = api.GetMovieCredits();
 
-                    // FMMDb.InsertInDB(infos, credit);
+                    CrewRepository     _crewrepo     = new CrewRepository();
+                    CastRepository     _castrepo     = new CastRepository();
+                    CompanyRepository  _companyrepo  = new CompanyRepository();
+                    CountryRepository  _countryrepo  = new CountryRepository();
+                    GenreRepository    _genrerepo    = new GenreRepository();
+                    LanguageRepository _languagerepo = new LanguageRepository();
+
+                    foreach (Crew crew in credit.Crew) {
+                        var ncrew = new fmmCrew {
+                            id       = crew.Id,
+                            creditid = crew.CreditId,
+                            name     = crew.Name,
+                            image    = crew.ProfilePath,
+                        };
+
+                        _crewrepo.Insert(ncrew);
+                    }
+
+                    foreach (Cast cast in credit.Cast) {
+                        var ncast = new fmmCast {
+                            id       = cast.Id,
+                            castid   = cast.CastId,
+                            creditid = cast.CreditId,
+                            name     = cast.Name,
+                            image    = cast.ProfilePath,
+                        };
+
+                        _castrepo.Insert(ncast);
+                    }
+                    
+                    foreach (ProductionCompany company in infos.ProductionCompanies) {
+                        var ncompany = new fmmCompany {
+                            id   = company.Id,
+                            name = company.Name,
+                        };
+
+                        _companyrepo.Insert(ncompany);
+                    }
+
+                    foreach (ProductionCountry country in infos.ProductionCountries) {
+                        var ncountry = new fmmCountry {
+                            name = country.Name,
+                        };
+
+                        _countryrepo.Insert(ncountry);
+                    }
+
+                    foreach (Genre genre in infos.Genres) {
+                        var ngenre = new fmmGenre {
+                            id   = genre.Id,
+                            name = genre.Name,
+                        };
+
+                        _genrerepo.Insert(ngenre);
+                    }
+
+
+                    foreach (SpokenLanguage genre in infos.SpokenLanguages) {
+                        var nlanguage = new fmmLanguage {
+                            name = genre.Name,
+                        };
+
+                        _languagerepo.Insert(nlanguage);
+                    }
 
                     // check number of film founds
-                    if (foo == 4) {
+                    if (foo == 10) {                                                                                                                                                                             
                         // break out of loop
                         // this is emporary code
                         break;
                     }
-
                 }
                 else {
                     not_found++;

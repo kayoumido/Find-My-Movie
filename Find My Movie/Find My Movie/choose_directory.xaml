@@ -6,9 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Find_My_Movie"
         mc:Ignorable="d"
-        Height="168.207" Width="467.935"
+        Height="133.207" Width="458.935"
         Icon="favicon.ico"
-        Title="Emplacement des films"
+        Title="Movies Folder"
         WindowStartupLocation="CenterScreen"
         TitleCaps="False" ResizeMode="NoResize" IsCloseButtonEnabled="False" Loaded="MetroWindow_Loaded">
     <Controls:MetroWindow.IconTemplate>
@@ -25,9 +25,9 @@
     </Controls:MetroWindow.IconTemplate>
 
     <Canvas Margin="10">
-        <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Séléctionner" Canvas.Left="342" Canvas.Top="40"/>
-        <TextBox IsEnabled="False" x:Name="path" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="312" Canvas.Left="14" Canvas.Top="40"/>
-        <Button IsEnabled="False" x:Name="button" Content="Confirmer" Canvas.Left="342" Canvas.Top="83" Width="82" Click="button_Click"/>
+        <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Select" Canvas.Left="342" Canvas.Top="11" Width="82"/>
+        <TextBox IsEnabled="False" x:Name="path" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="312" Canvas.Left="14" Canvas.Top="11"/>
+        <Button IsEnabled="False" x:Name="button" Content="Save" Canvas.Left="342" Canvas.Top="52" Width="82" Click="button_Click"/>
     </Canvas>
 </Controls:MetroWindow>
     

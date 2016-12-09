@@ -147,7 +147,7 @@
     <Resource Include="assets\img\play.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\img\search.png" />
+    <Resource Include="assets\img\popcorn.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

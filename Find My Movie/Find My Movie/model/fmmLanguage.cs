@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Find_My_Movie.model {
-    public class Company {
+    public class fmmLanguage {
         public int id { get; set; }
         public string name { get; set; }
     }

@@ -25,7 +25,6 @@ namespace Find_My_Movie {
                   `imdbid` TEXT NOT NULL,
                   `title` TEXT NOT NULL,
                   `ogtitle` TEXT NOT NULL,
-                  `alttitle` TEXT NULL,
                   `adult` INTEGER NOT NULL,
                   `budget` INTEGER NULL,
                   `homepage` TEXT NOT NULL,
@@ -80,27 +79,6 @@ namespace Find_My_Movie {
                 CREATE TABLE IF NOT EXISTS `language` (
                   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                   `name` TEXT NOT NULL)
-                ;
-
-                CREATE TABLE IF NOT EXISTS `keyword` (
-                  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `name` TEXT NOT NULL)
-                ;
-
-                CREATE TABLE IF NOT EXISTS `movie_has_keyword` (
-                  `fk_movie` INTEGER NOT NULL,
-                  `fk_keyword` INTEGER NOT NULL,
-                  PRIMARY KEY (`fk_movie`, `fk_keyword`),
-                  CONSTRAINT `fk_movie_has_keyword_movie`
-                    FOREIGN KEY (`fk_movie`)
-                    REFERENCES `movie` (`id`)
-                    ON DELETE NO ACTION
-                    ON UPDATE NO ACTION,
-                  CONSTRAINT `fk_movie_has_keyword_keyword1`
-                    FOREIGN KEY (`fk_keyword`)
-                    REFERENCES `keyword` (`id`)
-                    ON DELETE NO ACTION
-                    ON UPDATE NO ACTION)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `spoken_language` (

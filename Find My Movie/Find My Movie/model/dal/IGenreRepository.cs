@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.dal {
     interface IGenreRepository {
-        List<Genre> GetGenres(string sort);
+        List<fmmGenre> GetGenres(string sort);
 
-        Genre GetGenre(int id);
+        fmmGenre GetGenre(int id);
 
-        bool Insert(Genre genre);
+        bool Insert(fmmGenre genre);
 
         bool Delete(int id);
     }

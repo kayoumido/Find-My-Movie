@@ -15,7 +15,7 @@ namespace Find_My_Movie.model.dal {
 
         bool DeleteMovie(int id);
 
-        List<Cast> GetMovieCasts(int movieId);
+        List<fmmCast> GetMovieCasts(int movieId);
         
     }
 }

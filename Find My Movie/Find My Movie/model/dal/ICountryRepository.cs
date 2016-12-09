@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.dal {
     interface ICountryRepository {
-        List<Country> GetCountries(string sort);
+        List<fmmCountry> GetCountries(string sort);
 
-        Country GetCountry(int id);
+        fmmCountry GetCountry(int id);
 
-        bool Insert(Country country);
+        bool Insert(fmmCountry country);
 
         bool Delete(int id);
     }

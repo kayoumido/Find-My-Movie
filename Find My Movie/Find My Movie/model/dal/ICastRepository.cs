@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.dal {
     interface ICastRepository {
-        List<Cast> GetCasts(string sort);
+        List<fmmCast> GetCasts(string sort);
 
-        Cast GetCast(int id);
+        fmmCast GetCast(int id);
 
-        bool Insert(Cast cast);
+        bool Insert(fmmCast cast);
 
         bool Delete(int id);
     }

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.dal {
     interface ICompanyRepository {
-        List<Company> GetCompanies(string sort);
+        List<fmmCompany> GetCompanies(string sort);
 
-        Company GetCompany(int id);
+        fmmCompany GetCompany(int id);
 
-        bool Insert(Company company);
+        bool Insert(fmmCompany company);
 
         bool Delete(int id);
     }

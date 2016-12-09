@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     class CollectionRepository : ICollectionRepository {
-        public List<Collection> GetCollections(string sort) {
+        public List<fmmCollection> GetCollections(string sort) {
             throw new NotImplementedException();
         }
 
-        public Collection GetCollection(int id) {
+        public fmmCollection GetCollection(int id) {
             throw new NotImplementedException();
         }
 
-        public bool Insert(Collection collection) {
+        public bool Insert(fmmCollection collection) {
             throw new NotImplementedException();
         }
 

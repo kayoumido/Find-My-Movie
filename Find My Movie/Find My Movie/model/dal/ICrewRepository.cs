@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.dal {
     interface ICrewRepository {
-        List<Crew> GetCrews(string sort);
+        List<fmmCrew> GetCrews(string sort);
 
-        Crew GetCrew(int id);
+        fmmCrew GetCrew(int id);
 
-        bool Insert(Crew crew);
+        bool Insert(fmmCrew crew);
 
         bool Delete(int id);
     }

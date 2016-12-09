@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.dal {
     interface ICollectionRepository {
-        List<Collection> GetCollections(string sort);
+        List<fmmCollection> GetCollections(string sort);
 
-        Collection GetCollection(int id);
+        fmmCollection GetCollection(int id);
 
-        bool Insert(Collection collection);
+        bool Insert(fmmCollection collection);
 
         bool Delete(int id);
     }

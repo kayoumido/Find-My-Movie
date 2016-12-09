@@ -124,11 +124,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="model\Cast.cs" />
-    <Compile Include="model\Collection.cs" />
-    <Compile Include="model\Company.cs" />
-    <Compile Include="model\Country.cs" />
-    <Compile Include="model\Crew.cs" />
+    <Compile Include="model\fmmCast.cs" />
+    <Compile Include="model\fmmCollection.cs" />
+    <Compile Include="model\fmmCompany.cs" />
+    <Compile Include="model\fmmCountry.cs" />
+    <Compile Include="model\fmmCrew.cs" />
     <Compile Include="model\dal\ICastRepository.cs" />
     <Compile Include="model\dal\ICollectionRepository.cs" />
     <Compile Include="model\dal\ICompanyRepository.cs" />
@@ -137,13 +137,17 @@
     <Compile Include="model\dal\IGenreRepository.cs" />
     <Compile Include="model\dal\IKeywordRepository.cs" />
     <Compile Include="model\dal\IMovieRepository.cs" />
-    <Compile Include="model\Genre.cs" />
-    <Compile Include="model\Keyword.cs" />
-    <Compile Include="model\Language.cs" />
+    <Compile Include="model\fmmGenre.cs" />
+    <Compile Include="model\fmmKeyword.cs" />
+    <Compile Include="model\fmmLanguage.cs" />
     <Compile Include="model\Movie.cs" />
     <Compile Include="model\repository\CastRepository.cs" />
     <Compile Include="model\repository\CollectionRepository.cs" />
     <Compile Include="model\repository\CompanyRepository.cs" />
+    <Compile Include="model\repository\CountryRepository.cs" />
+    <Compile Include="model\repository\CrewRepository.cs" />
+    <Compile Include="model\repository\GenreRepository.cs" />
+    <Compile Include="model\repository\KeywordRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

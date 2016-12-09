@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     public class CastRepository : ICastRepository {
-        public List<Cast> GetCasts(string sort) {
+        public List<fmmCast> GetCasts(string sort) {
             throw new NotImplementedException();
         }
 
-        public Cast GetCast(int id) {
+        public fmmCast GetCast(int id) {
             throw new NotImplementedException();
         }
 
-        public bool Insert(Cast cast) {
+        public bool Insert(fmmCast cast) {
             throw new NotImplementedException();
         }
 

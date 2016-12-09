@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     class CrewRepository : ICrewRepository {
-        public List<Crew> GetCrews(string sort) {
+        public List<fmmCrew> GetCrews(string sort) {
             throw new NotImplementedException();
         }
 
-        public Crew GetCrew(int id) {
+        public fmmCrew GetCrew(int id) {
             throw new NotImplementedException();
         }
 
-        public bool Insert(Crew crew) {
+        public bool Insert(fmmCrew crew) {
             throw new NotImplementedException();
         }
 

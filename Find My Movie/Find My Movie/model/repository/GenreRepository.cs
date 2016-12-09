@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     class GenreRepository : IGenreRepository {
-        public List<Genre> GetGenres(string sort) {
+        public List<fmmGenre> GetGenres(string sort) {
             throw new NotImplementedException();
         }
 
-        public Genre GetGenre(int id) {
+        public fmmGenre GetGenre(int id) {
             throw new NotImplementedException();
         }
 
-        public bool Insert(Genre genre) {
+        public bool Insert(fmmGenre genre) {
             throw new NotImplementedException();
         }
 

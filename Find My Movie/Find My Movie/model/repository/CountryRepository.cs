@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     class CountryRepository : ICountryRepository {
-        public List<Country> GetCountries(string sort) {
+        public List<fmmCountry> GetCountries(string sort) {
             throw new NotImplementedException();
         }
 
-        public Country GetCountry(int id) {
+        public fmmCountry GetCountry(int id) {
             throw new NotImplementedException();
         }
 
-        public bool Insert(Country country) {
+        public bool Insert(fmmCountry country) {
             throw new NotImplementedException();
         }
 

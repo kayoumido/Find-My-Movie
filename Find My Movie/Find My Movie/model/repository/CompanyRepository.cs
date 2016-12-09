@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     class CompanyRepository {
-        public List<Company> GetCompanies(string sort) {
+        public List<fmmCompany> GetCompanies(string sort) {
             throw new NotImplementedException();
         }
 
-        public Company GetCompany(int id) {
+        public fmmCompany GetCompany(int id) {
             throw new NotImplementedException();
         }
 
-        public bool Insert(Company company) {
+        public bool Insert(fmmCompany company) {
             throw new NotImplementedException();
         }
 

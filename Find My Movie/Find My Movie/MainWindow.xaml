@@ -83,14 +83,14 @@
                 <Button Name="btnBack" 
                         Width="48" Height="48"
                         Visibility="Hidden"
-                        VerticalAlignment="top" Margin="-48,30,48,0"
+                        VerticalAlignment="top" Margin="-48,60,48,0"
                          Style="{StaticResource btnWithoutHower}" Click="btnBack_Click" >
                     <Image Width="20" Source="assets/img/back.png"/>
                 </Button>
                 <Button Name="btnPlay" 
                         Width="48" Height="48"
                         Visibility="Hidden"
-                        VerticalAlignment="top" Margin="-48,60,48,0"
+                        VerticalAlignment="top" Margin="-48,30,48,0"
                          Style="{StaticResource btnWithoutHower}" Click="btnPlay_Click">
                     <Image Width="20" Source="assets/img/play.png"/>
                 </Button>

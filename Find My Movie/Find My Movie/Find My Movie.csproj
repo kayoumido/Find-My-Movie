@@ -129,11 +129,21 @@
     <Compile Include="model\Company.cs" />
     <Compile Include="model\Country.cs" />
     <Compile Include="model\Crew.cs" />
+    <Compile Include="model\dal\ICastRepository.cs" />
+    <Compile Include="model\dal\ICollectionRepository.cs" />
+    <Compile Include="model\dal\ICompanyRepository.cs" />
+    <Compile Include="model\dal\ICountryRepository.cs" />
+    <Compile Include="model\dal\ICrewRepository.cs" />
+    <Compile Include="model\dal\IGenreRepository.cs" />
+    <Compile Include="model\dal\IKeywordRepository.cs" />
     <Compile Include="model\dal\IMovieRepository.cs" />
     <Compile Include="model\Genre.cs" />
     <Compile Include="model\Keyword.cs" />
     <Compile Include="model\Language.cs" />
     <Compile Include="model\Movie.cs" />
+    <Compile Include="model\repository\CastRepository.cs" />
+    <Compile Include="model\repository\CollectionRepository.cs" />
+    <Compile Include="model\repository\CompanyRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -172,9 +182,7 @@
   <ItemGroup>
     <Resource Include="assets\img\icon-folder.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="model\repository\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.103\build\net451\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

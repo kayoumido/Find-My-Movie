@@ -116,14 +116,17 @@ namespace Find_My_Movie {
             int i = 0;
             foreach (var movie in allMovies) {
 
+                Thread.Sleep(140);
                 // init new api object
                 api api = new api(movie);
 
                 // check if request to api worked
                 if (api.DidItWork()) {
 
+                    Thread.Sleep(140);
                     Movie infos = api.GetMovieInfo();
                     listOfMovie.Add(infos);
+                    Thread.Sleep(140);
                     Credits credit = api.GetMovieCredits();
                     listOfCrew.Add(credit);
 

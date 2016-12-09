@@ -102,14 +102,6 @@ namespace Find_My_Movie {
 
         }//MetroWindow_Loaded
 
-        private void play_MouseUp (object sender, MouseButtonEventArgs e) {
-           
-            string pathMovie = "C:\\Users\\Antoine.DESSAUGES\\Documents\\Projets\\Wildlife.wmv";
-            if (File.Exists(pathMovie))
-                Process.Start(pathMovie);
-            else
-                MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
-        }
 
         private void btnFolder_Click (object sender, RoutedEventArgs e) {
             choose_directory directoryClass = new choose_directory();
@@ -136,7 +128,7 @@ namespace Find_My_Movie {
                     listOfCrew.Add(credit);
 
                     Images cover = api.GetMoviePoster();
-                   //MessageBox.Show(api.GetMoviePoster().ToString());
+        
                     string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
                     if (cover.Posters.Count > 0) {
                         urlImg = "https://image.tmdb.org/t/p/w500" + cover.Posters[0].FilePath;
@@ -180,7 +172,30 @@ namespace Find_My_Movie {
             
         }
 
+        private void btnPlay_Click (object sender, RoutedEventArgs e) {
+
+            string pathMovie = "C:\\Users\\Antoine.DESSAUGES\\Documents\\Projets\\Wildlife.wmv";
+            if (File.Exists(pathMovie))
+                Process.Start(pathMovie);
+            else
+                MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
+
+        }
+
+        private void btnBack_Click (object sender, RoutedEventArgs e) {
+            IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+            foreach (Image child in covers) {
+                child.Visibility = Visibility.Visible;
+            }//foreach
+            single.Visibility = Visibility.Collapsed;
+            btnBack.Visibility = Visibility.Hidden;
+            btnPlay.Visibility = Visibility.Hidden;
+        }
+
         void displaySingleMovie (object sender, MouseEventArgs e) {
+
+            btnBack.Visibility = Visibility.Visible;
+            btnPlay.Visibility = Visibility.Visible;
 
             var mouseWasDownOn = e.Source as FrameworkElement;
             if (mouseWasDownOn != null) {
@@ -239,14 +254,6 @@ namespace Find_My_Movie {
             single.Visibility = Visibility.Visible;
 
         }//displaySingleMovie
-
-        private void closeSingle_MouseUp (object sender, MouseButtonEventArgs e) {
-            IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
-            foreach (Image child in covers) {
-                child.Visibility = Visibility.Visible;
-            }//foreach
-            single.Visibility = Visibility.Collapsed;
-        }//closeSingle_MouseUp
 
 
     }

@@ -104,12 +104,13 @@ namespace Find_My_Movie {
 
             var allMovies = interfaceClass.GetAllFilename();
             int not_found = 0;
-            int foo = 0;
+            int foo = 0; // temporary counter to limit number of films displayed, otherwise we will loose a lot of time waiting for the app to launch.
+
             foreach (var movieName in allMovies) {
                 
                 // init new api object
                 api api = new api(movieName);
-                //MessageBox.Show(api.DidItWork().ToString());
+
                 // check if request to api worked
                 if (api.DidItWork()) {
                     // increment number of films found
@@ -120,9 +121,10 @@ namespace Find_My_Movie {
                     bool collectionAdded = false; 
 
                     if (infos.BelongsToCollection != null) {
+
                         fmmCollection collection = new fmmCollection {
-                            id = infos.BelongsToCollection.Id,
-                            name = infos.BelongsToCollection.Name,
+                            id     = infos.BelongsToCollection.Id,
+                            name   = infos.BelongsToCollection.Name,
                             poster = infos.BelongsToCollection.PosterPath
                         };
                         collectionRepo.Insert(collection);
@@ -132,20 +134,20 @@ namespace Find_My_Movie {
                     }
 
                     fmmMovie movie = new fmmMovie {
-                        id = infos.Id,
-                        imdbid = infos.ImdbId,
-                        title = infos.Title,
-                        ogtitle = infos.OriginalTitle,
-                        adult = infos.Adult,
-                        budget = infos.Budget,
-                        homepage = infos.Homepage,
-                        runtime = infos.Runtime,
-                        tagline = infos.Tagline,
+                        id          = infos.Id,
+                        imdbid      = infos.ImdbId,
+                        title       = infos.Title,
+                        ogtitle     = infos.OriginalTitle,
+                        adult       = infos.Adult,
+                        budget      = infos.Budget,
+                        homepage    = infos.Homepage,
+                        runtime     = infos.Runtime,
+                        tagline     = infos.Tagline,
                         voteaverage = infos.VoteAverage,
-                        oglanguage = infos.OriginalLanguage,
-                        overview = infos.Overview,
-                        popularity = infos.Popularity,
-                        poster = infos.PosterPath,
+                        oglanguage  = infos.OriginalLanguage,
+                        overview    = infos.Overview,
+                        popularity  = infos.Popularity,
+                        poster      = infos.PosterPath,
                         releasedate = infos.ReleaseDate.ToString().Substring(0,10)
                     };
 
@@ -166,25 +168,29 @@ namespace Find_My_Movie {
 
                     foreach (Crew crew in credit.Crew) {
                         var ncrew = new fmmCrew {
-                            id       = crew.Id,
-                            creditid = crew.CreditId,
-                            name     = crew.Name,
-                            image    = crew.ProfilePath,
+                            id         = crew.Id,
+                            creditid   = crew.CreditId,
+                            name       = crew.Name,
+                            image      = crew.ProfilePath,
+                            department = crew.Department,
+                            job        = crew.Job
                         };
 
-                        _crewrepo.Insert(ncrew);
+                        _crewrepo.Insert(ncrew, movie.id);
                     }
 
                     foreach (Cast cast in credit.Cast) {
                         var ncast = new fmmCast {
-                            id       = cast.Id,
-                            castid   = cast.CastId,
-                            creditid = cast.CreditId,
-                            name     = cast.Name,
-                            image    = cast.ProfilePath,
+                            id        = cast.Id,
+                            castid    = cast.CastId,
+                            creditid  = cast.CreditId,
+                            name      = cast.Name,
+                            image     = cast.ProfilePath,
+                            character = cast.Character,
+                            order     = cast.Order
                         };
 
-                        _castrepo.Insert(ncast);
+                        _castrepo.Insert(ncast, movie.id);
                     }
                     
                     foreach (ProductionCompany company in infos.ProductionCompanies) {
@@ -210,13 +216,13 @@ namespace Find_My_Movie {
                             name = genre.Name,
                         };
 
-                        _genrerepo.Insert(ngenre);
+                        _genrerepo.Insert(ngenre, movie.id);
                     }
 
 
-                    foreach (SpokenLanguage genre in infos.SpokenLanguages) {
+                    foreach (SpokenLanguage language in infos.SpokenLanguages) {
                         var nlanguage = new fmmLanguage {
-                            name = genre.Name,
+                            name = language.Name,
                         };
 
                         _languagerepo.Insert(nlanguage);

@@ -63,8 +63,11 @@ namespace Find_My_Movie.model.repository {
                     releasedate,
                     fk_collection
                 FROM
-                    movie;"
-            ;
+                    movie
+                ORDER BY
+                    title
+                ASC
+            ;";
             IEnumerable<fmmMovie> movies = db.Query<fmmMovie>(sql);
 
             return movies.ToList();
@@ -121,12 +124,88 @@ namespace Find_My_Movie.model.repository {
         }
 
         public List<fmmCast> GetMovieCasts(int movieId) {
-            throw new NotImplementedException();
+
+            string sql = @"
+                SELECT
+                    c.id,
+                    c.castid,
+                    c.creditid,
+                    c.name,
+                    c.image,
+                    mca.character,
+                    mca.order
+                FROM
+                    cast c
+                INNER JOIN
+                    movie_has_cast mca
+                ON
+                    c.id = mca.fk_cast
+                INNER JOIN
+                    movie m
+                ON
+                    mca.fk_movie = m.id
+                WHERE
+                    m.id = " + movieId + @"
+                ORDER BY
+                    mca.order
+                ASC
+            ;";
+
+            IEnumerable<fmmCast> casts = db.Query<fmmCast>(sql);
+
+            return casts.ToList();
         }
 
         public List<fmmGenre> GetMovieGenres(int movieId) {
-            throw new NotImplementedException();
+
+            string sql = @"
+                SELECT
+                    id,
+                    name
+                FROM
+                    genre g
+                INNER JOIN
+                    movie_has_genre mg
+                ON
+                    g.id = mg.fk_genre
+                INNER JOIN
+                    movie m
+                ON
+                    mg.fk_movie = m.id
+                WHERE
+                    m.id = " + movieId + ";";
+
+            IEnumerable<fmmGenre> genres = db.Query<fmmGenre>(sql);
+
+            return genres.ToList();
+
         }
 
+        public List<fmmCrew> GetMovieCrews(int movieId) {
+            string sql = @"
+                SELECT
+                    c.id,
+                    c.creditid,
+                    c.name,
+                    c.image,
+                    mcr.demartment,
+                    mcr.job
+                FROM
+                    crew c
+                INNER JOIN
+                    movie_has_crew mcr
+                ON
+                    c.id = mcr.fk_crew
+                INNER JOIN
+                    movie m
+                ON
+                    mcr.fk_movie = m.id
+                WHERE
+                    m.id = " + movieId + ";";
+
+            IEnumerable<fmmCrew> crews = db.Query<fmmCrew>(sql);
+
+            return crews.ToList();
+        }
     }
 }

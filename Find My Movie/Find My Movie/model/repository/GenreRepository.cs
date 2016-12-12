@@ -22,7 +22,7 @@ namespace Find_My_Movie.model.repository {
             throw new NotImplementedException();
         }
 
-        public bool Insert(fmmGenre genre) {
+        public bool Insert(fmmGenre genre, int movieID) {
             int rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
                     genre 
@@ -33,12 +33,33 @@ namespace Find_My_Movie.model.repository {
                 genre
             );
 
+            // check if it was inserted
+            if (rowsAffected < 0) {
+                return false;
+            }
+
+            rowsAffected = this.DBConnection.Execute(@"
+                INSERT OR IGNORE INTO
+                    movie_has_genre 
+                VALUES (
+                    @fk_movie, 
+                    @fk_genre
+                );",
+
+                new {
+                    fk_movie = movieID,
+                    fk_genre = genre.id
+                }
+            );
+
+            // check if info was inserted in db
+            if (rowsAffected < 0) {
+                return false;
+            }
+
             dbh.Disconnect(DBConnection);
 
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
+            return true;
         }
 
         public bool Delete(int id) {

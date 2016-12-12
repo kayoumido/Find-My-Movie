@@ -10,7 +10,7 @@ namespace Find_My_Movie.model.dal {
 
         fmmGenre GetGenre(int id);
 
-        bool Insert(fmmGenre genre);
+        bool Insert(fmmGenre genre, int movieID);
 
         bool Delete(int id);
     }

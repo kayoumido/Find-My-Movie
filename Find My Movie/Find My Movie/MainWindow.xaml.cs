@@ -187,7 +187,7 @@ namespace Find_My_Movie {
                             name      = cast.Name,
                             image     = cast.ProfilePath,
                             character = cast.Character,
-                            order     = cast.Order
+                            aorder     = cast.Order
                         };
 
                         _castrepo.Insert(ncast, movie.id);

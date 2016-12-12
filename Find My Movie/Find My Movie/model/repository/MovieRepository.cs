@@ -133,7 +133,7 @@ namespace Find_My_Movie.model.repository {
                     c.name,
                     c.image,
                     mca.character,
-                    mca.order
+                    mca.aorder
                 FROM
                     cast c
                 INNER JOIN
@@ -147,10 +147,9 @@ namespace Find_My_Movie.model.repository {
                 WHERE
                     m.id = " + movieId + @"
                 ORDER BY
-                    mca.order
+                    mca.aorder
                 ASC
             ;";
-
             IEnumerable<fmmCast> casts = db.Query<fmmCast>(sql);
 
             return casts.ToList();
@@ -160,8 +159,8 @@ namespace Find_My_Movie.model.repository {
 
             string sql = @"
                 SELECT
-                    id,
-                    name
+                    g.id,
+                    g.name
                 FROM
                     genre g
                 INNER JOIN
@@ -188,7 +187,7 @@ namespace Find_My_Movie.model.repository {
                     c.creditid,
                     c.name,
                     c.image,
-                    mcr.demartment,
+                    mcr.department,
                     mcr.job
                 FROM
                     crew c

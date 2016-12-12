@@ -17,6 +17,8 @@ namespace Find_My_Movie.model.dal {
 
         List<fmmCast> GetMovieCasts(int movieId);
 
+        List<fmmCrew> GetMovieCrews(int movieId);
+
         List<fmmGenre> GetMovieGenres(int movieId);
         
     }

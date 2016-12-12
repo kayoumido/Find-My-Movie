@@ -10,7 +10,7 @@ namespace Find_My_Movie.model.dal {
 
         fmmCast GetCast(int id);
 
-        bool Insert(fmmCast cast);
+        bool Insert(fmmCast cast, int movieID);
 
         bool Delete(int id);
     }

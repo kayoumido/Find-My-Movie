@@ -10,7 +10,7 @@ namespace Find_My_Movie.model.dal {
 
         fmmCrew GetCrew(int id);
 
-        bool Insert(fmmCrew crew);
+        bool Insert(fmmCrew crew, int movieID);
 
         bool Delete(int id);
     }

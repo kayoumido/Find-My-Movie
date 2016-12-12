@@ -97,7 +97,7 @@ namespace Find_My_Movie {
                   `fk_movie` INTEGER NOT NULL,
                   `fk_cast` INTEGER NOT NULL,
                   `character` TEXT NOT NULL,
-                  `order` INTEGER NOT NULL,
+                  `aorder` INTEGER NOT NULL,
                   PRIMARY KEY (`fk_movie`, `fk_cast`),
                   CONSTRAINT `fk_movie_has_cast_movie1`
                     FOREIGN KEY (`fk_movie`)

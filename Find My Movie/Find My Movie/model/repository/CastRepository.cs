@@ -22,7 +22,7 @@ namespace Find_My_Movie.model.repository {
             throw new NotImplementedException();
         }
 
-        public bool Insert(fmmCast cast) {
+        public bool Insert(fmmCast cast, int movieID) {
 
             int rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
@@ -37,12 +37,38 @@ namespace Find_My_Movie.model.repository {
                 cast
             );
 
+
+            // check if it was inserted
+            if (rowsAffected < 0) {
+                return false;
+            }
+
+            rowsAffected = this.DBConnection.Execute(@"
+                INSERT OR IGNORE INTO
+                    movie_has_cast 
+                VALUES (
+                    @fk_movie, 
+                    @fk_cast,
+                    @character,
+                    @order
+                );",
+
+                new {
+                    fk_movie  = movieID,
+                    fk_cast   = cast.id,
+                    character = cast.character,
+                    order     = cast.order
+                }
+            );
+
+            // check if info was inserted in db
+            if (rowsAffected < 0) {
+                return false;
+            }
+
             dbh.Disconnect(DBConnection);
 
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false; 
+            return true;
         }
 
         public bool Delete(int id) {

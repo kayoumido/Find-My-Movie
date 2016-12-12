@@ -30,7 +30,7 @@ namespace Find_My_Movie.model.repository {
         /// <returns>True if insert was successful otherwise false</returns>
         /// 
         /// <author>Doran Kayoumi</author>
-        public bool Insert(fmmCrew crew) {
+        public bool Insert(fmmCrew crew, int movieID) {
 
             int rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
@@ -44,12 +44,38 @@ namespace Find_My_Movie.model.repository {
                 crew
             );
 
+
+            // check if it was inserted
+            if (rowsAffected < 0) {
+                return false;
+            }
+
+            rowsAffected = this.DBConnection.Execute(@"
+                INSERT OR IGNORE INTO
+                    movie_has_crew 
+                VALUES (
+                    @fk_movie, 
+                    @fk_crew,
+                    @department,
+                    @job
+                );",
+
+                new {
+                    fk_movie   = movieID,
+                    fk_crew    = crew.id,
+                    department = crew.department,
+                    job        = crew.job
+                }
+            );
+
+            // check if info was inserted in db
+            if (rowsAffected < 0) {
+                return false;
+            }
+
             dbh.Disconnect(DBConnection);
 
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
+            return true;
         }
 
         public bool Delete(int id) {

@@ -39,7 +39,7 @@ namespace Find_My_Movie.model.repository {
 
 
             // check if it was inserted
-            if (rowsAffected < 0) {
+            if (rowsAffected <= 0) {
                 return false;
             }
 
@@ -50,19 +50,19 @@ namespace Find_My_Movie.model.repository {
                     @fk_movie, 
                     @fk_cast,
                     @character,
-                    @order
+                    @aorder
                 );",
 
                 new {
                     fk_movie  = movieID,
                     fk_cast   = cast.id,
                     character = cast.character,
-                    order     = cast.order
+                    aorder     = cast.aorder
                 }
             );
 
             // check if info was inserted in db
-            if (rowsAffected < 0) {
+            if (rowsAffected <= 0) {
                 return false;
             }
 

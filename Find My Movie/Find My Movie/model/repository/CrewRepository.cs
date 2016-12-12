@@ -46,7 +46,7 @@ namespace Find_My_Movie.model.repository {
 
 
             // check if it was inserted
-            if (rowsAffected < 0) {
+            if (rowsAffected <= 0) {
                 return false;
             }
 
@@ -69,7 +69,7 @@ namespace Find_My_Movie.model.repository {
             );
 
             // check if info was inserted in db
-            if (rowsAffected < 0) {
+            if (rowsAffected <= 0) {
                 return false;
             }
 

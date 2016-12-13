@@ -206,5 +206,34 @@ namespace Find_My_Movie.model.repository {
 
             return crews.ToList();
         }
+
+        public int MovieExists(string movieName) {
+            string sql = @"
+                SELECT
+                    id,
+                    imdbid,
+                    title,
+                    ogtitle,
+                    adult,
+                    budget,
+                    homepage,
+                    runtime,
+                    tagline,
+                    voteaverage,
+                    oglanguage,
+                    overview,
+                    popularity,
+                    poster,
+                    releasedate,
+                    fk_collection
+                FROM
+                    movie
+                WHERE
+                    ogtitle = " + movieName + ";"
+            ;
+            IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
+
+            return movie.FirstOrDefault().id;
+        }
     }
 }

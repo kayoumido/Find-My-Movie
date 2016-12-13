@@ -206,5 +206,177 @@ namespace Find_My_Movie.model.repository {
 
             return crews.ToList();
         }
+
+        public List<fmmMovie> Search(string searchValue, string searchTable) {
+
+            string sql = "";
+
+            switch (searchTable) {
+
+                case "All":
+                    sql = @"
+                        SELECT DISTINCT 
+                            m.id,
+                            m.imdbid,
+                            m.title,
+                            m.ogtitle,
+                            m.adult,
+                            m.budget,
+                            m.homepage,
+                            m.runtime,
+                            m.tagline,
+                            m.voteaverage,
+                            m.oglanguage,
+                            m.overview,
+                            m.popularity,
+                            m.poster,
+                            m.releasedate,
+                            m.fk_collection
+                        FROM
+                            movie m
+                        INNER JOIN
+                            movie_has_crew mcr
+                        ON
+                            m.id = mcr.fk_movie
+                        INNER JOIN
+                            crew cr
+                        ON
+                            mcr.fk_crew = cr.id
+                        INNER JOIN
+                            movie_has_cast mca
+                        ON
+                            m.id = mca.fk_movie
+                        INNER JOIN
+                            cast ca
+                        ON
+                            mca.fk_cast = ca.id
+                        WHERE
+                            m.title LIKE '%" + searchValue + @"%'
+                        OR
+                            ca.name LIKE '%" + searchValue + @"%'
+                        OR
+                            (cr.name LIKE '%" + searchValue + @"%'
+                        AND 
+                            mcr.job = 'Director')
+                        ORDER BY
+                            title
+                        ASC
+                    ;";
+                    break;
+
+                case "Title":
+                    sql = @"
+                        SELECT
+                            id,
+                            imdbid,
+                            title,
+                            ogtitle,
+                            adult,
+                            budget,
+                            homepage,
+                            runtime,
+                            tagline,
+                            voteaverage,
+                            oglanguage,
+                            overview,
+                            popularity,
+                            poster,
+                            releasedate,
+                            fk_collection
+                        FROM
+                            movie
+                        WHERE
+                            title LIKE '%" + searchValue + @"%'
+                        ORDER BY
+                            title
+                        ASC
+                    ;";
+                    break;
+
+                case "Actor":
+                    sql = @"
+                        SELECT
+                            m.id,
+                            m.imdbid,
+                            m.title,
+                            m.ogtitle,
+                            m.adult,
+                            m.budget,
+                            m.homepage,
+                            m.runtime,
+                            m.tagline,
+                            m.voteaverage,
+                            m.oglanguage,
+                            m.overview,
+                            m.popularity,
+                            m.poster,
+                            m.releasedate,
+                            m.fk_collection
+                        FROM
+                            movie m
+                        INNER JOIN
+                            movie_has_cast mca
+                        ON
+                            m.id = mca.fk_movie
+                        INNER JOIN
+                            cast c
+                        ON
+                            mca.fk_cast = c.id
+                        WHERE
+                            c.name LIKE '%" + searchValue + @"%'
+                        ORDER BY
+                            title
+                        ASC
+                    ;";
+                    break;
+
+                case "Director":
+
+                    sql = @"
+                        SELECT
+                            m.id,
+                            m.imdbid,
+                            m.title,
+                            m.ogtitle,
+                            m.adult,
+                            m.budget,
+                            m.homepage,
+                            m.runtime,
+                            m.tagline,
+                            m.voteaverage,
+                            m.oglanguage,
+                            m.overview,
+                            m.popularity,
+                            m.poster,
+                            m.releasedate,
+                            m.fk_collection
+                        FROM
+                            movie m
+                        INNER JOIN
+                            movie_has_crew mcr
+                        ON
+                            m.id = mcr.fk_movie
+                        INNER JOIN
+                            crew c
+                        ON
+                            mcr.fk_crew = c.id
+                        WHERE
+                            c.name LIKE '%" + searchValue + @"%'
+                        AND mcr.job = 'Director'
+                        ORDER BY
+                            title
+                        ASC
+                    ;";
+
+                    break;
+
+                default:
+                    break;
+            }
+
+            IEnumerable<fmmMovie> movies = db.Query<fmmMovie>(sql);
+
+            return movies.ToList();
+        }
     }
 }

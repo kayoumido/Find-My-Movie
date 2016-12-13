@@ -1,4 +1,4 @@
-# Find My Movie - C\#
+# Find My Movie - C# #
 _Décembre 2016_  
 _Technicien ES -  CPNV_  
 _Struan Forsyth - Antoine Dessauges - Doran Kayoumi_  

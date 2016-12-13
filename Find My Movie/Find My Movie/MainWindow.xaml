@@ -22,7 +22,7 @@
         <Storyboard x:Key="sbHideLeftMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-304,0,0,0" AccelerationRatio=".9" Duration="0:0:1" />
         </Storyboard>
-        
+
         <Style x:Key="btnWithoutHower" TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True" />
             <Setter Property="Cursor" Value="Hand" />
@@ -41,7 +41,37 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
+        <Style x:Key="btnFilter" TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" BorderThickness="1" BorderBrush="white" Background="Transparent">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.8" />
+                                <Setter Property = "BorderBrush" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="textboxFilter" TargetType="TextBox" >
+            <Setter Property="BorderThickness" Value="0" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Opacity" Value="1" />
+                    <Setter Property = "BorderBrush" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
     </Window.Resources>
     <Controls:MetroWindow.IconTemplate>
@@ -58,14 +88,39 @@
     </Controls:MetroWindow.IconTemplate>
     <Grid Background="#FFFAFAFA">
         <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="-304,0,0,0" Width="422">
-            <Border BorderThickness="1" Width="352" Background="#FFFB8633" >
-                <Border.BorderBrush>
-                    <SolidColorBrush Color="#FFFB8633"/>
-                </Border.BorderBrush>
+            <Border BorderThickness="1" Width="352" Background="#FFFB8633" BorderBrush="#FFFB8633" >
+                <Canvas>
+                    <TextBox Padding="4" Canvas.Left="37" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"></TextBox>
+                    <ComboBox SelectedIndex="0" BorderBrush="White" BorderThickness="0" Canvas.Left="175" Canvas.Top="59" Width="108">
+                        <ComboBoxItem Tag="All" Visibility="Collapsed" IsEnabled="False">Search in</ComboBoxItem>
+                        <ComboBoxItem Tag="All">All</ComboBoxItem>
+                        <ComboBoxItem Tag="Title">Title</ComboBoxItem>
+                        <ComboBoxItem Tag="Actor">Actor</ComboBoxItem>
+                        <ComboBoxItem Tag="Director">Director</ComboBoxItem>
+                    </ComboBox>
+
+                    <Button Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="264"/>
+
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="152">Year</TextBlock>
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="177">From</TextBlock>
+                    <TextBox Padding="4" Canvas.Left="77" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"></TextBox>
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="178" Canvas.Top="177">To</TextBlock>
+                    <TextBox Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"></TextBox>
+
+                    <CheckBox Foreground="White" Canvas.Left="37" Canvas.Top="217">Adult</CheckBox>
+                    <Image Source="assets/img/popcorn.png" Height="338" Canvas.Top="225" Width="187" Canvas.Left="-1"/>
+                    <Button Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102"/>
+
+                    <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="283" Canvas.Top="325" Canvas.Left="37">
+                        <ListBoxItem>ListBox Item #1</ListBoxItem>
+                        <ListBoxItem>ListBox Item #2</ListBoxItem>
+                        <ListBoxItem>ListBox Item #3</ListBoxItem>
+                    </ListBox>
+                </Canvas>
 
             </Border>
             <Grid>
-                <Button Name="btnLeftMenuHide" 
+                <Button x:Name="btnLeftMenuHide" 
                         Width="48" Height="48" 
                         Click="btnLeftMenuHide_Click" 
                         VerticalAlignment="Top" Margin="-48,0,48,0" 
@@ -73,28 +128,28 @@
                         Style="{StaticResource btnWithoutHower}">
                     <Image Width="30" Height="30" Source="assets/img/white-hamburger-menu.png"/>
                 </Button>
-                <Button Name="btnLeftMenuShow" 
+                <Button x:Name="btnLeftMenuShow" 
                         Width="48" Height="48" 
                         Click="btnLeftMenuShow_Click" 
                         VerticalAlignment="Top" Margin="-48,0,48,0"
                         Style="{StaticResource btnWithoutHower}">
                     <Image Width="30" Height="30" Source="assets/img/white-hamburger-menu.png"/>
                 </Button>
-                <Button Name="btnBack" 
+                <Button x:Name="btnBack" 
                         Width="48" Height="48"
                         Visibility="Hidden"
                         VerticalAlignment="top" Margin="-48,60,48,0"
                          Style="{StaticResource btnWithoutHower}" Click="btnBack_Click" >
                     <Image Width="20" Source="assets/img/back.png"/>
                 </Button>
-                <Button Name="btnPlay" 
+                <Button x:Name="btnPlay" 
                         Width="48" Height="48"
                         Visibility="Hidden"
                         VerticalAlignment="top" Margin="-48,30,48,0"
                          Style="{StaticResource btnWithoutHower}" Click="btnPlay_Click">
                     <Image Width="20" Source="assets/img/play.png"/>
                 </Button>
-                <Button Name="btnFolder" 
+                <Button x:Name="btnFolder" 
                         Width="48" Height="48"
                         VerticalAlignment="Bottom" Margin="-48,0,48,0"
                          Style="{StaticResource btnWithoutHower}" Click="btnFolder_Click">

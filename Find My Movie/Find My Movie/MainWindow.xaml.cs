@@ -116,25 +116,23 @@ namespace Find_My_Movie {
             int i = 0;
             foreach (var movie in allMovies) {
 
-                Thread.Sleep(140);
+                Thread.Sleep(200);
                 // init new api object
                 api api = new api(movie);
 
                 // check if request to api worked
                 if (api.DidItWork()) {
 
-                    Thread.Sleep(140);
+                    Thread.Sleep(200);
                     Movie infos = api.GetMovieInfo();
                     listOfMovie.Add(infos);
-                    Thread.Sleep(140);
+                    Thread.Sleep(200);
                     Credits credit = api.GetMovieCredits();
                     listOfCrew.Add(credit);
-
-                    Images cover = api.GetMoviePoster();
         
                     string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                    if (cover.Posters.Count > 0) {
-                        urlImg = "https://image.tmdb.org/t/p/w500" + cover.Posters[0].FilePath;
+                    if (infos.PosterPath != null) {
+                        urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
                     }
 
                     //display cover

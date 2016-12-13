@@ -265,14 +265,14 @@ namespace Find_My_Movie {
 
 
         private void PopulateDB(Movie infos, Credits credit) {
-            MovieRepository movieRepo = new MovieRepository();
-            CollectionRepository collectionRepo = new CollectionRepository();
-            CrewRepository     _crewrepo         = new CrewRepository();
-            CastRepository     _castrepo         = new CastRepository();
-            CompanyRepository  _companyrepo   = new CompanyRepository();
-            CountryRepository  _countryrepo   = new CountryRepository();
-            GenreRepository    _genrerepo       = new GenreRepository();
-            LanguageRepository _languagerepo = new LanguageRepository();
+            MovieRepository      _movieRepo      = new MovieRepository();
+            CollectionRepository _collectionRepo = new CollectionRepository();
+            CrewRepository       _crewrepo       = new CrewRepository();
+            CastRepository       _castrepo       = new CastRepository();
+            CompanyRepository    _companyrepo    = new CompanyRepository();
+            CountryRepository    _countryrepo    = new CountryRepository();
+            GenreRepository      _genrerepo      = new GenreRepository();
+            LanguageRepository   _languagerepo   = new LanguageRepository();
 
 
             bool collectionAdded = false;
@@ -284,27 +284,27 @@ namespace Find_My_Movie {
                     name = infos.BelongsToCollection.Name,
                     poster = infos.BelongsToCollection.PosterPath
                 };
-                collectionRepo.Insert(collection);
+                _collectionRepo.Insert(collection);
 
                 collectionAdded = true;
 
             }
 
             fmmMovie movie = new fmmMovie {
-                id = infos.Id,
-                imdbid = infos.ImdbId,
-                title = infos.Title,
-                ogtitle = infos.OriginalTitle,
-                adult = infos.Adult,
-                budget = infos.Budget,
-                homepage = infos.Homepage,
-                runtime = infos.Runtime,
-                tagline = infos.Tagline,
+                id          = infos.Id,
+                imdbid      = infos.ImdbId,
+                title       = infos.Title,
+                ogtitle     = infos.OriginalTitle,
+                adult       = infos.Adult,
+                budget      = infos.Budget,
+                homepage    = infos.Homepage,
+                runtime     = infos.Runtime,
+                tagline     = infos.Tagline,
                 voteaverage = infos.VoteAverage,
-                oglanguage = infos.OriginalLanguage,
-                overview = infos.Overview,
-                popularity = infos.Popularity,
-                poster = infos.PosterPath,
+                oglanguage  = infos.OriginalLanguage,
+                overview    = infos.Overview,
+                popularity  = infos.Popularity,
+                poster      = infos.PosterPath,
                 releasedate = infos.ReleaseDate.ToString().Substring(0, 10)
             };
 
@@ -312,16 +312,16 @@ namespace Find_My_Movie {
                 movie.fk_collection = infos.BelongsToCollection.Id;
             }
 
-            bool movieAdded = movieRepo.Insert(movie);
+            bool movieAdded = _movieRepo.Insert(movie);
 
             foreach (Crew crew in credit.Crew) {
                 var ncrew = new fmmCrew {
-                    id = crew.Id,
-                    creditid = crew.CreditId,
-                    name = crew.Name,
-                    image = crew.ProfilePath,
+                    id         = crew.Id,
+                    creditid   = crew.CreditId,
+                    name       = crew.Name,
+                    image      = crew.ProfilePath,
                     department = crew.Department,
-                    job = crew.Job
+                    job        = crew.Job
                 };
 
                 _crewrepo.Insert(ncrew, movie.id);
@@ -329,13 +329,13 @@ namespace Find_My_Movie {
 
             foreach (Cast cast in credit.Cast) {
                 var ncast = new fmmCast {
-                    id = cast.Id,
-                    castid = cast.CastId,
-                    creditid = cast.CreditId,
-                    name = cast.Name,
-                    image = cast.ProfilePath,
+                    id        = cast.Id,
+                    castid    = cast.CastId,
+                    creditid  = cast.CreditId,
+                    name      = cast.Name,
+                    image     = cast.ProfilePath,
                     character = cast.Character,
-                    aorder = cast.Order
+                    aorder    = cast.Order
                 };
 
                 _castrepo.Insert(ncast, movie.id);
@@ -343,7 +343,7 @@ namespace Find_My_Movie {
 
             foreach (ProductionCompany company in infos.ProductionCompanies) {
                 var ncompany = new fmmCompany {
-                    id = company.Id,
+                    id   = company.Id,
                     name = company.Name,
                 };
 
@@ -360,7 +360,7 @@ namespace Find_My_Movie {
 
             foreach (Genre genre in infos.Genres) {
                 var ngenre = new fmmGenre {
-                    id = genre.Id,
+                    id   = genre.Id,
                     name = genre.Name,
                 };
 

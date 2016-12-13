@@ -81,8 +81,6 @@ namespace Find_My_Movie {
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
             dbhandler FMDb                      = new dbhandler();
-            MovieRepository movieRepo           = new MovieRepository();
-            CollectionRepository collectionRepo = new CollectionRepository();
 
             // get movie path in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -116,117 +114,10 @@ namespace Find_My_Movie {
                     // increment number of films found
                     foo++;
 
-                    Movie infos = api.GetMovieInfo();
-
-                    bool collectionAdded = false; 
-
-                    if (infos.BelongsToCollection != null) {
-
-                        fmmCollection collection = new fmmCollection {
-                            id     = infos.BelongsToCollection.Id,
-                            name   = infos.BelongsToCollection.Name,
-                            poster = infos.BelongsToCollection.PosterPath
-                        };
-                        collectionRepo.Insert(collection);
-
-                        collectionAdded = true;
-
-                    }
-
-                    fmmMovie movie = new fmmMovie {
-                        id          = infos.Id,
-                        imdbid      = infos.ImdbId,
-                        title       = infos.Title,
-                        ogtitle     = infos.OriginalTitle,
-                        adult       = infos.Adult,
-                        budget      = infos.Budget,
-                        homepage    = infos.Homepage,
-                        runtime     = infos.Runtime,
-                        tagline     = infos.Tagline,
-                        voteaverage = infos.VoteAverage,
-                        oglanguage  = infos.OriginalLanguage,
-                        overview    = infos.Overview,
-                        popularity  = infos.Popularity,
-                        poster      = infos.PosterPath,
-                        releasedate = infos.ReleaseDate.ToString().Substring(0,10)
-                    };
-
-                    if (collectionAdded) {
-                        movie.fk_collection = infos.BelongsToCollection.Id;
-                    }
-
-                    bool movieAdded = movieRepo.Insert(movie);
-
+                    Movie   infos   = api.GetMovieInfo();
                     Credits credit  = api.GetMovieCredits();
 
-                    CrewRepository     _crewrepo     = new CrewRepository();
-                    CastRepository     _castrepo     = new CastRepository();
-                    CompanyRepository  _companyrepo  = new CompanyRepository();
-                    CountryRepository  _countryrepo  = new CountryRepository();
-                    GenreRepository    _genrerepo    = new GenreRepository();
-                    LanguageRepository _languagerepo = new LanguageRepository();
-
-                    foreach (Crew crew in credit.Crew) {
-                        var ncrew = new fmmCrew {
-                            id         = crew.Id,
-                            creditid   = crew.CreditId,
-                            name       = crew.Name,
-                            image      = crew.ProfilePath,
-                            department = crew.Department,
-                            job        = crew.Job
-                        };
-
-                        _crewrepo.Insert(ncrew, movie.id);
-                    }
-
-                    foreach (Cast cast in credit.Cast) {
-                        var ncast = new fmmCast {
-                            id        = cast.Id,
-                            castid    = cast.CastId,
-                            creditid  = cast.CreditId,
-                            name      = cast.Name,
-                            image     = cast.ProfilePath,
-                            character = cast.Character,
-                            aorder     = cast.Order
-                        };
-
-                        _castrepo.Insert(ncast, movie.id);
-                    }
-                    
-                    foreach (ProductionCompany company in infos.ProductionCompanies) {
-                        var ncompany = new fmmCompany {
-                            id   = company.Id,
-                            name = company.Name,
-                        };
-
-                        _companyrepo.Insert(ncompany, movie.id);
-                    }
-
-                    foreach (ProductionCountry country in infos.ProductionCountries) {
-                        var ncountry = new fmmCountry {
-                            name = country.Name,
-                        };
-
-                        _countryrepo.Insert(ncountry, movie.id);
-                    }
-
-                    foreach (Genre genre in infos.Genres) {
-                        var ngenre = new fmmGenre {
-                            id   = genre.Id,
-                            name = genre.Name,
-                        };
-
-                        _genrerepo.Insert(ngenre, movie.id);
-                    }
-
-
-                    foreach (SpokenLanguage language in infos.SpokenLanguages) {
-                        var nlanguage = new fmmLanguage {
-                            name = language.Name,
-                        };
-
-                        _languagerepo.Insert(nlanguage, movie.id);
-                    }
+                    PopulateDB(infos, credit);
 
                     // check number of film founds
                     if (foo == 10) {                                                                                                                                                                             
@@ -317,6 +208,117 @@ namespace Find_My_Movie {
             single.Visibility = Visibility.Collapsed;
         }//closeSingle_MouseUp
 
+        private void PopulateDB(Movie infos, Credits credit) {
+            MovieRepository movieRepo = new MovieRepository();
+            CollectionRepository collectionRepo = new CollectionRepository();
+            CrewRepository     _crewrepo         = new CrewRepository();
+            CastRepository     _castrepo         = new CastRepository();
+            CompanyRepository  _companyrepo   = new CompanyRepository();
+            CountryRepository  _countryrepo   = new CountryRepository();
+            GenreRepository    _genrerepo       = new GenreRepository();
+            LanguageRepository _languagerepo = new LanguageRepository();
 
+
+            bool collectionAdded = false;
+
+            if (infos.BelongsToCollection != null) {
+
+                fmmCollection collection = new fmmCollection {
+                    id = infos.BelongsToCollection.Id,
+                    name = infos.BelongsToCollection.Name,
+                    poster = infos.BelongsToCollection.PosterPath
+                };
+                collectionRepo.Insert(collection);
+
+                collectionAdded = true;
+
+            }
+
+            fmmMovie movie = new fmmMovie {
+                id = infos.Id,
+                imdbid = infos.ImdbId,
+                title = infos.Title,
+                ogtitle = infos.OriginalTitle,
+                adult = infos.Adult,
+                budget = infos.Budget,
+                homepage = infos.Homepage,
+                runtime = infos.Runtime,
+                tagline = infos.Tagline,
+                voteaverage = infos.VoteAverage,
+                oglanguage = infos.OriginalLanguage,
+                overview = infos.Overview,
+                popularity = infos.Popularity,
+                poster = infos.PosterPath,
+                releasedate = infos.ReleaseDate.ToString().Substring(0, 10)
+            };
+
+            if (collectionAdded) {
+                movie.fk_collection = infos.BelongsToCollection.Id;
+            }
+
+            bool movieAdded = movieRepo.Insert(movie);
+
+            foreach (Crew crew in credit.Crew) {
+                var ncrew = new fmmCrew {
+                    id = crew.Id,
+                    creditid = crew.CreditId,
+                    name = crew.Name,
+                    image = crew.ProfilePath,
+                    department = crew.Department,
+                    job = crew.Job
+                };
+
+                _crewrepo.Insert(ncrew, movie.id);
+            }
+
+            foreach (Cast cast in credit.Cast) {
+                var ncast = new fmmCast {
+                    id = cast.Id,
+                    castid = cast.CastId,
+                    creditid = cast.CreditId,
+                    name = cast.Name,
+                    image = cast.ProfilePath,
+                    character = cast.Character,
+                    aorder = cast.Order
+                };
+
+                _castrepo.Insert(ncast, movie.id);
+            }
+
+            foreach (ProductionCompany company in infos.ProductionCompanies) {
+                var ncompany = new fmmCompany {
+                    id = company.Id,
+                    name = company.Name,
+                };
+
+                _companyrepo.Insert(ncompany, movie.id);
+            }
+
+            foreach (ProductionCountry country in infos.ProductionCountries) {
+                var ncountry = new fmmCountry {
+                    name = country.Name,
+                };
+
+                _countryrepo.Insert(ncountry, movie.id);
+            }
+
+            foreach (Genre genre in infos.Genres) {
+                var ngenre = new fmmGenre {
+                    id = genre.Id,
+                    name = genre.Name,
+                };
+
+                _genrerepo.Insert(ngenre, movie.id);
+            }
+
+
+            foreach (SpokenLanguage language in infos.SpokenLanguages) {
+                var nlanguage = new fmmLanguage {
+                    name = language.Name,
+                };
+
+                _languagerepo.Insert(nlanguage, movie.id);
+            }
+        }
     }
 }

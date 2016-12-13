@@ -99,7 +99,7 @@
                         <ComboBoxItem Tag="Director">Director</ComboBoxItem>
                     </ComboBox>
 
-                    <Button Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="264"/>
+                    <Button Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="350"/>
 
                     <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="152">Year</TextBlock>
                     <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="177">From</TextBlock>
@@ -111,7 +111,7 @@
                     <Image Source="assets/img/popcorn.png" Height="338" Canvas.Top="225" Width="187" Canvas.Left="-1"/>
                     <Button Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102"/>
 
-                    <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="283" Canvas.Top="325" Canvas.Left="37">
+                    <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="255" Canvas.Left="37">
                         <ListBoxItem>ListBox Item #1</ListBoxItem>
                         <ListBoxItem>ListBox Item #2</ListBoxItem>
                         <ListBoxItem>ListBox Item #3</ListBoxItem>
@@ -190,19 +190,22 @@
                             <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition Height="30"></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
                             <RowDefinition></RowDefinition>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0">Title</TextBlock>
                         <TextBlock Grid.Row="1">Runtime</TextBlock>
                         <TextBlock Grid.Row="2">Genre</TextBlock>
                         <TextBlock Grid.Row="3">Rated</TextBlock>
-                        <TextBlock Grid.Row="4">Actors</TextBlock>
+                        <TextBlock Grid.Row="4">Director</TextBlock>
+                        <TextBlock Grid.Row="5">Actors</TextBlock>
 
                         <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Name="titleSingle"></TextBlock>
                         <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Name="durationSingle"></TextBlock>
                         <TextBlock Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Name="genresSingle"></TextBlock>
                         <TextBlock Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Name="ratedSingle"></TextBlock>
-                        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Name="authorSingle" Margin="0,0,50,0"></TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Name="directorSingle"></TextBlock>
+                        <TextBlock Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Name="authorSingle" Margin="0,0,50,0"></TextBlock>
                     </Grid>
 
                 </Grid>

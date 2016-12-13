@@ -237,7 +237,10 @@ namespace Find_My_Movie {
                 if (infos.Adult)
                     ratedSingle.Text = "Adult";
                 else
-                    ratedSingle.Text = "All publics";
+                    ratedSingle.Text = "All public";
+
+                //director
+                directorSingle.Text = "Director !!!!!!!!!!!!!!!!";
 
                 //actors
                 foreach (var crew in crews.Cast) {

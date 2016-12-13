@@ -133,7 +133,10 @@ namespace Find_My_Movie {
                     Thread.Sleep(200);
                     Credits credit = api.GetMovieCredits();
                     listOfCrew.Add(credit);
-        
+
+                    PopulateDB(infos, credit);
+
+
                     string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
                     if (infos.PosterPath != null) {
                         urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
@@ -195,6 +198,33 @@ namespace Find_My_Movie {
             single.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Hidden;
             btnPlay.Visibility = Visibility.Hidden;
+        }
+
+        private void btnSearch_Click(object sender, RoutedEventArgs e) {
+
+            TextBox objTextSearch = txtSearch;
+            string searchText = objTextSearch.Text.Trim();
+
+            ComboBox objSearchType = lstSearchType;
+            string searchType = ((ComboBoxItem)objSearchType.SelectedItem).Tag.ToString();
+
+            if (searchText.Trim() != "") {
+                MovieRepository movieRepo = new MovieRepository();
+                List<fmmMovie> movies = movieRepo.Search(searchText, searchType);
+
+                WrapPanel wp = gridMovies;
+                wp.Children.Clear();
+
+                foreach (fmmMovie movie in movies) {
+
+                    string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+                    if (movie.poster != null) {
+                        urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
+                    }
+
+                    addMovieGrid(urlImg, movie.id);
+                }
+            }
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

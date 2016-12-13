@@ -90,8 +90,8 @@
         <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="-304,0,0,0" Width="422">
             <Border BorderThickness="1" Width="352" Background="#FFFB8633" BorderBrush="#FFFB8633" >
                 <Canvas>
-                    <TextBox Padding="4" Canvas.Left="37" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"></TextBox>
-                    <ComboBox SelectedIndex="0" BorderBrush="White" BorderThickness="0" Canvas.Left="175" Canvas.Top="59" Width="108">
+                    <TextBox x:Name="txtSearch" Padding="4" Canvas.Left="37" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"></TextBox>
+                    <ComboBox x:Name="lstSearchType" SelectedIndex="0" BorderBrush="White" BorderThickness="0" Canvas.Left="175" Canvas.Top="59" Width="108">
                         <ComboBoxItem Tag="All" Visibility="Collapsed" IsEnabled="False">Search in</ComboBoxItem>
                         <ComboBoxItem Tag="All">All</ComboBoxItem>
                         <ComboBoxItem Tag="Title">Title</ComboBoxItem>
@@ -109,7 +109,7 @@
 
                     <CheckBox Foreground="White" Canvas.Left="37" Canvas.Top="217">Adult</CheckBox>
                     <Image Source="assets/img/popcorn.png" Height="338" Canvas.Top="225" Width="187" Canvas.Left="-1"/>
-                    <Button Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102"/>
+                    <Button x:Name="btnSearch" Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102" Click="btnSearch_Click"/>
 
                     <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="255" Canvas.Left="37">
                         <ListBoxItem>ListBox Item #1</ListBoxItem>

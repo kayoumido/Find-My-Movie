@@ -38,8 +38,7 @@ namespace Find_My_Movie {
                             JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         @interface interfaceClass = new @interface();
-        List<Movie> listOfMovie = new List<Movie>();
-        List<Credits> listOfCrew = new List<Credits>();
+        MovieRepository movieRepository = new MovieRepository();
 
         public MainWindow() {
             InitializeComponent();
@@ -118,35 +117,55 @@ namespace Find_My_Movie {
             var allMovies = interfaceClass.GetAllFilename();
             int not_found = 0;
             int i = 0;
+
             foreach (var movie in allMovies) {
 
-                Thread.Sleep(200);
-                // init new api object
-                api api = new api(movie);
+                extractfileinfo extract = new extractfileinfo(movie);
+                string movieName = extract.GetMovieName().Trim();
 
-                // check if request to api worked
-                if (api.DidItWork()) {
+                int idMovie = movieRepository.MovieExists(movieName);
 
+                string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+   
+                if (idMovie != 0) {
+
+                    //MessageBox.Show("in db");
+                    fmmMovie infos = movieRepository.GetMovie(idMovie);
+
+                    urlImg = "https://image.tmdb.org/t/p/w500" + infos.poster;
+
+                }//if
+                else {
+                    //MessageBox.Show(" NOT in db");
                     Thread.Sleep(200);
-                    Movie infos = api.GetMovieInfo();
-                    listOfMovie.Add(infos);
-                    Thread.Sleep(200);
-                    Credits credit = api.GetMovieCredits();
-                    listOfCrew.Add(credit);
-        
-                    string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                    if (infos.PosterPath != null) {
+                    // init new api object
+                    api api = new api(movie);
+
+                    // check if request to api worked
+                    if (api.DidItWork()) {
+
+                        Thread.Sleep(200);
+                        Movie infos = api.GetMovieInfo();
+                        Thread.Sleep(200);
+                        Credits credit = api.GetMovieCredits();
+
+                        idMovie = infos.Id;
+                        PopulateDB(infos, credit, movieName);
+
                         urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
                     }
+                    else {
+                        not_found++;
+                    }
 
-                    //display cover
-                    this.Dispatcher.BeginInvoke(new Action(() => i = addMovieGrid(urlImg, i)), System.Windows.Threading.DispatcherPriority.Background, null);
+                }//else
 
-                }
-                else {
-                    not_found++;
-                }
-            }
+
+                //display cover
+                this.Dispatcher.BeginInvoke(new Action(() => i = addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
+
+            }//foreach
+
             //MessageBox.Show(not_found + " movies wern't found");
         }
 
@@ -208,9 +227,12 @@ namespace Find_My_Movie {
                 //get infos
                 string elementName = mouseWasDownOn.Name;
                 elementName = elementName.Replace("id_", "");
-                Movie infos = listOfMovie[Convert.ToInt32(elementName)];
-                Credits crews = listOfCrew[Convert.ToInt32(elementName)];
-                var webImage = new BitmapImage(new Uri("https://image.tmdb.org/t/p/w500" + infos.PosterPath));
+                fmmMovie infos = movieRepository.GetMovie(Convert.ToInt32(elementName));
+                List<fmmCast> casts = movieRepository.GetMovieCasts(Convert.ToInt32(elementName));
+                List<fmmCrew> crews = movieRepository.GetMovieCrews(Convert.ToInt32(elementName));
+                List<fmmGenre> genres = movieRepository.GetMovieGenres(Convert.ToInt32(elementName));
+
+                var webImage = new BitmapImage(new Uri("https://image.tmdb.org/t/p/w500" + infos.poster));
 
                 //cover
                 coverSingle.Source = webImage;
@@ -220,39 +242,46 @@ namespace Find_My_Movie {
                 authorSingle.Text = "";
 
                 //title
-                titleSingle.Text = infos.Title + " (" + infos.ReleaseDate.ToString().Substring(6, 4) + ")";
+                titleSingle.Text = infos.title + " (" + infos.releasedate.Substring(6, 4) + ")";
 
                 //duration
-                durationSingle.Text = infos.Runtime + " min";
+                durationSingle.Text = infos.runtime + " min";
 
                 //gender
-                foreach (var genre in infos.Genres) {
-                    if (!(infos.Genres.First() == genre))
+                foreach (var genre in genres) {
+                    if (!(genres.First() == genre))
                         genresSingle.Text += ", ";
 
-                    genresSingle.Text += genre.Name;
+                    genresSingle.Text += genre.name;
                 }
 
                 //rated
-                if (infos.Adult)
+               if (infos.adult)
                     ratedSingle.Text = "Adult";
                 else
                     ratedSingle.Text = "All public";
 
                 //director
-                directorSingle.Text = "Director !!!!!!!!!!!!!!!!";
+                foreach (var crew in crews) {
+                    if (crew.job == "Director") {
+                        directorSingle.Text = crew.name;
+                        break;
+                    }
+
+                }
+                
 
                 //actors
-                foreach (var crew in crews.Cast) {
-                    if (!(crews.Cast.First() == crew))
+               foreach (var cast in casts) {
+                    if (!(casts.First() == cast))
                         authorSingle.Text += ", ";
 
-                    authorSingle.Text += crew.Name;
+                    authorSingle.Text += cast.name + " (" + cast.character.Replace(" (voice)","") + ")" ;
 
                 }
 
                 //description
-                descSingle.Text = infos.Overview;
+                descSingle.Text = infos.overview;
             }
 
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
@@ -264,7 +293,7 @@ namespace Find_My_Movie {
         }//displaySingleMovie
 
 
-        private void PopulateDB(Movie infos, Credits credit) {
+        private void PopulateDB(Movie infos, Credits credit, String originalName) {
             MovieRepository      _movieRepo      = new MovieRepository();
             CollectionRepository _collectionRepo = new CollectionRepository();
             CrewRepository       _crewrepo       = new CrewRepository();
@@ -294,7 +323,7 @@ namespace Find_My_Movie {
                 id          = infos.Id,
                 imdbid      = infos.ImdbId,
                 title       = infos.Title,
-                ogtitle     = infos.OriginalTitle,
+                ogtitle     = originalName,
                 adult       = infos.Adult,
                 budget      = infos.Budget,
                 homepage    = infos.Homepage,

@@ -229,11 +229,17 @@ namespace Find_My_Movie.model.repository {
                 FROM
                     movie
                 WHERE
-                    ogtitle = " + movieName + ";"
+                    ogtitle = '" + movieName + "';"
             ;
             IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
 
-            return movie.FirstOrDefault().id;
+            if (movie.Count() == 0) {
+                return 0;
+            }
+            else {
+                return movie.FirstOrDefault().id;
+            }
+
         }
     }
 }

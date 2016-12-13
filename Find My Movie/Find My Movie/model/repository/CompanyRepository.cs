@@ -20,7 +20,7 @@ namespace Find_My_Movie.model.repository {
             throw new NotImplementedException();
         }
 
-        public bool Insert(fmmCompany company) {
+        public bool Insert(fmmCompany company, int movieID) {
 
             int rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
@@ -32,12 +32,33 @@ namespace Find_My_Movie.model.repository {
                 company
             );
 
+            // check if it was inserted
+            if (rowsAffected <= 0) {
+                return false;
+            }
+
+            rowsAffected = this.DBConnection.Execute(@"
+                INSERT OR IGNORE INTO
+                    production_company
+                VALUES (
+                    @fk_movie, 
+                    @fk_company
+                );",
+
+                new {
+                    fk_movie   = movieID,
+                    fk_company = company.id
+                }
+            );
+
+            // check if info was inserted in db
+            if (rowsAffected <= 0) {
+                return false;
+            }
+
             dbh.Disconnect(DBConnection);
 
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
+            return true;
 
         }
 

@@ -80,15 +80,15 @@ namespace Find_My_Movie {
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
-            dbhandler FMDb = new dbhandler();
-            MovieRepository movieRepo = new MovieRepository();
+            dbhandler FMDb                      = new dbhandler();
+            MovieRepository movieRepo           = new MovieRepository();
             CollectionRepository collectionRepo = new CollectionRepository();
 
             // get movie path in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
-            string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
-            string movie_path = "";
+            string folder_path   = app_data_path + "/" + MainWindow.FOLDER_NAME;
+            string file_path     = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
+            string movie_path    = "";
 
             choose_directory directoryClass = new choose_directory();
 
@@ -157,7 +157,7 @@ namespace Find_My_Movie {
 
                     bool movieAdded = movieRepo.Insert(movie);
 
-                    Credits credit = api.GetMovieCredits();
+                    Credits credit  = api.GetMovieCredits();
 
                     CrewRepository     _crewrepo     = new CrewRepository();
                     CastRepository     _castrepo     = new CastRepository();
@@ -199,7 +199,7 @@ namespace Find_My_Movie {
                             name = company.Name,
                         };
 
-                        _companyrepo.Insert(ncompany);
+                        _companyrepo.Insert(ncompany, movie.id);
                     }
 
                     foreach (ProductionCountry country in infos.ProductionCountries) {
@@ -207,7 +207,7 @@ namespace Find_My_Movie {
                             name = country.Name,
                         };
 
-                        _countryrepo.Insert(ncountry);
+                        _countryrepo.Insert(ncountry, movie.id);
                     }
 
                     foreach (Genre genre in infos.Genres) {
@@ -225,7 +225,7 @@ namespace Find_My_Movie {
                             name = language.Name,
                         };
 
-                        _languagerepo.Insert(nlanguage);
+                        _languagerepo.Insert(nlanguage, movie.id);
                     }
 
                     // check number of film founds

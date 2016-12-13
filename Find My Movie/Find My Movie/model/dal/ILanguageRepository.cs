@@ -10,7 +10,7 @@ namespace Find_My_Movie.model.dal {
 
         fmmLanguage GetLanguage(int id);
 
-        bool Insert(fmmLanguage language);
+        bool Insert(fmmLanguage language, int movieID);
 
         bool Delete(int id);
     }

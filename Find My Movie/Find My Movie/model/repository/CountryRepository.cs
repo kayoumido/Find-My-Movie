@@ -21,7 +21,7 @@ namespace Find_My_Movie.model.repository {
             throw new NotImplementedException();
         }
 
-        public bool Insert(fmmCountry country) {
+        public bool Insert(fmmCountry country, int movieID) {
 
             int rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
@@ -34,13 +34,33 @@ namespace Find_My_Movie.model.repository {
                 country
             );
 
+            // check if it was inserted
+            if (rowsAffected <= 0) {
+                return false;
+            }
+
+            rowsAffected = this.DBConnection.Execute(@"
+                INSERT OR IGNORE INTO
+                    production_country
+                VALUES (
+                    @fk_movie, 
+                    @fk_country
+                );",
+
+                new {
+                    fk_movie   = movieID,
+                    fk_country = country.name
+                }
+            );
+
+            // check if info was inserted in db
+            if (rowsAffected <= 0) {
+                return false;
+            }
+
             dbh.Disconnect(DBConnection);
 
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
-            // throw new NotImplementedException();
+            return true;
         }
 
         public bool Delete(int id) {

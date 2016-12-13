@@ -22,7 +22,7 @@ namespace Find_My_Movie.model.repository {
             throw new NotImplementedException();
         }
 
-        public bool Insert(fmmLanguage language) {
+        public bool Insert(fmmLanguage language, int movieID) {
             int rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
                     language 
@@ -32,13 +32,33 @@ namespace Find_My_Movie.model.repository {
                 language
             );
 
+            // check if it was inserted
+            if (rowsAffected <= 0) {
+                return false;
+            }
+
+            rowsAffected = this.DBConnection.Execute(@"
+                INSERT OR IGNORE INTO
+                    spoken_language
+                VALUES (
+                    @fk_movie, 
+                    @fk_language
+                );",
+
+                new {
+                    fk_movie   = movieID,
+                    fk_company = language.name
+                }
+            );
+
+            // check if info was inserted in db
+            if (rowsAffected <= 0) {
+                return false;
+            }
+
             dbh.Disconnect(DBConnection);
 
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
-            throw new NotImplementedException();
+            return true;
         }
 
         public bool Delete(int id) {

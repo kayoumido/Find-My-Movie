@@ -10,7 +10,7 @@ namespace Find_My_Movie.model.dal {
 
         fmmCountry GetCountry(int id);
 
-        bool Insert(fmmCountry country);
+        bool Insert(fmmCountry country, int movieID);
 
         bool Delete(int id);
     }

@@ -58,6 +58,8 @@ namespace Find_My_Movie {
         /// 
         /// </summary>
         /// <returns></returns>
+        /// 
+        /// @REM
         public string GetMovieDate() {
 
             // return movie date

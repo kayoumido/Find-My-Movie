@@ -30,11 +30,6 @@ namespace Find_My_Movie {
         /// 
         /// <author>Doran Kayoumi</author>
         private void GetData(string file_name) {
-            // building new regex object
-            // regex found : http://stackoverflow.com/questions/34712335/get-title-and-year-from-file-name-using-regex
-            // regex extracts movie title and date from a file name like : Big.Hero.6.2014.FRENCH.BRRip.XviD-DesTroY.avi
-            // files without a date in them won't work
-            // @FIXME This regex doesn't match all file names
             
             // OLD Regex regex = new Regex(@"^(.+?)[.( \t]*(?:(19\d{2}|20(?:0\d|1[0-6])).*|(?:(?=bluray|\d+p|brrip)..*)?[.](mkv|avi|mpe?g|divx)$)i");
             Regex regex = new Regex(@"(\[.+\]|)(.*?)(dvdrip|byPhilou|TRUEFRENCH|READNFO|avi|\.avi|EDITION|FRENCH|xvid| cd[0-9]|dvdscr|brrip|divx|[\{\(\[]?[0-9]{4}).*", RegexOptions.IgnoreCase);
@@ -63,6 +58,8 @@ namespace Find_My_Movie {
         /// 
         /// </summary>
         /// <returns></returns>
+        /// 
+        /// @REM
         public string GetMovieDate() {
 
             // return movie date

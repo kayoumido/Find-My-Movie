@@ -46,8 +46,8 @@ namespace Find_My_Movie.model.repository {
                 );",
 
                 new {
-                    fk_movie   = movieID,
-                    fk_company = language.name
+                    fk_movie    = movieID,
+                    fk_language = language.name
                 }
             );
 

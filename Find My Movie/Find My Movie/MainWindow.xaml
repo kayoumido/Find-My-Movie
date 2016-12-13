@@ -99,7 +99,7 @@
                         <ComboBoxItem Tag="Director">Director</ComboBoxItem>
                     </ComboBox>
 
-                    <Button Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="337"/>
+                    <Button Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="264"/>
 
                     <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="152">Year</TextBlock>
                     <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="177">From</TextBlock>
@@ -110,6 +110,12 @@
                     <CheckBox Foreground="White" Canvas.Left="37" Canvas.Top="217">Adult</CheckBox>
                     <Image Source="assets/img/popcorn.png" Height="338" Canvas.Top="225" Width="187" Canvas.Left="-1"/>
                     <Button Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102"/>
+
+                    <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="283" Canvas.Top="325" Canvas.Left="37">
+                        <ListBoxItem>ListBox Item #1</ListBoxItem>
+                        <ListBoxItem>ListBox Item #2</ListBoxItem>
+                        <ListBoxItem>ListBox Item #3</ListBoxItem>
+                    </ListBox>
                 </Canvas>
 
             </Border>

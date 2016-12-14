@@ -44,7 +44,7 @@ In most cases classes will follow these conventions :
 Class names are written in lowercase (even if it's composed with multiple words).  
 e.g. :  
 
-    dbhandler() { ...
+    dbhandler { ...
     extractfileinfo { ...
 
  The class file names contain the name of the class (kind of necessary to know th nature of the file :D), then it will be followed by a *.class* and finished by the file extension.  
@@ -55,4 +55,15 @@ e.g. :
 
 Attributes and methods follow the same conventions as for variables and functions.
 
-#### 1.5.2 Models
+#### 1.5.2
+Initialy we set that model names and file names were going to be exactly the same as the table it represents, but we had some issues with it. A library we used had exactly the same names as our models, so we decided to change them.
+Now our model names and file names start with the initals of the application "fmm" the the name of the table.  
+e.g. :
+
+    *Before*
+    User { ...
+    User.cs
+
+    *Now*
+    fmmUser { ...
+    fmmUser.cs

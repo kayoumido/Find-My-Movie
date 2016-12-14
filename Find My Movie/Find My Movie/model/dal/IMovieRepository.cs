@@ -20,6 +20,8 @@ namespace Find_My_Movie.model.dal {
         List<fmmCrew> GetMovieCrews(int movieId);
 
         List<fmmGenre> GetMovieGenres(int movieId);
+
+        List<fmmMovie> Search(string searchValue, string searchTable);
         
     }
 }

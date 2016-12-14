@@ -90,8 +90,8 @@
         <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="-304,0,0,0" Width="422">
             <Border BorderThickness="1" Width="352" Background="#FFFB8633" BorderBrush="#FFFB8633" >
                 <Canvas>
-                    <TextBox Padding="4" Canvas.Left="37" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"></TextBox>
-                    <ComboBox SelectedIndex="0" BorderBrush="White" BorderThickness="0" Canvas.Left="175" Canvas.Top="59" Width="108">
+                    <TextBox x:Name="txtSearch" Padding="4" Canvas.Left="37" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"></TextBox>
+                    <ComboBox x:Name="lstSearchType" SelectedIndex="0" BorderBrush="White" BorderThickness="0" Canvas.Left="175" Canvas.Top="59" Width="108">
                         <ComboBoxItem Tag="All" Visibility="Collapsed" IsEnabled="False">Search in</ComboBoxItem>
                         <ComboBoxItem Tag="All">All</ComboBoxItem>
                         <ComboBoxItem Tag="Title">Title</ComboBoxItem>
@@ -140,6 +140,13 @@
                         Visibility="Hidden"
                         VerticalAlignment="top" Margin="-48,60,48,0"
                          Style="{StaticResource btnWithoutHower}" Click="btnBack_Click" >
+                    <Image Width="20" Source="assets/img/back.png"/>
+                </Button>
+                <Button x:Name="btnBackSearch" 
+                        Width="48" Height="48"
+                        Visibility="Hidden"
+                        VerticalAlignment="top" Margin="-48,30,48,0"
+                         Style="{StaticResource btnWithoutHower}" Click="btnBackSearch_Click">
                     <Image Width="20" Source="assets/img/back.png"/>
                 </Button>
                 <Button x:Name="btnPlay" 

@@ -25,6 +25,7 @@ using Find_My_Movie.model;
 using Find_My_Movie.model.repository;
 using System.Threading;
 using System.ComponentModel;
+using System.Net;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -39,6 +40,8 @@ namespace Find_My_Movie {
 
         @interface interfaceClass = new @interface();
         MovieRepository movieRepository = new MovieRepository();
+
+        bool internetConected = true;
 
         public MainWindow() {
             InitializeComponent();
@@ -111,12 +114,33 @@ namespace Find_My_Movie {
             directoryClass.ShowDialog();
             directoryClass.Close();
         }
-    
+
+        private bool CheckConnection (String URL) {
+            try {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                request.Timeout = 5000;
+                request.Credentials = CredentialCache.DefaultNetworkCredentials;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK) return true;
+                else return false;
+            }
+            catch {
+                return false;
+            }
+        }
+
         private void displayMovies () {
-            
+
+            if (!CheckConnection("https://www.google.ch/")) {
+                internetConected = false;
+            }
+
             var allMovies = interfaceClass.GetAllFilename();
             int not_found = 0;
             int i = 0;
+
+            List<int> alreadyDisplay = new List<int>(); //to avoid doublon
 
             foreach (var movie in allMovies) {
 
@@ -127,21 +151,20 @@ namespace Find_My_Movie {
 
                 int idMovie = movieRepository.MovieExists(movieName);
 
-                string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+                string urlImg = "";
    
                 if (idMovie != 0) {
 
-                    //MessageBox.Show("in db");
                     fmmMovie infos = movieRepository.GetMovie(idMovie);
 
-                    urlImg = "https://image.tmdb.org/t/p/w500" + infos.poster;
+                    if(infos.poster != null && internetConected)
+                        urlImg = "https://image.tmdb.org/t/p/w500" + infos.poster;
 
                     displayMovie = true;
 
                 }//if
-                else {
+                else if(internetConected){
 
-                    //MessageBox.Show(" NOT in db");
                     Thread.Sleep(200);
                     // init new api object
                     api api = new api(movie);
@@ -152,7 +175,8 @@ namespace Find_My_Movie {
                         Thread.Sleep(200);
                         Movie infos = api.GetMovieInfo();
 
-                        urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
+                        if(infos.PosterPath != null)
+                            urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
 
                         Thread.Sleep(200);
                         Credits credit = api.GetMovieCredits();
@@ -171,8 +195,10 @@ namespace Find_My_Movie {
 
 
                 //display cover
-                if(displayMovie)
+                if (displayMovie && !alreadyDisplay.Contains(idMovie)) {
                     this.Dispatcher.BeginInvoke(new Action(() => i = addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
+                    alreadyDisplay.Add(idMovie);
+                }
 
             }//foreach
 
@@ -181,11 +207,20 @@ namespace Find_My_Movie {
 
         private int  addMovieGrid (string urlImg, int i) {
             double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
-            single.Width = containerMovies.ActualWidth;          
-            var webImage = new BitmapImage(new Uri(urlImg));
+            single.Width = containerMovies.ActualWidth;
+
             var imageControl = new Image();
+
+            if(urlImg == "") {
+                imageControl.Source = new BitmapImage(new Uri(@"assets/img/notFound.png", UriKind.Relative));
+             
+            }
+            else {
+                var webImage = new BitmapImage(new Uri(urlImg));
+                imageControl.Source = webImage;
+            }
+
             imageControl.Name = "id_" + i;
-            imageControl.Source = webImage;
             imageControl.MaxWidth = maxWidth;
             imageControl.MouseUp += new MouseButtonEventHandler(displaySingleMovie);
 
@@ -242,10 +277,13 @@ namespace Find_My_Movie {
                 List<fmmCrew> crews = movieRepository.GetMovieCrews(Convert.ToInt32(elementName));
                 List<fmmGenre> genres = movieRepository.GetMovieGenres(Convert.ToInt32(elementName));
 
-                var webImage = new BitmapImage(new Uri("https://image.tmdb.org/t/p/w500" + infos.poster));
-
                 //cover
-                coverSingle.Source = webImage;
+                if (infos.poster == null || !internetConected) {
+                    coverSingle.Source = new BitmapImage(new Uri(@"assets/img/notFound.png", UriKind.Relative));
+                }
+                else {
+                    coverSingle.Source = new BitmapImage(new Uri("https://image.tmdb.org/t/p/w500" + infos.poster));
+                }
 
                 //reset field
                 genresSingle.Text = "";

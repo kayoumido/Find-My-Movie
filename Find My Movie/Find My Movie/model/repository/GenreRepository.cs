@@ -33,10 +33,10 @@ namespace Find_My_Movie.model.repository {
                 genre
             );
 
-            // check if it was inserted
+            /* check if it was inserted
             if (rowsAffected <= 0) {
                 return false;
-            }
+            }*/
 
             rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO

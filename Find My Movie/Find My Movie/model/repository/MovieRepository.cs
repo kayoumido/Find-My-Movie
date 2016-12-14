@@ -149,6 +149,7 @@ namespace Find_My_Movie.model.repository {
                 ORDER BY
                     mca.aorder
                 ASC
+                LIMIT 15
             ;";
             IEnumerable<fmmCast> casts = db.Query<fmmCast>(sql);
 
@@ -205,6 +206,41 @@ namespace Find_My_Movie.model.repository {
             IEnumerable<fmmCrew> crews = db.Query<fmmCrew>(sql);
 
             return crews.ToList();
+        }
+
+        public int MovieExists(string movieName) {
+            string sql = @"
+                SELECT
+                    id,
+                    imdbid,
+                    title,
+                    ogtitle,
+                    adult,
+                    budget,
+                    homepage,
+                    runtime,
+                    tagline,
+                    voteaverage,
+                    oglanguage,
+                    overview,
+                    popularity,
+                    poster,
+                    releasedate,
+                    fk_collection
+                FROM
+                    movie
+                WHERE
+                    ogtitle = '" + movieName + "';"
+            ;
+            IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
+
+            if (movie.Count() == 0) {
+                return 0;
+            }
+            else {
+                return movie.FirstOrDefault().id;
+            }
+
         }
     }
 }

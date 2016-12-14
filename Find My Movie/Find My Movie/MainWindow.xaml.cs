@@ -259,11 +259,17 @@ namespace Find_My_Movie {
         private void btnBack_Click (object sender, RoutedEventArgs e) {
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             foreach (Image child in covers) {
-                child.Visibility = Visibility.Visible;
-            }//foreach
+                if (!searchClicked || child.Tag.ToString() == "search") {
+                    child.Visibility = Visibility.Visible;
+                }
+            }
             single.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Hidden;
             btnPlay.Visibility = Visibility.Hidden;
+
+            if (searchClicked) {
+                btnBackSearch.Visibility = Visibility.Visible;
+            }
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e) {
@@ -302,17 +308,20 @@ namespace Find_My_Movie {
 
         private void btnBackSearch_Click(object sender, RoutedEventArgs e) {
 
+            List<UIElement> delItems = new List<UIElement>();
+
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             foreach (Image child in covers) {
-
                 if (child.Tag.ToString() == "search") {
-                    child.Visibility = Visibility.Collapsed;
+                    delItems.Add(child);
                 }
                 else {
                     child.Visibility = Visibility.Visible;
                 }
+            }
 
-                
+            foreach (UIElement delitem in delItems) {
+                gridMovies.Children.Remove(delitem);
             }
 
             searchClicked = false;
@@ -323,6 +332,7 @@ namespace Find_My_Movie {
 
             btnBack.Visibility = Visibility.Visible;
             btnPlay.Visibility = Visibility.Visible;
+            btnBackSearch.Visibility = Visibility.Hidden;
 
             var mouseWasDownOn = e.Source as FrameworkElement;
             if (mouseWasDownOn != null) {

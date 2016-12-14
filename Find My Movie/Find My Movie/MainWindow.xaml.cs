@@ -120,6 +120,8 @@ namespace Find_My_Movie {
 
             foreach (var movie in allMovies) {
 
+                bool displayMovie = false;
+
                 extractfileinfo extract = new extractfileinfo(movie);
                 string movieName = extract.GetMovieName().Trim();
 
@@ -134,8 +136,11 @@ namespace Find_My_Movie {
 
                     urlImg = "https://image.tmdb.org/t/p/w500" + infos.poster;
 
+                    displayMovie = true;
+
                 }//if
                 else {
+
                     //MessageBox.Show(" NOT in db");
                     Thread.Sleep(200);
                     // init new api object
@@ -146,13 +151,17 @@ namespace Find_My_Movie {
 
                         Thread.Sleep(200);
                         Movie infos = api.GetMovieInfo();
+
+                        urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
+
                         Thread.Sleep(200);
                         Credits credit = api.GetMovieCredits();
 
                         idMovie = infos.Id;
                         PopulateDB(infos, credit, movieName);
 
-                        urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
+                        displayMovie = true;
+
                     }
                     else {
                         not_found++;
@@ -162,7 +171,8 @@ namespace Find_My_Movie {
 
 
                 //display cover
-                this.Dispatcher.BeginInvoke(new Action(() => i = addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
+                if(displayMovie)
+                    this.Dispatcher.BeginInvoke(new Action(() => i = addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
 
             }//foreach
 

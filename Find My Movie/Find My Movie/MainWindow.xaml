@@ -108,7 +108,7 @@
                     <TextBox Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"></TextBox>
 
                     <CheckBox Foreground="White" Canvas.Left="37" Canvas.Top="217">Adult</CheckBox>
-                    <Image Source="assets/img/popcorn.png" Height="338" Canvas.Top="225" Width="187" Canvas.Left="-1"/>
+                    <Image Source="assets/img/popcorn.png" Height="338" Canvas.Bottom="-95" Width="187" Canvas.Left="-1"/>
                     <Button Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102"/>
 
                     <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="255" Canvas.Left="37">

@@ -5,6 +5,9 @@ _Struan Forsyth - Antoine Dessauges - Doran Kayoumi_
 ## TABLE OF CONTENS
 1. Conventions
 2. Database
+3. API
+4. Interface
+5. Filters
 
 ## 1. Convention
 
@@ -55,7 +58,7 @@ e.g. :
 
 Attributes and methods follow the same conventions as for variables and functions.
 
-#### 1.5.2
+#### 1.5.2 Models
 Initialy we set that model names and file names were going to be exactly the same as the table it represents, but we had some issues with it. A library we used had exactly the same names as our models, so we decided to change them.
 Now our model names and file names start with the initals of the application "fmm" the the name of the table.  
 e.g. :
@@ -67,3 +70,26 @@ e.g. :
     *Now*
     fmmUser { ...
     fmmUser.cs
+
+## 2. Database
+Initialy the project was using JSON files and not a database, but after a few changes, we had the change and implement a database.
+
+Before implementing a database, we had to choose a database managment system (DBSM). There's a wide array of DBMS to choose from (MySQL, SQL, NoSQL, SQLite, etc..).
+To avoid using an external server to host the database, we decided to use a local database, since Struan had some experience with SQLite, we went with it.
+
+### 2.1 Creating the database
+To keep it as simple as possible, we created tables for the elements that were returned by the API.
+
+    movie
+    cast
+    crew
+    collection
+    company
+    country
+    genre
+    language
+
+
+For the sake of simplicity, some of the information stored aren't used. Even though they aren't used, we found they were still usefull to have and that they could easily be added afterwards in later version of the appication.
+
+The SQL script will be annexed.

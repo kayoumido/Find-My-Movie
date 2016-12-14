@@ -46,9 +46,9 @@ namespace Find_My_Movie.model.repository {
 
 
             // check if it was inserted
-            if (rowsAffected <= 0) {
+            /*if (rowsAffected <= 0) {
                 return false;
-            }
+            }*/
 
             rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO

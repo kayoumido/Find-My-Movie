@@ -149,6 +149,7 @@ namespace Find_My_Movie.model.repository {
                 ORDER BY
                     mca.aorder
                 ASC
+                LIMIT 15
             ;";
             IEnumerable<fmmCast> casts = db.Query<fmmCast>(sql);
 

@@ -75,12 +75,12 @@ namespace Find_My_Movie {
             sb.Begin(pnl);
 
             if (Storyboard.Contains("Show")) {
-                btnHide.Visibility = System.Windows.Visibility.Visible;
-                btnShow.Visibility = System.Windows.Visibility.Hidden;
+                btnHide.Visibility = Visibility.Visible;
+                btnShow.Visibility = Visibility.Hidden;
             }
             else if (Storyboard.Contains("Hide")) {
-                btnHide.Visibility = System.Windows.Visibility.Hidden;
-                btnShow.Visibility = System.Windows.Visibility.Visible;
+                btnHide.Visibility = Visibility.Hidden;
+                btnShow.Visibility = Visibility.Visible;
             }
         }
 
@@ -238,7 +238,7 @@ namespace Find_My_Movie {
             Thread childThread = new Thread(childref);
             childThread.SetApartmentState(ApartmentState.STA);
             childThread.Start();
-            
+
         }
 
         private void btnPlay_Click (object sender, RoutedEventArgs e) {

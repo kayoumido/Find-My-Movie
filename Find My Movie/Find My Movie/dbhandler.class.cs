@@ -192,7 +192,7 @@ namespace Find_My_Movie {
         /// <author>Doran Kayoumi</author>
         public SQLiteConnection Connect() {
 
-            connection = new SQLiteConnection("Data Source=FMMDb.db;Version=3;");
+            connection = new SQLiteConnection("Data Source=" + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/FindMyMovie/FMMDb.db;Version=3;");
 
             connection.Open();
 

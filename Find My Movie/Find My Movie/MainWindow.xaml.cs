@@ -41,6 +41,8 @@ namespace Find_My_Movie {
         List<Movie> listOfMovie = new List<Movie>();
         List<Credits> listOfCrew = new List<Credits>();
 
+        private bool searchClicked = false;
+
         public MainWindow() {
             InitializeComponent();
         }
@@ -106,7 +108,6 @@ namespace Find_My_Movie {
 
         }//MetroWindow_Loaded
 
-
         private void btnFolder_Click (object sender, RoutedEventArgs e) {
             choose_directory directoryClass = new choose_directory();
             directoryClass.ShowDialog();
@@ -153,7 +154,7 @@ namespace Find_My_Movie {
             //MessageBox.Show(not_found + " movies wern't found");
         }
 
-        private int  addMovieGrid (string urlImg, int i) {
+        private int  addMovieGrid (string urlImg, int i, string tag = null) {
             double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
             single.Width = containerMovies.ActualWidth;          
             var webImage = new BitmapImage(new Uri(urlImg));
@@ -161,9 +162,13 @@ namespace Find_My_Movie {
             imageControl.Name = "id_" + i;
             imageControl.Source = webImage;
             imageControl.MaxWidth = maxWidth;
+            imageControl.Tag = "";
+            if (tag != null) {
+                imageControl.Tag = tag;
+            }
             imageControl.MouseUp += new MouseButtonEventHandler(displaySingleMovie);
 
-            if (single.Visibility == Visibility.Visible)
+            if (single.Visibility == Visibility.Visible || searchClicked)
                 imageControl.Visibility = Visibility.Collapsed;
 
             gridMovies.Children.Add(imageControl);
@@ -209,11 +214,15 @@ namespace Find_My_Movie {
             string searchType = ((ComboBoxItem)objSearchType.SelectedItem).Tag.ToString();
 
             if (searchText.Trim() != "") {
+
+                btnBackSearch.Visibility = Visibility.Visible;
                 MovieRepository movieRepo = new MovieRepository();
                 List<fmmMovie> movies = movieRepo.Search(searchText, searchType);
 
-                WrapPanel wp = gridMovies;
-                wp.Children.Clear();
+                IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+                foreach (Image child in covers) {
+                    child.Visibility = Visibility.Collapsed;
+                }
 
                 foreach (fmmMovie movie in movies) {
 
@@ -222,9 +231,31 @@ namespace Find_My_Movie {
                         urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
                     }
 
-                    addMovieGrid(urlImg, movie.id);
+                    addMovieGrid(urlImg, movie.id, "search");
+
                 }
+
+                searchClicked = true;
             }
+        }
+
+        private void btnBackSearch_Click(object sender, RoutedEventArgs e) {
+
+            IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+            foreach (Image child in covers) {
+
+                if (child.Tag.ToString() == "search") {
+                    child.Visibility = Visibility.Collapsed;
+                }
+                else {
+                    child.Visibility = Visibility.Visible;
+                }
+
+                
+            }
+
+            searchClicked = false;
+            btnBackSearch.Visibility = Visibility.Hidden;
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

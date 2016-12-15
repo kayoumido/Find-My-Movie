@@ -208,6 +208,41 @@ namespace Find_My_Movie.model.repository {
             return crews.ToList();
         }
 
+        public int MovieExists(string movieName) {
+            string sql = @"
+                SELECT
+                    id,
+                    imdbid,
+                    title,
+                    ogtitle,
+                    adult,
+                    budget,
+                    homepage,
+                    runtime,
+                    tagline,
+                    voteaverage,
+                    oglanguage,
+                    overview,
+                    popularity,
+                    poster,
+                    releasedate,
+                    fk_collection
+                FROM
+                    movie
+                WHERE
+                    ogtitle = '" + movieName + "';"
+            ;
+            IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
+
+            if (movie.Count() == 0) {
+                return 0;
+            }
+            else {
+                return movie.FirstOrDefault().id;
+            }
+
+        }
+
         public List<fmmMovie> Search(string searchValue, string searchTable) {
 
             string sql = "";
@@ -380,7 +415,8 @@ namespace Find_My_Movie.model.repository {
             return movies.ToList();
         }
 
-        public int MovieExists(string movieName) {
+        public List<fmmMovie> Filter(int[] years = null) {
+
             string sql = @"
                 SELECT
                     id,
@@ -402,17 +438,19 @@ namespace Find_My_Movie.model.repository {
                 FROM
                     movie
                 WHERE
-                    ogtitle = '" + movieName + "';"
-            ;
-            IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
+                    substr(releasedate, 7, 4)
+                        BETWEEN
+                            '" + years[0] + @"'
+                        AND
+                            '" + years[1] + @"'
+                ORDER BY
+                    title
+                ASC
+            ;";
 
-            if (movie.Count() == 0) {
-                return 0;
-            }
-            else {
-                return movie.FirstOrDefault().id;
-            }
+            IEnumerable<fmmMovie> movies = db.Query<fmmMovie>(sql);
 
+            return movies.ToList();
         }
     }
 }

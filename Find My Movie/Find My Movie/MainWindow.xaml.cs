@@ -286,10 +286,23 @@ namespace Find_My_Movie {
                 MovieRepository movieRepo = new MovieRepository();
                 List<fmmMovie> movies = movieRepo.Search(searchText, searchType);
 
+                List<UIElement> delItems = new List<UIElement>();
+
                 IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
                 foreach (Image child in covers) {
-                    child.Visibility = Visibility.Collapsed;
+                    if (child.Tag.ToString() == "search") {
+                        delItems.Add(child);
+                    }
+                    else {
+                        child.Visibility = Visibility.Collapsed;
+                    }
                 }
+
+                foreach (UIElement delitem in delItems) {
+                    gridMovies.Children.Remove(delitem);
+                }
+
+                searchClicked = false;
 
                 foreach (fmmMovie movie in movies) {
 

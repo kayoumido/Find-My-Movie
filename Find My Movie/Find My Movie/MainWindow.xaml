@@ -90,31 +90,29 @@
         <StackPanel Panel.ZIndex="2" Name="pnlLeftMenu" Orientation="Horizontal"  HorizontalAlignment="Left" Margin="-304,0,0,0" Width="422">
             <Border BorderThickness="1" Width="352" Background="#FFFB8633" BorderBrush="#FFFB8633" >
                 <Canvas>
-                    <TextBox x:Name="txtSearch" Padding="4" Canvas.Left="37" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"></TextBox>
+                    <TextBox x:Name="txtSearch" Padding="4" Canvas.Left="37" Style="{StaticResource textboxFilter}" Canvas.Top="59" Width="108" Height="26"/>
                     <ComboBox x:Name="lstSearchType" SelectedIndex="0" BorderBrush="White" BorderThickness="0" Canvas.Left="175" Canvas.Top="59" Width="108">
-                        <ComboBoxItem Tag="All" Visibility="Collapsed" IsEnabled="False">Search in</ComboBoxItem>
-                        <ComboBoxItem Tag="All">All</ComboBoxItem>
-                        <ComboBoxItem Tag="Title">Title</ComboBoxItem>
-                        <ComboBoxItem Tag="Actor">Actor</ComboBoxItem>
-                        <ComboBoxItem Tag="Director">Director</ComboBoxItem>
+                        <ComboBoxItem Tag="All" Visibility="Collapsed" IsEnabled="False" Content="Search in"/>
+                        <ComboBoxItem Tag="All" Content="All"/>
+                        <ComboBoxItem Tag="Title" Content="Title"/>
+                        <ComboBoxItem Tag="Actor" Content="Actor"/>
+                        <ComboBoxItem Tag="Director" Content="Director"/>
                     </ComboBox>
 
                     <Button Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="350"/>
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="177"><Run Text="From"/></TextBlock>
+                    <TextBox Padding="4" Canvas.Left="77" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"/>
+                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="178" Canvas.Top="177"><Run Text="To"/></TextBlock>
+                    <TextBox Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"/>
 
-                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="152">Year</TextBlock>
-                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="177">From</TextBlock>
-                    <TextBox Padding="4" Canvas.Left="77" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"></TextBox>
-                    <TextBlock Foreground="White" FontSize="14" Canvas.Left="178" Canvas.Top="177">To</TextBlock>
-                    <TextBox Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"></TextBox>
-
-                    <CheckBox Foreground="White" Canvas.Left="37" Canvas.Top="217">Adult</CheckBox>
+                    <CheckBox Foreground="White" Canvas.Left="37" Canvas.Top="217" Content="Adult"/>
                     <Image Source="assets/img/popcorn.png" Height="338" Canvas.Bottom="-95" Width="187" Canvas.Left="-1"/>
                     <Button x:Name="btnSearch" Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102" Click="btnSearch_Click"/>
 
                     <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="255" Canvas.Left="37">
-                        <ListBoxItem>ListBox Item #1</ListBoxItem>
-                        <ListBoxItem>ListBox Item #2</ListBoxItem>
-                        <ListBoxItem>ListBox Item #3</ListBoxItem>
+                        <ListBoxItem Content="ListBox Item #1"/>
+                        <ListBoxItem Content="ListBox Item #2"/>
+                        <ListBoxItem Content="ListBox Item #3"/>
                     </ListBox>
                 </Canvas>
 

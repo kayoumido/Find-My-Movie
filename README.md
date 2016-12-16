@@ -86,6 +86,10 @@ This project was realised on computer, provided by the CPNV, with the following 
 
 ![alt text][System configuration]
 
+### 2.1 Tools
+For the development of the project, we used [GitKraken]. And for the versioning of the project, git was used with GitKraken and the code was hosted on bitbucket.
+
+
 ## 4. Database
 Initialy the project was using JSON files and not a database, but after a few changes, we had the change and implement a database.
 
@@ -109,7 +113,10 @@ For the sake of simplicity, some of the information stored aren't used. Even tho
 
 The SQL script will be annexed.
 
-<!--
-## 11. Reference
--->
-[System configuration]: img/system-configuration.png "System configuration"
+
+[11. Reference]:
+
+[System configuration]: img/system-configuration.png     "System configuration"
+[Bitbucket]           : https://bitbucket.org/           "Bitbucket"
+[GitKraken]           : https://www.gitkraken.com/       "GitKraken"
+[Visual Studio]       : https://www.visualstudio.com/vs/ "Microsoft Visual Studio Entreprise 2015"

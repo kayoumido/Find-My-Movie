@@ -45,6 +45,7 @@ namespace Find_My_Movie {
 
         Thread childThread;
 
+        double scrollPositionY = 0;
         bool internetConected = true;
 
         private bool searchClicked = false;
@@ -241,6 +242,8 @@ namespace Find_My_Movie {
 
             imageControl.Name = "id_" + i;
             imageControl.MaxWidth = maxWidth;
+            imageControl.Stretch = Stretch.Fill;
+
             imageControl.Tag = "";
             if (tag != null) {
                 imageControl.Tag = tag;
@@ -272,6 +275,7 @@ namespace Find_My_Movie {
                 }
             }
             single.Visibility = Visibility.Collapsed;
+            containerMovies.ScrollToVerticalOffset(scrollPositionY);
             btnBack.Visibility = Visibility.Hidden;
 
             if (searchClicked) {
@@ -420,6 +424,8 @@ namespace Find_My_Movie {
 
             btnBack.Visibility = Visibility.Visible;
             btnBackSearch.Visibility = Visibility.Hidden;
+            scrollPositionY = containerMovies.VerticalOffset;
+
 
             var mouseWasDownOn = e.Source as FrameworkElement;
             if (mouseWasDownOn != null) {

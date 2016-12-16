@@ -241,6 +241,8 @@ namespace Find_My_Movie {
 
             imageControl.Name = "id_" + i;
             imageControl.MaxWidth = maxWidth;
+            imageControl.Stretch = Stretch.UniformToFill;
+
             imageControl.Tag = "";
             if (tag != null) {
                 imageControl.Tag = tag;

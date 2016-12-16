@@ -377,60 +377,109 @@ namespace Find_My_Movie {
 
         private void btnFilter_Click(object sender, RoutedEventArgs e) {
 
+            bool isYearFromOK = true;
+            bool isYearToOK = true;
+            bool isYearFromEmpty = false;
+            bool isYearToEmpty = false;
+            string errorMessage = "";
+
+
             TextBox objYearFrom = txtYearFrom;
             string yearFrom = objYearFrom.Text.Trim();
+
+            if (yearFrom == "") {
+                isYearFromOK = false;
+                isYearFromEmpty = true;
+            }
+            else if (!(Regex.IsMatch(yearFrom, @"^\d+$"))) {
+                isYearFromOK = false;
+                errorMessage += "The \"from year\" needs to be a number!";
+            }
+            else if (yearFrom.Length != 4) {
+                isYearFromOK = false;
+                errorMessage += "The \"from year\" needs to be YYYY!";
+            }
+
 
             TextBox objYearTo = txtYearTo;
             string yearTo = objYearTo.Text.Trim();
 
-            string errorMessage = "";
+            if (yearTo == "") {
+                isYearToOK = false;
+                isYearToEmpty = true;
+            }
+            else if (!(Regex.IsMatch(yearTo, @"^\d+$"))) {
+                isYearToOK = false;
+                if (errorMessage != "") {
+                    errorMessage += "\n";
+                }
+                errorMessage += "The \"to year\" needs to be a number!";
+            }
+            else if (yearTo.Length != 4) {
+                isYearToOK = false;
+                if (errorMessage != "") {
+                    errorMessage += "\n";
+                }
+                errorMessage += "The \"to year\" needs to be YYYY!";
+            }
 
-            if (yearFrom != "" && yearTo != "") {
-                if ((Regex.IsMatch(yearFrom, @"^\d+$") && Regex.IsMatch(yearTo, @"^\d+$")) && (yearFrom.Length == 4 && yearTo.Length == 4)) {
+            if (isYearFromOK && isYearToOK) {
+                if (Int32.Parse(yearFrom) > Int32.Parse(yearTo)) {
+                    isYearFromOK = isYearToOK = false;
+                    errorMessage += "The filter \"from year\" needs to be smaller than the \"to year\"!";
+                }
+            }
 
-                    if (Int32.Parse(yearFrom) <= Int32.Parse(yearTo)) {
-                        btnBackSearch.Visibility = Visibility.Visible;
-                        MovieRepository movieRepo = new MovieRepository();
-                        List<fmmMovie> movies = movieRepo.Filter(new int[] { Int32.Parse(yearFrom), Int32.Parse(yearTo) });
+            ListBox objGenreList = lstbGenre;
+            List<int> genres = new List<int>();
 
-                        List<UIElement> delItems = new List<UIElement>();
+            foreach (ListBoxItem genre in objGenreList.Items) {
+                if (genre.IsSelected) {
+                    genres.Add(Int32.Parse(genre.Tag.ToString()));
+                }
+            }
 
-                        IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
-                        foreach (Image child in covers) {
-                            if (child.Tag.ToString() == "search") {
-                                delItems.Add(child);
-                            }
-                            else {
-                                child.Visibility = Visibility.Collapsed;
-                            }
-                        }
-
-                        foreach (UIElement delitem in delItems) {
-                            gridMovies.Children.Remove(delitem);
-                        }
-
-                        searchClicked = false;
-
-                        foreach (fmmMovie movie in movies) {
-
-                            string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                            if (movie.poster != null) {
-                                urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
-                            }
-
-                            addMovieGrid(urlImg, movie.id, "search");
-
-                        }
-
-                        searchClicked = true;
-                    }
-                    else {
-                        errorMessage += "The filter \"from year\" needs to be smaller than the \"to year\"!";
-                    }
+            if ((isYearFromOK && isYearToOK) || (isYearFromEmpty && isYearToEmpty && genres.Count > 0)) {
+                btnBackSearch.Visibility = Visibility.Visible;
+                MovieRepository movieRepo = new MovieRepository();
+                List<fmmMovie> movies;
+                if (isYearFromOK && isYearToOK) {
+                    movies = movieRepo.Filter(genres, new int[] { Int32.Parse(yearFrom), Int32.Parse(yearTo) });
                 }
                 else {
-                    errorMessage += "The filter for the year needs to be a number (YYYY)!";
+                    movies = movieRepo.Filter(genres);
+                }                
+
+                List<UIElement> delItems = new List<UIElement>();
+
+                IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+                foreach (Image child in covers) {
+                    if (child.Tag.ToString() == "search") {
+                        delItems.Add(child);
+                    }
+                    else {
+                        child.Visibility = Visibility.Collapsed;
+                    }
                 }
+
+                foreach (UIElement delitem in delItems) {
+                    gridMovies.Children.Remove(delitem);
+                }
+
+                searchClicked = false;
+
+                foreach (fmmMovie movie in movies) {
+
+                    string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+                    if (movie.poster != null) {
+                        urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
+                    }
+
+                    addMovieGrid(urlImg, movie.id, "search");
+
+                }
+
+                searchClicked = true;
             }
 
             if (errorMessage != "") {

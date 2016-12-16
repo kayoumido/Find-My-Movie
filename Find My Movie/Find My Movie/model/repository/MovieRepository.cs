@@ -415,36 +415,80 @@ namespace Find_My_Movie.model.repository {
             return movies.ToList();
         }
 
-        public List<fmmMovie> Filter(int[] years = null) {
+        public List<fmmMovie> Filter(List<int> genres, int[] years = null) {
 
             string sql = @"
                 SELECT
-                    id,
-                    imdbid,
-                    title,
-                    ogtitle,
-                    adult,
-                    budget,
-                    homepage,
-                    runtime,
-                    tagline,
-                    voteaverage,
-                    oglanguage,
-                    overview,
-                    popularity,
-                    poster,
-                    releasedate,
-                    fk_collection
+                    m.id,
+                    m.imdbid,
+                    m.title,
+                    m.ogtitle,
+                    m.adult,
+                    m.budget,
+                    m.homepage,
+                    m.runtime,
+                    m.tagline,
+                    m.voteaverage,
+                    m.oglanguage,
+                    m.overview,
+                    m.popularity,
+                    m.poster,
+                    m.releasedate,
+                    m.fk_collection
                 FROM
-                    movie
-                WHERE
-                    substr(releasedate, 7, 4)
-                        BETWEEN
-                            '" + years[0] + @"'
+                    movie m";
+
+            if (genres.Count > 0) {
+                sql += @"
+                    INNER JOIN
+					    movie_has_genre mg
+				    ON
+					    m.id = mg.fk_movie
+				    INNER JOIN
+					    genre g
+				    ON
+					    mg.fk_genre = g.id
+                    WHERE
+                        g.id
+                            IN
+                        (";
+                foreach (int id in genres) {
+                    if (!id.Equals(genres.Last())) {
+                        sql += id + ",";
+                    }
+                    else {
+                        sql += id;
+                    }
+                }
+                sql += @")";
+            }
+
+            if (years != null) {
+                if (genres.Count > 0) {
+                    sql += @"
                         AND
-                            '" + years[1] + @"'
+                    ";
+                }
+                else {
+                    sql += @"
+                        WHERE
+                    ";
+                }
+                sql += @"
+                    substr(m.releasedate, 7, 4)
+                        BETWEEN
+                    '" + years[0] + @"'
+                        AND
+                    '" + years[1] + @"'";
+            }
+
+            sql += @"
+                GROUP BY
+					m.id
+				HAVING
+					count(g.id) >= " + genres.Count + @"
                 ORDER BY
-                    title
+                    m.title
                 ASC
             ;";
 

@@ -26,6 +26,9 @@ namespace Find_My_Movie {
         // CONSTANTES
         public const string FOLDER_NAME         = "FindMyMovie",
                             CONFIG_FILE_NAME    = "FindMyMovie.config"; 
+                            CONFIG_FILE_NAME    = "FindMyMovie.config",
+                            API_KEY             = "88cf1d08f60e20cf9f7d3f49e82e7c8f",
+                            JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
 
         // ATTRIBUT
         @interface interfaceClass       = new @interface();

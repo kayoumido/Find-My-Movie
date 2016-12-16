@@ -101,14 +101,14 @@
 
                     <Image Source="assets/img/popcorn.png" Height="338" Canvas.Bottom="-95" Width="187" Canvas.Left="-1"/>
 
-                    <Button x:Name="btnFilter" Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="350" Click="btnFilter_Click"/>
+                    <Button x:Name="btnFilter" Content="Filter" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="318" Click="btnFilter_Click"/>
                     <TextBlock Foreground="White" FontSize="14" Canvas.Left="37" Canvas.Top="177"><Run Text="From"/></TextBlock>
                     <TextBox x:Name="txtYearFrom" Padding="4" Canvas.Left="77" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"/>
                     <TextBlock Foreground="White" FontSize="14" Canvas.Left="178" Canvas.Top="177"><Run Text="To"/></TextBlock>
                     <TextBox x:Name="txtYearTo" Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"/>
                     <Button x:Name="btnSearch" Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102" Click="btnSearch_Click"/>
 
-                    <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="255" Canvas.Left="37">
+                    <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="223" Canvas.Left="37">
                         <ListBoxItem Content="ListBox Item #1"/>
                         <ListBoxItem Content="ListBox Item #2"/>
                         <ListBoxItem Content="ListBox Item #3"/>

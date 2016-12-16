@@ -436,18 +436,19 @@ namespace Find_My_Movie.model.repository {
                     m.releasedate,
                     m.fk_collection
                 FROM
-                    movie m";
+                    movie m
+                INNER JOIN
+					movie_has_genre mg
+				ON
+					m.id = mg.fk_movie
+				INNER JOIN
+					genre g
+				ON
+					mg.fk_genre = g.id
+            ";
 
             if (genres.Count > 0) {
                 sql += @"
-                    INNER JOIN
-					    movie_has_genre mg
-				    ON
-					    m.id = mg.fk_movie
-				    INNER JOIN
-					    genre g
-				    ON
-					    mg.fk_genre = g.id
                     WHERE
                         g.id
                             IN

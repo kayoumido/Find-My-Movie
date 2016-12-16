@@ -267,7 +267,11 @@ namespace Find_My_Movie {
             List<fmmGenre> genres = genreRepo.GetGenres();
 
             foreach (fmmGenre genre in genres) {
-                objGenreList.Items.Add(genre.name);
+                ListBoxItem item = new ListBoxItem();
+                item.Content = genre.name;
+                item.Tag = genre.id;
+
+                objGenreList.Items.Add(item);
             }
 
         }

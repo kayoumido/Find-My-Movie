@@ -158,6 +158,9 @@ namespace Find_My_Movie {
                 gridMovies.Children.Remove(delitem);
             }
 
+            //show loading
+            loading.Visibility = Visibility.Visible;
+
             //restart thread to display movie from the new path
             childThread = new Thread(displayMovies);
             childThread.SetApartmentState(ApartmentState.STA);
@@ -196,7 +199,7 @@ namespace Find_My_Movie {
             }
 
             var allMovies = interfaceClass.GetAllFilename();
-
+            bool zeroMovieFound = true;
 
             List<int> alreadyDisplay = new List<int>(); //to avoid doublon
 
@@ -265,9 +268,14 @@ namespace Find_My_Movie {
                 if (displayMovie && !alreadyDisplay.Contains(idMovie)) {
                     this.Dispatcher.BeginInvoke(new Action(() => addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
                     alreadyDisplay.Add(idMovie);
+                    zeroMovieFound = false;
                 }
 
             }//foreach
+
+            if (zeroMovieFound)
+                MessageBox.Show("No movies found in your folder !", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Information);
+            
 
         }
 
@@ -279,6 +287,9 @@ namespace Find_My_Movie {
         /// <param name="tag"> tag to know which elements are added by filter or search </param>
         /// <returns></returns>
         private void addMovieGrid(string urlImg, int id, string tag = null) {
+
+            //hide loading
+            loading.Visibility = Visibility.Collapsed;
 
             double maxWidth = interfaceClass.GetWidthMovie(containerMovies.ActualWidth);
             single.Width = containerMovies.ActualWidth;
@@ -380,38 +391,48 @@ namespace Find_My_Movie {
                 MovieRepository movieRepo = new MovieRepository();
                 List<fmmMovie> movies = movieRepo.Search(searchText, searchType);
 
-                List<UIElement> delItems = new List<UIElement>();
+                if (movies.Count > 0) {
 
-                IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
-                foreach (Image child in covers) {
-                    // Get the objects that were added to the display by the search function
-                    // These elements will be deleted
-                    if (child.Tag.ToString() == "search") {
-                        delItems.Add(child);
-                    }
-                    else {
-                        child.Visibility = Visibility.Collapsed;
-                    }
-                }
+                    ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
 
-                foreach (UIElement delitem in delItems) {
-                    gridMovies.Children.Remove(delitem);
-                }
+                    List<UIElement> delItems = new List<UIElement>();
 
-                searchClicked = false;
-
-                foreach (fmmMovie movie in movies) {
-
-                    string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                    if (movie.poster != null) {
-                        urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
+                    IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+                    foreach (Image child in covers) {
+                        // Get the objects that were added to the display by the search function
+                        // These elements will be deleted
+                        if (child.Tag.ToString() == "search") {
+                            delItems.Add(child);
+                        }
+                        else {
+                            child.Visibility = Visibility.Collapsed;
+                        }
                     }
 
-                    addMovieGrid(urlImg, movie.id, "search");
+                    foreach (UIElement delitem in delItems) {
+                        gridMovies.Children.Remove(delitem);
+                    }
+
+                    searchClicked = false;
+
+                    foreach (fmmMovie movie in movies) {
+
+                        string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+                        if (movie.poster != null) {
+                            urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
+                        }
+
+                        addMovieGrid(urlImg, movie.id, "search");
+
+                    }
+
+                    searchClicked = true;
 
                 }
+                else {
+                    MessageBox.Show("No movies were found!", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
 
-                searchClicked = true;
             }
         }
 
@@ -510,38 +531,49 @@ namespace Find_My_Movie {
                 }
                 else {
                     movies = movieRepo.Filter(genres);
-                }                
-
-                List<UIElement> delItems = new List<UIElement>();
-
-                IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
-                foreach (Image child in covers) {
-                    if (child.Tag.ToString() == "search") {
-                        delItems.Add(child);
-                    }
-                    else {
-                        child.Visibility = Visibility.Collapsed;
-                    }
                 }
 
-                foreach (UIElement delitem in delItems) {
-                    gridMovies.Children.Remove(delitem);
-                }
 
-                searchClicked = false;
+                if (movies.Count > 0) {
 
-                foreach (fmmMovie movie in movies) {
+                    ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
 
-                    string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                    if (movie.poster != null) {
-                        urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
+                    List<UIElement> delItems = new List<UIElement>();
+
+                    IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+                    foreach (Image child in covers) {
+                        if (child.Tag.ToString() == "search") {
+                            delItems.Add(child);
+                        }
+                        else {
+                            child.Visibility = Visibility.Collapsed;
+                        }
                     }
 
-                    addMovieGrid(urlImg, movie.id, "search");
+                    foreach (UIElement delitem in delItems) {
+                        gridMovies.Children.Remove(delitem);
+                    }
+
+                    searchClicked = false;
+
+                    foreach (fmmMovie movie in movies) {
+
+                        string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+                        if (movie.poster != null) {
+                            urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
+                        }
+
+                        addMovieGrid(urlImg, movie.id, "search");
+
+                    }
+
+                    searchClicked = true;
 
                 }
+                else {
+                    MessageBox.Show("No movies were found!", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
 
-                searchClicked = true;
             }
 
             if (errorMessage != "") {

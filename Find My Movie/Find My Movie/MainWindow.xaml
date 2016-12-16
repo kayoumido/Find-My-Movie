@@ -151,6 +151,7 @@
                 </Button>
             </Grid>
         </StackPanel>
+        <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" Name="loading" Text="We are finding your movies, please wait." FontSize="20" Margin="48,218,0,222"></TextBlock>
         <ScrollViewer x:Name="containerMovies" VerticalScrollBarVisibility="Auto" Margin="48,0,0,0">
             <WrapPanel HorizontalAlignment="Left" x:Name="gridMovies">
 

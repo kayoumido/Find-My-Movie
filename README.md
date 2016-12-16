@@ -12,7 +12,6 @@ _Struan Forsyth - Antoine Dessauges - Doran Kayoumi_
 7. Interface
 9. Filters
 10. Annexe
-11. Reference
 
 ## 1. Convention
 
@@ -87,7 +86,10 @@ This project was realised on computer, provided by the CPNV, with the following 
 ![alt text][System configuration]
 
 ### 2.1 Tools
-For the development of the project, we used [GitKraken]. And for the versioning of the project, git was used with GitKraken and the code was hosted on bitbucket.
+For the development of the project, we used [Microsoft Visual Studio Entreprise 2015]. And for the versioning of the project, git was used with [GitKraken] and the code was hosted on [Bitbucket].
+
+
+## 3. Configuration
 
 
 ## 4. Database
@@ -116,7 +118,7 @@ The SQL script will be annexed.
 
 [11. Reference]:
 
-[System configuration]: img/system-configuration.png     "System configuration"
-[Bitbucket]           : https://bitbucket.org/           "Bitbucket"
-[GitKraken]           : https://www.gitkraken.com/       "GitKraken"
-[Visual Studio]       : https://www.visualstudio.com/vs/ "Microsoft Visual Studio Entreprise 2015"
+[System configuration]:                    img/system-configuration.png     "System configuration"  
+[Bitbucket]:                               https://bitbucket.org/           "Bitbucket"  
+[GitKraken]:                               https://www.gitkraken.com/       "GitKraken"
+[Microsoft Visual Studio Entreprise 2015]: https://www.visualstudio.com/vs/ "Microsoft Visual Studio Entreprise 2015"  

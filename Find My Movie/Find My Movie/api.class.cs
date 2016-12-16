@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
 using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
@@ -12,49 +7,34 @@ using TMDbLib.Objects.Search;
 
 namespace Find_My_Movie {
     class api {
-        // the Movie DB api key
-        private string key = MainWindow.API_KEY;
-        // TMDbClient object
-        TMDbClient client;
 
-        // movie name extracted from file name
-        private string movie_name;
-        // movie date extracted from file name
-        private string movie_date;
-        // movie id
-        private int movie_id;
+        private string key = MainWindow.API_KEY;
+        private TMDbClient client;
+        private string movieName;
+        private int movieId;
 
 
         /// <summary>
         /// Class constructor
         /// </summary>
-        /// <param name="file_name">name of the file to get info</param>
-        /// 
-        /// <author>Doran Kayoumi</author>
-        public api(string file_name) {
-            // instantiate new extractfileinfo object instance
-            extractfileinfo extract = new extractfileinfo(file_name);
+        /// <param name="fileName">name of the file to get info</param>
+        public api(string fileName) {
 
-            // get movie name and release date and store them in attribute
-            this.movie_name = extract.GetMovieName();
-            this.movie_date = extract.GetMovieDate();
+            extractfileinfo extract = new extractfileinfo(fileName);
 
-            // Instantiate a new TMDb Client, an API key is needed
-            this.client = new TMDbClient(this.key);
-
-            // get movie ID
-            this.movie_id = this.GetMovieID();
+            this.movieName = extract.GetMovieName();
+            this.client    = new TMDbClient(this.key);
+            this.movieId   = this.GetMovieID();
             
         }
 
         /// <summary>
         /// Search for movie in TMDb and returns movie ID
         /// </summary>
-        /// 
-        /// <author>Doran Kayoumi</author>
+        /// <returns>Movie ID or -1 if nothing was found</returns>
         private int GetMovieID() {
             // search for movie in TMDb
-            SearchContainer<SearchMovie> res = this.client.SearchMovieAsync(this.movie_name).Result;
+            SearchContainer<SearchMovie> res = this.client.SearchMovieAsync(this.movieName).Result;
 
             // check if any movies were found
             if (res.TotalResults > 0) {
@@ -71,49 +51,35 @@ namespace Find_My_Movie {
         /// </summary>
         /// <returns>Returns movie info</returns>
         /// <notes>https://image.tmdb.org/t/p/w500/ is the path to the images</notes>
-        /// 
-        /// <author>Doran Kayoumi</author>
         public Movie GetMovieInfo() {
-            return this.client.GetMovieAsync(this.movie_id).Result;
+            return this.client.GetMovieAsync(this.movieId).Result;
         }
 
         /// <summary>
         /// Get movie Cast info
         /// </summary>
         /// <returns>Returns movie poster</returns>
-        /// 
-        /// <author>Doran Kayoumi</author>
         public Credits GetMovieCredits() {
-            return this.client.GetMovieCreditsAsync(this.movie_id).Result;
+            return this.client.GetMovieCreditsAsync(this.movieId).Result;
         }
 
         /// <summary>
-        /// Get movie Poster
+        /// Get movie Name
         /// </summary>
-        /// <returns>Returns movie poster</returns>
-        /// <notes>https://image.tmdb.org/t/p/w500/ is the path to the images</notes>
-        /// @REM
-        /// 
-        /// <author>Doran Kayoumi</author>
-        public Images GetMoviePoster() {
-            return this.client.GetMovieImagesAsync(this.movie_id).Result;
-        }
-
+        /// <returns>Movie name</returns>
         public string GetMovieName() {
-            return this.movie_name;
+            return this.movieName;
         }
 
         /// <summary>
-        /// Check if movie was foudn
+        /// Check if movie was found
         /// </summary>
         /// <returns>Result of request to tm movie db</returns>
-        /// 
-        /// <author>Doran Kayoumi</author>
         public bool DidItWork() {
             bool res = true;
 
             // check if movie was found
-            if (this.movie_id == -1) {
+            if (this.movieId == -1) {
                 // if not set result to false
                 res = false;
             }

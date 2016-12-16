@@ -28,23 +28,32 @@ namespace Find_My_Movie {
                             CONFIG_FILE_NAME    = "FindMyMovie.config",
                             API_KEY             = "88cf1d08f60e20cf9f7d3f49e82e7c8f"; 
 
-        // ATTRIBUT
+        // ATTRIBUTES
         @interface interfaceClass       = new @interface();
         MovieRepository movieRepository = new MovieRepository();
         Thread childThread;
         double scrollPositionY          = 0;
         bool internetConected           = true;
-
-        private bool searchClicked = false;
+        private bool searchClicked      = false;
 
         public MainWindow() {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Click event to hide sidebar when button is clicked
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">RoutedEventArgs</param>
         private void btnLeftMenuHide_Click(object sender, RoutedEventArgs e) {
             ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
         }
 
+        /// <summary>
+        /// Click event to show sidebar when button is clicked
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">RoutedEventArgs</param>
         private void btnLeftMenuShow_Click(object sender, RoutedEventArgs e) {
             ShowHideMenu("sbShowLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
         }
@@ -74,6 +83,13 @@ namespace Find_My_Movie {
 
         }//MetroWindow_SizeChanged
 
+        /// <summary>
+        /// Show/Hide sidebar
+        /// </summary>
+        /// <param name="Storyboard">Element to hide</param>
+        /// <param name="btnHide">Button performing hide action</param>
+        /// <param name="btnShow">Button performing show action</param>
+        /// <param name="pnl">Panel in which the sidebar is in</param>
         private void ShowHideMenu(string Storyboard, Button btnHide, Button btnShow, StackPanel pnl) {
             Storyboard sb = Resources[Storyboard] as Storyboard;
             sb.Begin(pnl);
@@ -621,8 +637,13 @@ namespace Find_My_Movie {
 
         }//displaySingleMovie
 
-
-        private void PopulateDB(Movie infos, Credits credit, String originalName) {
+        /// <summary>
+        /// Populate DB with movie returned by API
+        /// </summary>
+        /// <param name="infos">Movie information</param>
+        /// <param name="credit">Cast and crew linked to movie</param>
+        /// <param name="originalName">Orignial Name of the movie</param>
+        private void PopulateDB(Movie infos, Credits credit, string originalName) {
             MovieRepository      _movieRepo      = new MovieRepository();
             CollectionRepository _collectionRepo = new CollectionRepository();
             CrewRepository       _crewrepo       = new CrewRepository();

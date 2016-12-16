@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Find_My_Movie {
     class dbhandler {
@@ -188,8 +185,6 @@ namespace Find_My_Movie {
         /// Initialize connection to DB
         /// </summary>
         /// <returns>SQLiteConnection object</returns>
-        /// 
-        /// <author>Doran Kayoumi</author>
         public SQLiteConnection Connect() {
 
             connection = new SQLiteConnection("Data Source=" + Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/FindMyMovie/FMMDb.db;Version=3;");
@@ -202,9 +197,7 @@ namespace Find_My_Movie {
         /// <summary>
         /// End conection to database
         /// </summary>
-        /// <param name="connection">SQLiteConnection that initialized connection</param>
-        /// 
-        /// <author>Doran Kayoumi</author>
+        /// <param name="connection">Initialized SQLiteConnection connection</param>
         public void Disconnect(SQLiteConnection c) {
             
             c.Close();

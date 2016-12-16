@@ -3,25 +3,38 @@ using Find_My_Movie.model.dal;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     public class CastRepository : ICastRepository {
 
-        static private dbhandler dbh = new dbhandler();
-
+        private static dbhandler dbh          = new dbhandler();
         private SQLiteConnection DBConnection = dbh.Connect();
 
-        public List<fmmCast> GetCasts(string sort) {
+        /// <summary>
+        /// Get a list of fmmCasts objects
+        /// </summary>
+        /// <notes>We didn't have to use of this method so we didn't implement it</notes>
+        /// <returns>List of fmmCasts</returns>
+        public List<fmmCast> GetCasts() {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Get a cast
+        /// </summary>
+        /// <param name="id">ID of the cast to get</param>
+        /// <notes>We didn't have to use of this method so we didn't implement it</notes>
+        /// <returns>fmmCast object of wanted Cast</returns>
         public fmmCast GetCast(int id) {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Insert a new Cast in DB
+        /// </summary>
+        /// <param name="cast">fmmCast object to insert in DB</param>
+        /// <param name="movieID">Id of the movie the cast is linked to</param>
+        /// <returns>True or false</returns>
         public bool Insert(fmmCast cast, int movieID) {
 
             int rowsAffected = this.DBConnection.Execute(@"
@@ -36,13 +49,7 @@ namespace Find_My_Movie.model.repository {
                 );",
                 cast
             );
-
-
-            // check if it was inserted
-           /* if (rowsAffected <= 0) {
-                return false;
-            }*/
-
+            
             rowsAffected = this.DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
                     movie_has_cast 
@@ -71,6 +78,12 @@ namespace Find_My_Movie.model.repository {
             return true;
         }
 
+        /// <summary>
+        /// Delete a Cast
+        /// </summary>
+        /// <param name="id">ID of the cast to delete</param>
+        /// <notes>We didn't have to use of this method so we didn't implement it</notes>
+        /// <returns>True or False</returns>
         public bool Delete(int id) {
             throw new NotImplementedException();
         }

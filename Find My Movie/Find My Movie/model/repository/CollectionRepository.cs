@@ -3,16 +3,13 @@ using Find_My_Movie.model.dal;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.repository {
     class CollectionRepository : ICollectionRepository {
 
         static private SQLiteConnection db = new dbhandler().Connect();
 
-        public List<fmmCollection> GetCollections(string sort) {
+        public List<fmmCollection> GetCollections() {
             throw new NotImplementedException();
         }
 

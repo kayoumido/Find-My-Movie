@@ -1,30 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Windows.Media.Animation;
 using System.IO;
-using System.Diagnostics;
 using System.Text.RegularExpressions;
-using TMDbLib.Client;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
-using TMDbLib.Objects.Search;
 using Find_My_Movie.model;
 using Find_My_Movie.model.repository;
 using System.Threading;
-using System.ComponentModel;
 using System.Net;
 
 namespace Find_My_Movie {
@@ -35,17 +25,14 @@ namespace Find_My_Movie {
 
         // CONSTANTES
         public const string FOLDER_NAME         = "FindMyMovie",
-                            CONFIG_FILE_NAME    = "FindMyMovie.config",
-                            JSON_DATA_FILE_NAME = "movie_data.json"; // @rem
+                            CONFIG_FILE_NAME    = "FindMyMovie.config"; 
 
-        @interface interfaceClass = new @interface();
+        // ATTRIBUT
+        @interface interfaceClass       = new @interface();
         MovieRepository movieRepository = new MovieRepository();
-
-
         Thread childThread;
-
-        double scrollPositionY = 0;
-        bool internetConected = true;
+        double scrollPositionY          = 0;
+        bool internetConected           = true;
 
         private bool searchClicked = false;
 
@@ -61,14 +48,24 @@ namespace Find_My_Movie {
             ShowHideMenu("sbShowLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
         }
 
+        /// <summary>
+        /// Close all proccess when the windows is closed
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         private void MetroWindow_Closed(object sender, EventArgs e) {
             Environment.Exit(0);
         }
-
+        
+        /// <summary>
+        /// Change image grid with when the windows is resized
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         private void MetroWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
 
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
-            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+            double maxWidth = interfaceClass.GetWidthMovie(containerMovies.ActualWidth);
             single.Width = containerMovies.ActualWidth;
             foreach (Image child in covers) {
                 child.MaxWidth = maxWidth;
@@ -90,6 +87,11 @@ namespace Find_My_Movie {
             }
         }
 
+        /// <summary>
+        /// Launch choose folder windows it it's the first launch and initialize DB
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
             dbhandler FMDb = new dbhandler();
@@ -100,7 +102,7 @@ namespace Find_My_Movie {
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
 
-            choose_directory directoryClass = new choose_directory();
+            choosedirectory directoryClass = new choosedirectory();
 
             if (File.Exists(file_path)) {
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
@@ -114,12 +116,22 @@ namespace Find_My_Movie {
 
         }//MetroWindow_Loaded
 
+        /// <summary>
+        /// Event on click button "btnFolder"
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         private void btnFolder_Click (object sender, RoutedEventArgs e) {
+
+            //kill the thread
             childThread.Abort();
-            choose_directory directoryClass = new choose_directory();
+
+            //open choose folder windows
+            choosedirectory directoryClass = new choosedirectory();
             directoryClass.ShowDialog();
             directoryClass.Close();
 
+            //delete all displayed movies
             List<UIElement> delItems = new List<UIElement>();
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             foreach (Image child in covers) {
@@ -129,35 +141,45 @@ namespace Find_My_Movie {
                 gridMovies.Children.Remove(delitem);
             }
 
+            //restart thread to display movie from the new path
             childThread = new Thread(displayMovies);
             childThread.SetApartmentState(ApartmentState.STA);
             childThread.Start();
         }
 
-        private bool CheckConnection(String URL) {
+        /// <summary>
+        /// Check if internet is connected
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckConnection() {
             try {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://www.google.ch/");
                 request.Timeout = 5000;
                 request.Credentials = CredentialCache.DefaultNetworkCredentials;
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-                if (response.StatusCode == HttpStatusCode.OK) return true;
-                else return false;
+                if (response.StatusCode == HttpStatusCode.OK)
+                    return true;
+                else
+                    return false;
             }
             catch {
                 return false;
             }
         }
 
+        /// <summary>
+        /// Test if movie is in db or not and display it from DB or API
+        /// </summary>
         private void displayMovies() {
 
-            if (!CheckConnection("https://www.google.ch/")) {
+            //test internet connected
+            if (!CheckConnection()) {
                 internetConected = false;
             }
 
             var allMovies = interfaceClass.GetAllFilename();
-            int not_found = 0;
-            int i = 0;
+
 
             List<int> alreadyDisplay = new List<int>(); //to avoid doublon
 
@@ -165,17 +187,22 @@ namespace Find_My_Movie {
 
                 bool displayMovie = false;
 
+                //get movie name
                 extractfileinfo extract = new extractfileinfo(movie);
                 string movieName = extract.GetMovieName().Trim();
 
+                //check if in db
                 int idMovie = movieRepository.MovieExists(movieName);
 
                 string urlImg = "";
 
+                //if in DB
                 if (idMovie != 0) {
 
+                    //get data from db
                     fmmMovie infos = movieRepository.GetMovie(idMovie);
 
+                    //get cover
                     if (infos.poster != null && internetConected)
                         urlImg = "https://image.tmdb.org/t/p/w500" + infos.poster;
 
@@ -184,12 +211,17 @@ namespace Find_My_Movie {
                 }//if
                 else if (internetConected) {
 
+                    //Thread.Sleep(200) are here for avoid the maximum request impose per The movie database (40 requets per second)
+
                     Thread.Sleep(200);
+
                     // init new api object
                     api api = new api(movie);
 
                     // check if request to api worked
                     if (api.DidItWork()) {
+
+                        //get data from api
 
                         Thread.Sleep(200);
                         Movie infos = api.GetMovieInfo();
@@ -201,13 +233,12 @@ namespace Find_My_Movie {
                         Credits credit = api.GetMovieCredits();
 
                         idMovie = infos.Id;
+
+                        //add in DB
                         PopulateDB(infos, credit, movieName);
 
                         displayMovie = true;
 
-                    }
-                    else {
-                        not_found++;
                     }
 
                 }//else
@@ -215,31 +246,37 @@ namespace Find_My_Movie {
 
                 //display cover
                 if (displayMovie && !alreadyDisplay.Contains(idMovie)) {
-                    this.Dispatcher.BeginInvoke(new Action(() => i = addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
+                    this.Dispatcher.BeginInvoke(new Action(() => addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
                     alreadyDisplay.Add(idMovie);
                 }
 
             }//foreach
 
-            //MessageBox.Show(not_found + " movies wern't found");
         }
 
-        private int addMovieGrid(string urlImg, int i, string tag = null) {
-            double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
+        /// <summary>
+        /// Display one movie in the grid
+        /// </summary>
+        /// <param name="urlImg">url cover </param>
+        /// <param name="id">id movies (from the movie Database)</param>
+        /// <param name="tag"> tag to know which elements are added by filter or search </param>
+        /// <returns></returns>
+        private void addMovieGrid(string urlImg, int id, string tag = null) {
+
+            double maxWidth = interfaceClass.GetWidthMovie(containerMovies.ActualWidth);
             single.Width = containerMovies.ActualWidth;
 
             var imageControl = new Image();
 
             if (urlImg == "") {
                 imageControl.Source = new BitmapImage(new Uri(@"assets/img/notFound.png", UriKind.Relative));
-
             }
             else {
                 var webImage = new BitmapImage(new Uri(urlImg));
                 imageControl.Source = webImage;
             }
 
-            imageControl.Name = "id_" + i;
+            imageControl.Name = "id_" + id;
             imageControl.MaxWidth = maxWidth;
             imageControl.Stretch = Stretch.Fill;
 
@@ -253,11 +290,14 @@ namespace Find_My_Movie {
                 imageControl.Visibility = Visibility.Collapsed;
 
             gridMovies.Children.Add(imageControl);
-            i++;
-            return i;
+            
         }
 
-
+        /// <summary>
+        /// Lauch thread to display movie at the lauch app
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         private void MetroWindow_ContentRendered (object sender, EventArgs e) {
 
             childThread = new Thread(displayMovies);
@@ -266,20 +306,32 @@ namespace Find_My_Movie {
 
         }
 
+        /// <summary>
+        /// Event on click button "btnBack"
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         private void btnBack_Click(object sender, RoutedEventArgs e) {
+            
+            //get and show all images
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             foreach (Image child in covers) {
                 if (!searchClicked || child.Tag.ToString() == "search") {
                     child.Visibility = Visibility.Visible;
                 }
             }
+
+            //hide single
             single.Visibility = Visibility.Collapsed;
+
+            //replace the scroll in the correct position
             containerMovies.ScrollToVerticalOffset(scrollPositionY);
             btnBack.Visibility = Visibility.Hidden;
 
             if (searchClicked) {
                 btnBackSearch.Visibility = Visibility.Visible;
             }
+
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e) {
@@ -419,13 +471,19 @@ namespace Find_My_Movie {
 
         }
 
+        /// <summary>
+        /// Display single movie
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         void displaySingleMovie (object sender, MouseEventArgs e) {
 
+            //change visibility button
             btnBack.Visibility = Visibility.Visible;
             btnBackSearch.Visibility = Visibility.Hidden;
             scrollPositionY = containerMovies.VerticalOffset;
-
-
+            
+            //get the clicked element in grid
             var mouseWasDownOn = e.Source as FrameworkElement;
             if (mouseWasDownOn != null) {
 

@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace Find_My_Movie{
 
     class @interface {
 
+        /// <summary>
+        /// Get path folder in config file and lauch directorySearch
+        /// </summary>
+        /// <returns>Files name</returns>
         public string[] GetAllFilename()
         {
 
-
             //get the choose directory form
-            choose_directory directoryClass = new choose_directory();
+            choosedirectory directoryClass = new choosedirectory();
 
             //get path movie in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -25,18 +24,19 @@ namespace Find_My_Movie{
             string movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
 
             //get movie in directory and child directory
-
-            List<string> file_names = directorySearch(movie_path);
-
-            File.WriteAllLines(folder_path + "/filenamesOriginal.txt", file_names.ToArray());
+            List<string> file_names = DirectorySearch(movie_path);
 
             return file_names.ToArray();
 
         }//GetAllFilename
 
 
-
-        private List<string> directorySearch(string directoryPath)
+        /// <summary>
+        /// Get all files name from a path 
+        /// </summary>
+        /// <param name="directoryPath">path to the folder</param>
+        /// <returns> All file names </returns>
+        private List<string> DirectorySearch(string directoryPath)
         {
 
             List<string> file_names = new List<string>();
@@ -55,7 +55,7 @@ namespace Find_My_Movie{
                 }// foreach (string file in Directory.GetFiles(directory))
 
                 // If there are any more directories in the directory
-                directorySearch(directory);
+                DirectorySearch(directory);
 
             }// foreach (string directory in Directory.GetDirectories(directoryPath))
 
@@ -71,15 +71,21 @@ namespace Find_My_Movie{
 
         }// directorySearch
 
-
-        public double getWidthMovie(double widthForm) {
+        /// <summary>
+        /// Get thw with of movie for the display in grid (depending windows width)
+        /// </summary>
+        /// <param name="widthForm">Windows width</param>
+        /// <returns> Width of one movie</returns>
+        public double GetWidthMovie(double widthForm) {
             
-
             double moviePerLine = 4;
+
+            //number of movie per line for the max width of one movie is 300 px
             while (widthForm / moviePerLine > 300) {
                 moviePerLine++;
             }//while
 
+            // width movie without the scrollbar width
             return widthForm / moviePerLine - SystemInformation.VerticalScrollBarWidth / moviePerLine;
 
         }//getWidthMovie

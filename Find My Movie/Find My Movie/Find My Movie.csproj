@@ -102,7 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="choose_directory.xaml">
+    <Page Include="choosedirectory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,8 +115,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="choose_directory.xaml.cs">
-      <DependentUpon>choose_directory.xaml</DependentUpon>
+    <Compile Include="choosedirectory.xaml.cs">
+      <DependentUpon>choosedirectory.xaml</DependentUpon>
     </Compile>
     <Compile Include="dbhandler.class.cs" />
     <Compile Include="extractfileinfo.class.cs" />

@@ -1,45 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
-using Microsoft.Win32;
 using System.Windows.Forms;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml;
-using System.Diagnostics;
-using System.Threading;
 
 namespace Find_My_Movie
 {
     /// <summary>
     /// Logique d'interaction pour choose_directory.xaml
     /// </summary>
-    public partial class choose_directory : MetroWindow
+    public partial class choosedirectory : MetroWindow
     {
 
-        public choose_directory()
+        public choosedirectory()
         {
             InitializeComponent();
         }
 
         private string selected_path;
 
+        /// <summary>
+        /// Event on click button "btnOpenFile"
+        /// </summary>
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
-
+            //open a select path windows
             var dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
+
+            //enable the save button
             if (dialog.SelectedPath != "") {
                 path.Text = dialog.SelectedPath;
                 selected_path = dialog.SelectedPath;
@@ -49,6 +43,11 @@ namespace Find_My_Movie
 
         }
 
+        /// <summary>
+        /// Event on click button "button"
+        /// </summary>
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
         private void button_Click(object sender, RoutedEventArgs e)
         {
             //Generate path for folder, file
@@ -71,6 +70,12 @@ namespace Find_My_Movie
             this.Close();
         }
 
+        /// <summary>
+        /// Get config option in the config file
+        /// </summary>
+        /// <param name="file_path"> path to the config file</param>
+        /// <param name="config_name">name of the config you need in config value</param>
+        /// <returns></returns>
         public string GetPathConfig(string file_path, string config_name)
         {
 
@@ -81,6 +86,11 @@ namespace Find_My_Movie
 
         }// GetPathConfig
 
+        /// <summary>
+        /// Event when windows is loaded
+        /// </summary>
+        /// <param name="sender">Object</param>
+        /// <param name="e">Event</param>
         private void MetroWindow_Loaded (object sender, RoutedEventArgs e) {
 
             // get path movie in config file
@@ -89,6 +99,7 @@ namespace Find_My_Movie
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
 
+            //get folder path if exist
             if (File.Exists(file_path))
                 movie_path = GetPathConfig(file_path, "/config/path_movies");
 

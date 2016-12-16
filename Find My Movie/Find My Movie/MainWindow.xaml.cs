@@ -261,6 +261,15 @@ namespace Find_My_Movie {
             childThread.SetApartmentState(ApartmentState.STA);
             childThread.Start();
 
+            ListBox genreList = lstbGenre;
+
+            GenreRepository genreRepo = new GenreRepository();
+            List<fmmGenre> genres = genreRepo.GetGenres();
+
+            foreach (fmmGenre genre in genres) {
+                genreList.Items.Add(genre.name);
+            }
+
         }
 
         private void btnPlay_Click(object sender, RoutedEventArgs e) {

@@ -14,8 +14,20 @@ namespace Find_My_Movie.model.repository {
 
         private SQLiteConnection DBConnection = dbh.Connect();
 
-        public List<fmmGenre> GetGenres(string sort) {
-            throw new NotImplementedException();
+        public List<fmmGenre> GetGenres() {
+            string sql = @"
+                SELECT
+                    id,
+                    name
+                FROM
+                    genre
+                ORDER BY
+                    name
+                ASC
+            ;";
+            IEnumerable<fmmGenre> genres = DBConnection.Query<fmmGenre>(sql);
+
+            return genres.ToList();
         }
 
         public fmmGenre GetGenre(int id) {

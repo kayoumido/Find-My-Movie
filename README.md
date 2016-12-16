@@ -2,12 +2,17 @@
 _Décembre 2016_  
 _Technicien ES -  CPNV_  
 _Struan Forsyth - Antoine Dessauges - Doran Kayoumi_  
-## TABLE OF CONTENS
+## TABLE OF CONTENTS
 1. Conventions
-2. Database
-3. API
-4. Interface
-5. Filters
+2. Work environment
+3. Configuration
+4. Dependencies
+5. Database
+6. API
+7. Interface
+9. Filters
+10. Annexe
+11. Reference
 
 ## 1. Convention
 
@@ -71,13 +76,23 @@ e.g. :
     fmmUser { ...
     fmmUser.cs
 
-## 2. Database
+
+## 2. Work environment
+This project was realised on computer, provided by the CPNV, with the following characteristics :
+    * OS : Windows 7 Entreprise - Service pack 1
+    * CPU : Intel Core i7-6700 @ 3.40GHZ
+    * RAM : 16Gb
+    * System type : 64bits
+
+![alt text][System configuration]
+
+## 4. Database
 Initialy the project was using JSON files and not a database, but after a few changes, we had the change and implement a database.
 
 Before implementing a database, we had to choose a database managment system (DBSM). There's a wide array of DBMS to choose from (MySQL, SQL, NoSQL, SQLite, etc..).
-To avoid using an external server to host the database, we decided to use a local database, since Struan had some experience with SQLite, we went with it.
+To avoid using an external server to host the database, we decided to use a local database, since Struan and Antoine had some experience with SQLite, we went with it.
 
-### 2.1 Creating the database
+### 4.1 Creating the database
 To keep it as simple as possible, we created tables for the elements that were returned by the API.
 
     movie
@@ -90,6 +105,11 @@ To keep it as simple as possible, we created tables for the elements that were r
     language
 
 
-For the sake of simplicity, some of the information stored aren't used. Even though they aren't used, we found they were still usefull to have and that they could easily be added afterwards in later version of the appication.
+For the sake of simplicity, some of the information stored aren't used. Even though they aren't used, we found they were still usefull to have and that they could easily be added afterwards in later versions of the appication.
 
 The SQL script will be annexed.
+
+<!--
+## 11. Reference
+-->
+[System configuration]: img/system-configuration.png "System configuration"

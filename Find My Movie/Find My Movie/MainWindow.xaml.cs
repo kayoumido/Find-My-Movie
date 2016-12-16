@@ -142,6 +142,9 @@ namespace Find_My_Movie {
                 gridMovies.Children.Remove(delitem);
             }
 
+            //show loading
+            loading.Visibility = Visibility.Visible;
+
             //restart thread to display movie from the new path
             childThread = new Thread(displayMovies);
             childThread.SetApartmentState(ApartmentState.STA);
@@ -268,6 +271,9 @@ namespace Find_My_Movie {
         /// <param name="tag"> tag to know which elements are added by filter or search </param>
         /// <returns></returns>
         private void addMovieGrid(string urlImg, int id, string tag = null) {
+
+            //hide loading
+            loading.Visibility = Visibility.Collapsed;
 
             double maxWidth = interfaceClass.GetWidthMovie(containerMovies.ActualWidth);
             single.Width = containerMovies.ActualWidth;

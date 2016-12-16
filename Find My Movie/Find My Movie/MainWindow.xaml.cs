@@ -371,6 +371,8 @@ namespace Find_My_Movie {
 
                 if (movies.Count > 0) {
 
+                    ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
+
                     List<UIElement> delItems = new List<UIElement>();
 
                     IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
@@ -511,6 +513,8 @@ namespace Find_My_Movie {
 
 
                 if (movies.Count > 0) {
+
+                    ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
 
                     List<UIElement> delItems = new List<UIElement>();
 

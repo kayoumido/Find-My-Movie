@@ -57,11 +57,11 @@ namespace Find_My_Movie {
             ShowHideMenu("sbShowLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
         }
 
-        private void MetroWindow_Closed (object sender, EventArgs e) {
+        private void MetroWindow_Closed(object sender, EventArgs e) {
             Environment.Exit(0);
         }
 
-        private void MetroWindow_SizeChanged (object sender, SizeChangedEventArgs e) {
+        private void MetroWindow_SizeChanged(object sender, SizeChangedEventArgs e) {
 
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
@@ -88,17 +88,17 @@ namespace Find_My_Movie {
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
-            dbhandler FMDb                      = new dbhandler();
+            dbhandler FMDb = new dbhandler();
 
             // get movie path in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string folder_path   = app_data_path + "/" + MainWindow.FOLDER_NAME;
-            string file_path     = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
-            string movie_path    = "";
+            string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
+            string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
+            string movie_path = "";
 
             choose_directory directoryClass = new choose_directory();
 
-            if (File.Exists(file_path)) { 
+            if (File.Exists(file_path)) {
                 movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
             }
 
@@ -110,13 +110,13 @@ namespace Find_My_Movie {
 
         }//MetroWindow_Loaded
 
-        private void btnFolder_Click (object sender, RoutedEventArgs e) {
+        private void btnFolder_Click(object sender, RoutedEventArgs e) {
             choose_directory directoryClass = new choose_directory();
             directoryClass.ShowDialog();
             directoryClass.Close();
         }
 
-        private bool CheckConnection (String URL) {
+        private bool CheckConnection(String URL) {
             try {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
                 request.Timeout = 5000;
@@ -131,7 +131,7 @@ namespace Find_My_Movie {
             }
         }
 
-        private void displayMovies () {
+        private void displayMovies() {
 
             if (!CheckConnection("https://www.google.ch/")) {
                 internetConected = false;
@@ -153,18 +153,18 @@ namespace Find_My_Movie {
                 int idMovie = movieRepository.MovieExists(movieName);
 
                 string urlImg = "";
-   
+
                 if (idMovie != 0) {
 
                     fmmMovie infos = movieRepository.GetMovie(idMovie);
 
-                    if(infos.poster != null && internetConected)
+                    if (infos.poster != null && internetConected)
                         urlImg = "https://image.tmdb.org/t/p/w500" + infos.poster;
 
                     displayMovie = true;
 
                 }//if
-                else if(internetConected){
+                else if (internetConected) {
 
                     Thread.Sleep(200);
                     // init new api object
@@ -176,7 +176,7 @@ namespace Find_My_Movie {
                         Thread.Sleep(200);
                         Movie infos = api.GetMovieInfo();
 
-                        if(infos.PosterPath != null)
+                        if (infos.PosterPath != null)
                             urlImg = "https://image.tmdb.org/t/p/w500" + infos.PosterPath;
 
                         Thread.Sleep(200);
@@ -206,15 +206,15 @@ namespace Find_My_Movie {
             //MessageBox.Show(not_found + " movies wern't found");
         }
 
-        private int  addMovieGrid (string urlImg, int i, string tag = null) {
+        private int addMovieGrid(string urlImg, int i, string tag = null) {
             double maxWidth = interfaceClass.getWidthMovie(containerMovies.ActualWidth);
             single.Width = containerMovies.ActualWidth;
 
             var imageControl = new Image();
 
-            if(urlImg == "") {
+            if (urlImg == "") {
                 imageControl.Source = new BitmapImage(new Uri(@"assets/img/notFound.png", UriKind.Relative));
-             
+
             }
             else {
                 var webImage = new BitmapImage(new Uri(urlImg));
@@ -237,7 +237,7 @@ namespace Find_My_Movie {
             return i;
         }
 
-        private void MetroWindow_ContentRendered (object sender, EventArgs e) {
+        private void MetroWindow_ContentRendered(object sender, EventArgs e) {
 
             ThreadStart childref = new ThreadStart(displayMovies);
             Thread childThread = new Thread(childref);
@@ -246,7 +246,7 @@ namespace Find_My_Movie {
 
         }
 
-        private void btnPlay_Click (object sender, RoutedEventArgs e) {
+        private void btnPlay_Click(object sender, RoutedEventArgs e) {
 
             string pathMovie = "C:\\Users\\Antoine.DESSAUGES\\Documents\\Projets\\Wildlife.wmv";
             if (File.Exists(pathMovie))
@@ -256,7 +256,7 @@ namespace Find_My_Movie {
 
         }
 
-        private void btnBack_Click (object sender, RoutedEventArgs e) {
+        private void btnBack_Click(object sender, RoutedEventArgs e) {
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             foreach (Image child in covers) {
                 if (!searchClicked || child.Tag.ToString() == "search") {
@@ -343,6 +343,70 @@ namespace Find_My_Movie {
 
             searchClicked = false;
             btnBackSearch.Visibility = Visibility.Hidden;
+        }
+
+        private void btnFilter_Click(object sender, RoutedEventArgs e) {
+
+            TextBox objYearFrom = txtYearFrom;
+            string yearFrom = objYearFrom.Text.Trim();
+
+            TextBox objYearTo = txtYearTo;
+            string yearTo = objYearTo.Text.Trim();
+
+            string errorMessage = "";
+
+            if (yearFrom != "" && yearTo != "") {
+                if ((Regex.IsMatch(yearFrom, @"^\d+$") && Regex.IsMatch(yearTo, @"^\d+$")) && (yearFrom.Length == 4 && yearTo.Length == 4)) {
+
+                    if (Int32.Parse(yearFrom) <= Int32.Parse(yearTo)) {
+                        btnBackSearch.Visibility = Visibility.Visible;
+                        MovieRepository movieRepo = new MovieRepository();
+                        List<fmmMovie> movies = movieRepo.Filter(new int[] { Int32.Parse(yearFrom), Int32.Parse(yearTo) });
+
+                        List<UIElement> delItems = new List<UIElement>();
+
+                        IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+                        foreach (Image child in covers) {
+                            if (child.Tag.ToString() == "search") {
+                                delItems.Add(child);
+                            }
+                            else {
+                                child.Visibility = Visibility.Collapsed;
+                            }
+                        }
+
+                        foreach (UIElement delitem in delItems) {
+                            gridMovies.Children.Remove(delitem);
+                        }
+
+                        searchClicked = false;
+
+                        foreach (fmmMovie movie in movies) {
+
+                            string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
+                            if (movie.poster != null) {
+                                urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
+                            }
+
+                            addMovieGrid(urlImg, movie.id, "search");
+
+                        }
+
+                        searchClicked = true;
+                    }
+                    else {
+                        errorMessage += "The filter \"from year\" needs to be smaller than the \"to year\"!";
+                    }
+                }
+                else {
+                    errorMessage += "The filter for the year needs to be a number (YYYY)!";
+                }
+            }
+
+            if (errorMessage != "") {
+                MessageBox.Show(errorMessage, "Filter warning!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+
         }
 
         void displaySingleMovie (object sender, MouseEventArgs e) {

@@ -184,9 +184,8 @@
     <Resource Include="favicon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="assets\img\icon-folder.png" />
+    <Resource Include="assets\img\folder.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="assets\img\close.png" />
   </ItemGroup>

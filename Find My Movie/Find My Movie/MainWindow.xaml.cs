@@ -263,16 +263,6 @@ namespace Find_My_Movie {
 
         }
 
-        private void btnPlay_Click(object sender, RoutedEventArgs e) {
-
-            string pathMovie = "C:\\Users\\Antoine.DESSAUGES\\Documents\\Projets\\Wildlife.wmv";
-            if (File.Exists(pathMovie))
-                Process.Start(pathMovie);
-            else
-                MessageBox.Show("Erreur : Chemin vers le fichier incorecte !");
-
-        }
-
         private void btnBack_Click(object sender, RoutedEventArgs e) {
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             foreach (Image child in covers) {
@@ -282,7 +272,6 @@ namespace Find_My_Movie {
             }
             single.Visibility = Visibility.Collapsed;
             btnBack.Visibility = Visibility.Hidden;
-            btnPlay.Visibility = Visibility.Hidden;
 
             if (searchClicked) {
                 btnBackSearch.Visibility = Visibility.Visible;
@@ -429,7 +418,6 @@ namespace Find_My_Movie {
         void displaySingleMovie (object sender, MouseEventArgs e) {
 
             btnBack.Visibility = Visibility.Visible;
-            btnPlay.Visibility = Visibility.Visible;
             btnBackSearch.Visibility = Visibility.Hidden;
 
             var mouseWasDownOn = e.Source as FrameworkElement;

@@ -331,10 +331,10 @@ namespace Find_My_Movie {
         private void btnFilter_Click(object sender, RoutedEventArgs e) {
 
             TextBox objYearFrom = txtYearFrom;
-            string yearFrom = objYearFrom.Text;
+            string yearFrom = objYearFrom.Text.Trim();
 
             TextBox objYearTo = txtYearTo;
-            string yearTo = objYearTo.Text;
+            string yearTo = objYearTo.Text.Trim();
 
             string errorMessage = "";
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 
 namespace Find_My_Movie{
 
@@ -74,12 +75,12 @@ namespace Find_My_Movie{
         public double getWidthMovie(double widthForm) {
             
 
-            int moviePerLine = 4;
+            double moviePerLine = 4;
             while (widthForm / moviePerLine > 300) {
                 moviePerLine++;
             }//while
 
-            return widthForm / moviePerLine;
+            return widthForm / moviePerLine - SystemInformation.VerticalScrollBarWidth / moviePerLine;
 
         }//getWidthMovie
 

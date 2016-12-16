@@ -161,7 +161,7 @@
                 </Button>
             </Grid>
         </StackPanel>
-        <ScrollViewer x:Name="containerMovies" VerticalScrollBarVisibility="Hidden" Margin="48,0,0,0">
+        <ScrollViewer x:Name="containerMovies" VerticalScrollBarVisibility="Auto" Margin="48,0,0,0">
             <WrapPanel HorizontalAlignment="Left" x:Name="gridMovies">
 
                 <Grid Margin="20" x:Name="single" Visibility="Collapsed">

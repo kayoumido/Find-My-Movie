@@ -11,8 +11,14 @@ namespace Find_My_Movie.model.repository {
 
     class MovieRepository : IMovieRepository {
 
-        static private SQLiteConnection db = new dbhandler().Connect();
+        private static dbhandler dbh = new dbhandler();
+        private SQLiteConnection DBConnection = dbh.Connect();
 
+        /// <summary>
+        /// Get one movie from the database
+        /// </summary>
+        /// <param name="id">id of the movie we want to get</param>
+        /// <returns>A movie object containing the information of the movie</returns>
         public fmmMovie GetMovie(int id) {
 
             string sql = @"
@@ -38,11 +44,15 @@ namespace Find_My_Movie.model.repository {
                 WHERE
                     id = " + id + ";"
             ;
-            IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
+            IEnumerable<fmmMovie> movie = DBConnection.Query<fmmMovie>(sql);
             
             return movie.FirstOrDefault();
         }
 
+        /// <summary>
+        /// Get all the movies from the database
+        /// </summary>
+        /// <returns>A list of movie objects containing the information of a movie</returns>
         public List<fmmMovie> GetMovies() {
             string sql = @"
                 SELECT
@@ -68,15 +78,20 @@ namespace Find_My_Movie.model.repository {
                     title
                 ASC
             ;";
-            IEnumerable<fmmMovie> movies = db.Query<fmmMovie>(sql);
+            IEnumerable<fmmMovie> movies = DBConnection.Query<fmmMovie>(sql);
 
             return movies.ToList();
 
         }
 
+        /// <summary>
+        /// Add a new entry into the database only if it doesn't exist
+        /// </summary>
+        /// <param name="movie">A movie object containing the information of the movie</param>
+        /// <returns>A boolean to inform if anything was added</returns>
         public bool Insert(fmmMovie movie) {
 
-             int rowsAffected = db.Execute(@"
+             int rowsAffected = DBConnection.Execute(@"
                 INSERT OR IGNORE INTO
                     movie
                 VALUES (
@@ -107,9 +122,15 @@ namespace Find_My_Movie.model.repository {
 
         }
 
+        /// <summary>
+        /// Remove the movie from the database
+        /// </summary>
+        /// <param name="id">id of the movie we want to delete</param>
+        /// <notes>This function isn't in use but has been created for futur inprovments</notes>
+        /// <returns>A boolean to inform if anything was deleted</returns>
         public bool Delete(int id) {
 
-            int rowsAffected = db.Execute(@"
+            int rowsAffected = DBConnection.Execute(@"
                 DELETE FROM
                     movie
                 WHERE
@@ -123,6 +144,11 @@ namespace Find_My_Movie.model.repository {
 
         }
 
+        /// <summary>
+        /// Get all the casts for a movie
+        /// </summary>
+        /// <param name="movieId">id of the movie for which we want the casts</param>
+        /// <returns>A list of cast objects containing the information of a cast</returns>
         public List<fmmCast> GetMovieCasts(int movieId) {
 
             string sql = @"
@@ -151,11 +177,16 @@ namespace Find_My_Movie.model.repository {
                 ASC
                 LIMIT 15
             ;";
-            IEnumerable<fmmCast> casts = db.Query<fmmCast>(sql);
+            IEnumerable<fmmCast> casts = DBConnection.Query<fmmCast>(sql);
 
             return casts.ToList();
         }
 
+        /// <summary>
+        /// Get all the genres for a movie
+        /// </summary>
+        /// <param name="movieId">id of the movie for which we want the genres</param>
+        /// <returns>A list of genre objects containing the information of a genre</returns>
         public List<fmmGenre> GetMovieGenres(int movieId) {
 
             string sql = @"
@@ -175,12 +206,17 @@ namespace Find_My_Movie.model.repository {
                 WHERE
                     m.id = " + movieId + ";";
 
-            IEnumerable<fmmGenre> genres = db.Query<fmmGenre>(sql);
+            IEnumerable<fmmGenre> genres = DBConnection.Query<fmmGenre>(sql);
 
             return genres.ToList();
 
         }
 
+        /// <summary>
+        /// Get all the crew for a movie
+        /// </summary>
+        /// <param name="movieId">id of the movie for which we want the crew</param>
+        /// <returns>A list of crew objects containing the information of a crew</returns>
         public List<fmmCrew> GetMovieCrews(int movieId) {
             string sql = @"
                 SELECT
@@ -203,11 +239,16 @@ namespace Find_My_Movie.model.repository {
                 WHERE
                     m.id = " + movieId + ";";
 
-            IEnumerable<fmmCrew> crews = db.Query<fmmCrew>(sql);
+            IEnumerable<fmmCrew> crews = DBConnection.Query<fmmCrew>(sql);
 
             return crews.ToList();
         }
 
+        /// <summary>
+        /// Check if a movie is in the database
+        /// </summary>
+        /// <param name="movieName">Name of the movie after going through the RegEx</param>
+        /// <returns>0 to indicate that there isn't a movie or the id of the movie</returns>
         public int MovieExists(string movieName) {
             string sql = @"
                 SELECT
@@ -232,7 +273,7 @@ namespace Find_My_Movie.model.repository {
                 WHERE
                     ogtitle = '" + movieName + "';"
             ;
-            IEnumerable<fmmMovie> movie = db.Query<fmmMovie>(sql);
+            IEnumerable<fmmMovie> movie = DBConnection.Query<fmmMovie>(sql);
 
             if (movie.Count() == 0) {
                 return 0;
@@ -410,7 +451,7 @@ namespace Find_My_Movie.model.repository {
                     break;
             }
 
-            IEnumerable<fmmMovie> movies = db.Query<fmmMovie>(sql);
+            IEnumerable<fmmMovie> movies = DBConnection.Query<fmmMovie>(sql);
 
             return movies.ToList();
         }
@@ -493,7 +534,7 @@ namespace Find_My_Movie.model.repository {
                 ASC
             ;";
 
-            IEnumerable<fmmMovie> movies = db.Query<fmmMovie>(sql);
+            IEnumerable<fmmMovie> movies = DBConnection.Query<fmmMovie>(sql);
 
             return movies.ToList();
         }

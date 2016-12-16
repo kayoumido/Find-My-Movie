@@ -280,7 +280,9 @@ namespace Find_My_Movie {
             ComboBox objSearchType = lstSearchType;
             string searchType = ((ComboBoxItem)objSearchType.SelectedItem).Tag.ToString();
 
-            if (searchText.Trim() != "") {
+            if (searchText != "") {
+
+                searchText = searchText.Replace(" ", "%");
 
                 btnBackSearch.Visibility = Visibility.Visible;
                 MovieRepository movieRepo = new MovieRepository();
@@ -290,6 +292,8 @@ namespace Find_My_Movie {
 
                 IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
                 foreach (Image child in covers) {
+                    // Get the objects that were added to the display by the search function
+                    // These elements will be deleted
                     if (child.Tag.ToString() == "search") {
                         delItems.Add(child);
                     }

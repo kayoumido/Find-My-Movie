@@ -41,6 +41,9 @@ namespace Find_My_Movie {
         @interface interfaceClass = new @interface();
         MovieRepository movieRepository = new MovieRepository();
 
+
+        Thread childThread;
+
         bool internetConected = true;
 
         private bool searchClicked = false;
@@ -110,10 +113,24 @@ namespace Find_My_Movie {
 
         }//MetroWindow_Loaded
 
-        private void btnFolder_Click(object sender, RoutedEventArgs e) {
+        private void btnFolder_Click (object sender, RoutedEventArgs e) {
+            childThread.Abort();
             choose_directory directoryClass = new choose_directory();
             directoryClass.ShowDialog();
             directoryClass.Close();
+
+            List<UIElement> delItems = new List<UIElement>();
+            IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
+            foreach (Image child in covers) {
+                    delItems.Add(child);
+            }
+            foreach (UIElement delitem in delItems) {
+                gridMovies.Children.Remove(delitem);
+            }
+
+            childThread = new Thread(displayMovies);
+            childThread.SetApartmentState(ApartmentState.STA);
+            childThread.Start();
         }
 
         private bool CheckConnection(String URL) {
@@ -237,10 +254,10 @@ namespace Find_My_Movie {
             return i;
         }
 
-        private void MetroWindow_ContentRendered(object sender, EventArgs e) {
 
-            ThreadStart childref = new ThreadStart(displayMovies);
-            Thread childThread = new Thread(childref);
+        private void MetroWindow_ContentRendered (object sender, EventArgs e) {
+
+            childThread = new Thread(displayMovies);
             childThread.SetApartmentState(ApartmentState.STA);
             childThread.Start();
 

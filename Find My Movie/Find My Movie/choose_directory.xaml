@@ -11,7 +11,47 @@
         Title="Movies Folder"
         WindowStartupLocation="CenterScreen"
         TitleCaps="False" ResizeMode="NoResize" IsCloseButtonEnabled="False" Loaded="MetroWindow_Loaded">
-    <Controls:MetroWindow.IconTemplate>
+
+        <Window.Resources>
+            <Style x:Key="btn" TargetType="Button">
+                <Setter Property="OverridesDefaultStyle" Value="True" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Foreground" Value="#FFFB8633" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" BorderThickness="1" BorderBrush="#FFFB8633" Background="Transparent">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Opacity" Value="0.8" />
+                                    <Setter Property = "BorderBrush" Value="White"/>
+                                </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Background" Value="#d4d8dd"/>
+                                <Setter TargetName="border" Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        <Style x:Key="txtBox" TargetType="TextBox" >
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="4"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter Property="Opacity" Value="1" />
+                    <Setter Property = "BorderBrush" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+            
+    </Window.Resources>
+    
+        <Controls:MetroWindow.IconTemplate>
         <DataTemplate>
             <Grid Width="{TemplateBinding Width}"
                  Height="{TemplateBinding Height}"
@@ -25,9 +65,9 @@
     </Controls:MetroWindow.IconTemplate>
 
     <Canvas Margin="10">
-        <Button x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Select" Canvas.Left="342" Canvas.Top="11" Width="82"/>
-        <TextBox IsEnabled="False" x:Name="path" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="312" Canvas.Left="14" Canvas.Top="11"/>
-        <Button IsEnabled="False" x:Name="button" Content="Save" Canvas.Left="342" Canvas.Top="52" Width="82" Click="button_Click"/>
+        <Button Style="{StaticResource btn}" x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Select" Canvas.Left="342" Canvas.Top="11" Width="82" Height="25"/>
+        <TextBox Style="{StaticResource txtBox}" IsEnabled="False" x:Name="path" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="312" Canvas.Left="14" Canvas.Top="11"/>
+        <Button Style="{StaticResource btn}" IsEnabled="False" x:Name="button" Content="Save" Canvas.Left="342" Canvas.Top="50" Width="82" Click="button_Click" Height="25"/>
     </Canvas>
 </Controls:MetroWindow>
     

@@ -17,6 +17,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Find_My_Movie
 {
@@ -25,6 +27,7 @@ namespace Find_My_Movie
     /// </summary>
     public partial class choose_directory : MetroWindow
     {
+
         public choose_directory()
         {
             InitializeComponent();
@@ -41,6 +44,7 @@ namespace Find_My_Movie
                 path.Text = dialog.SelectedPath;
                 selected_path = dialog.SelectedPath;
                 button.IsEnabled = true;
+                button.Background = new SolidColorBrush(Colors.Transparent);
             }
 
         }

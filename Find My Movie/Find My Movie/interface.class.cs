@@ -45,17 +45,25 @@ namespace Find_My_Movie{
             foreach (string directory in Directory.GetDirectories(directoryPath))
             {
 
-                // Loop on all the files
-                foreach (string file in Directory.GetFiles(directory))
-                {
+                //try to avoird no read in folder/file
+                try {
 
-                    // Add the file name to the list
-                    file_names.Add(Path.GetFileName(file));
+                    // Loop on all the files
+                    foreach (string file in Directory.GetFiles(directory)) {
 
-                }// foreach (string file in Directory.GetFiles(directory))
+                        // Add the file name to the list
+                        file_names.Add(Path.GetFileName(file));
 
-                // If there are any more directories in the directory
-                DirectorySearch(directory);
+                    }// foreach (string file in Directory.GetFiles(directory))
+
+                    // If there are any more directories in the directory
+                    DirectorySearch(directory);
+
+                }
+                catch (Exception ) {
+
+                }
+
 
             }// foreach (string directory in Directory.GetDirectories(directoryPath))
 

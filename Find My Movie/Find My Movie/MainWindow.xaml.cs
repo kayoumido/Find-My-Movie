@@ -180,7 +180,7 @@ namespace Find_My_Movie {
             }
 
             var allMovies = interfaceClass.GetAllFilename();
-
+            bool zeroMovieFound = true;
 
             List<int> alreadyDisplay = new List<int>(); //to avoid doublon
 
@@ -249,9 +249,14 @@ namespace Find_My_Movie {
                 if (displayMovie && !alreadyDisplay.Contains(idMovie)) {
                     this.Dispatcher.BeginInvoke(new Action(() => addMovieGrid(urlImg, idMovie)), System.Windows.Threading.DispatcherPriority.Background, null);
                     alreadyDisplay.Add(idMovie);
+                    zeroMovieFound = false;
                 }
 
             }//foreach
+
+            if (zeroMovieFound)
+                MessageBox.Show("No movies found in your folder !", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Information);
+            
 
         }
 

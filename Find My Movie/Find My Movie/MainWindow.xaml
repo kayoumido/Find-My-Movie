@@ -106,8 +106,6 @@
                     <TextBox x:Name="txtYearFrom" Padding="4" Canvas.Left="77" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"/>
                     <TextBlock Foreground="White" FontSize="14" Canvas.Left="178" Canvas.Top="177"><Run Text="To"/></TextBlock>
                     <TextBox x:Name="txtYearTo" Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"/>
-
-                    <CheckBox Foreground="White" Canvas.Left="37" Canvas.Top="217" Content="Adult"/>
                     <Button x:Name="btnSearch" Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102" Click="btnSearch_Click"/>
 
                     <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="255" Canvas.Left="37">

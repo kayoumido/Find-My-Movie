@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Height="133.207" Width="458.935"
         Icon="favicon.ico"
-        Title="Movies Folder"
+        Title="Choose Movies Folder"
         WindowStartupLocation="CenterScreen"
         TitleCaps="False" ResizeMode="NoResize" IsCloseButtonEnabled="False" Loaded="MetroWindow_Loaded">
 
@@ -65,7 +65,7 @@
     </Controls:MetroWindow.IconTemplate>
 
     <Canvas Margin="10">
-        <Button Style="{StaticResource btn}" x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Select" Canvas.Left="342" Canvas.Top="11" Width="82" Height="25"/>
+        <Button Style="{StaticResource btn}" x:Name="btnOpenFile" Click="btnOpenFile_Click" Content="Choose" Canvas.Left="342" Canvas.Top="11" Width="82" Height="25"/>
         <TextBox Style="{StaticResource txtBox}" IsEnabled="False" x:Name="path" Height="25" TextWrapping="Wrap" VerticalAlignment="Top" Width="312" Canvas.Left="14" Canvas.Top="11"/>
         <Button Style="{StaticResource btn}" IsEnabled="False" x:Name="button" Content="Save" Canvas.Left="342" Canvas.Top="50" Width="82" Click="button_Click" Height="25"/>
     </Canvas>

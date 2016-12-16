@@ -13,7 +13,7 @@ using TMDbLib.Objects.Search;
 namespace Find_My_Movie {
     class api {
         // the Movie DB api key
-        private string key = "88cf1d08f60e20cf9f7d3f49e82e7c8f";
+        private string key = MainWindow.API_KEY;
         // TMDbClient object
         TMDbClient client;
 

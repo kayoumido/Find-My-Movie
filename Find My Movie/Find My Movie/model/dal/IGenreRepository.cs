@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Find_My_Movie.model.dal {
     interface IGenreRepository {
-        List<fmmGenre> GetGenres(string sort);
+        List<fmmGenre> GetGenres();
 
         fmmGenre GetGenre(int id);
 

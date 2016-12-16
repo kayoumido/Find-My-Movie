@@ -108,10 +108,7 @@
                     <TextBox x:Name="txtYearTo" Padding="4" Canvas.Left="199" Style="{StaticResource textboxFilter}" Canvas.Top="175" Width="84" Height="26"/>
                     <Button x:Name="btnSearch" Content="Search" Style="{StaticResource btnFilter}" Height="24" Width="246" RenderTransformOrigin="0.494,2.188" Canvas.Left="37" Canvas.Top="102" Click="btnSearch_Click"/>
 
-                    <ListBox SelectionMode="Multiple" HorizontalAlignment="Left" Width="246" Canvas.Top="223" Canvas.Left="37">
-                        <ListBoxItem Content="ListBox Item #1"/>
-                        <ListBoxItem Content="ListBox Item #2"/>
-                        <ListBoxItem Content="ListBox Item #3"/>
+                    <ListBox x:Name="lstbGenre" SelectionMode="Multiple" HorizontalAlignment="Left" Height="75" Width="246" Canvas.Top="223" Canvas.Left="37">
                     </ListBox>
                 </Canvas>
 

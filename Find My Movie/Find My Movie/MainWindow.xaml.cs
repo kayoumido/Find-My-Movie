@@ -163,6 +163,7 @@ namespace Find_My_Movie {
 
             //show loading
             loading.Visibility = Visibility.Visible;
+            loading.Text = "We are finding your movies, please wait...";
 
             //restart thread to display movie from the new path
             childThread = new Thread(displayMovies);
@@ -279,9 +280,16 @@ namespace Find_My_Movie {
             }//foreach
 
             if (zeroMovieFound) {
-                MessageBox.Show("No movies were foud in the selected folder !", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Dispatcher.BeginInvoke(new Action(() => AppendTextBox()), System.Windows.Threading.DispatcherPriority.Background, null);
             } 
 
+        }
+
+        /// <summary>
+        /// Set the text of the information message box
+        /// </summary>
+        public void AppendTextBox() {
+            loading.Text = "No movies were found in the selected folder !";
         }
 
         /// <summary>

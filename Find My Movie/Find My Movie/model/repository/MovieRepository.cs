@@ -15,41 +15,6 @@ namespace Find_My_Movie.model.repository {
         private SQLiteConnection DBConnection = dbh.Connect();
 
         /// <summary>
-        /// Get one movie from the database
-        /// </summary>
-        /// <param name="id">id of the movie we want to get</param>
-        /// <returns>A movie object containing the information of the movie</returns>
-        public fmmMovie GetMovie(int id) {
-
-            string sql = @"
-                SELECT
-                    id,
-                    imdbid,
-                    title,
-                    ogtitle,
-                    adult,
-                    budget,
-                    homepage,
-                    runtime,
-                    tagline,
-                    voteaverage,
-                    oglanguage,
-                    overview,
-                    popularity,
-                    poster,
-                    releasedate,
-                    fk_collection
-                FROM
-                    movie
-                WHERE
-                    id = " + id + ";"
-            ;
-            IEnumerable<fmmMovie> movie = DBConnection.Query<fmmMovie>(sql);
-            
-            return movie.FirstOrDefault();
-        }
-
-        /// <summary>
         /// Get all the movies from the database
         /// </summary>
         /// <returns>A list of movie objects containing the information of a movie</returns>
@@ -82,6 +47,41 @@ namespace Find_My_Movie.model.repository {
 
             return movies.ToList();
 
+        }
+
+        /// <summary>
+        /// Get one movie from the database
+        /// </summary>
+        /// <param name="id">id of the movie we want to get</param>
+        /// <returns>A movie object containing the information of the movie</returns>
+        public fmmMovie GetMovie(int id) {
+
+            string sql = @"
+                SELECT
+                    id,
+                    imdbid,
+                    title,
+                    ogtitle,
+                    adult,
+                    budget,
+                    homepage,
+                    runtime,
+                    tagline,
+                    voteaverage,
+                    oglanguage,
+                    overview,
+                    popularity,
+                    poster,
+                    releasedate,
+                    fk_collection
+                FROM
+                    movie
+                WHERE
+                    id = " + id + ";"
+            ;
+            IEnumerable<fmmMovie> movie = DBConnection.Query<fmmMovie>(sql);
+
+            return movie.FirstOrDefault();
         }
 
         /// <summary>
@@ -126,22 +126,10 @@ namespace Find_My_Movie.model.repository {
         /// Remove the movie from the database
         /// </summary>
         /// <param name="id">id of the movie we want to delete</param>
-        /// <notes>This function isn't in use but has been created for futur inprovments</notes>
+        /// <notes>We didn't have to use of this method so we didn't implement it</notes>
         /// <returns>A boolean to inform if anything was deleted</returns>
         public bool Delete(int id) {
-
-            int rowsAffected = DBConnection.Execute(@"
-                DELETE FROM
-                    movie
-                WHERE
-                    id = " + id + ";"
-            );
-
-            if (rowsAffected > 0) {
-                return true;
-            }
-            return false;
-
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -284,6 +272,12 @@ namespace Find_My_Movie.model.repository {
 
         }
 
+        /// <summary>
+        /// Get the movies that meet the search criteria
+        /// </summary>
+        /// <param name="searchValue">The string to search in the database</param>
+        /// <param name="searchTable">Indicates the table that needs to be searched</param>
+        /// <returns>A list of movie objects containing the information of a movie</returns>
         public List<fmmMovie> Search(string searchValue, string searchTable) {
 
             string sql = "";
@@ -456,6 +450,12 @@ namespace Find_My_Movie.model.repository {
             return movies.ToList();
         }
 
+        /// <summary>
+        /// Get the movies that meet the filter criteria
+        /// </summary>
+        /// <param name="genres">A list of genre ids</param>
+        /// <param name="years">An array for the year from and to (this attribut doesn't need to be passed)</param>
+        /// <returns>A list of movie objects containing the information of a movie</returns>
         public List<fmmMovie> Filter(List<int> genres, int[] years = null) {
 
             string sql = @"

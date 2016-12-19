@@ -79,9 +79,9 @@ namespace Find_My_Movie {
             single.Width = containerMovies.ActualWidth;
             foreach (Image child in covers) {
                 child.MaxWidth = maxWidth;
-            }//foreach
+            }
 
-        }//MetroWindow_SizeChanged
+        }
 
         /// <summary>
         /// Show/Hide sidebar
@@ -131,7 +131,7 @@ namespace Find_My_Movie {
                 directoryClass.Close();
             }
 
-        }//MetroWindow_Loaded
+        }
 
         /// <summary>
         /// Event on click button "btnFolder"
@@ -375,6 +375,11 @@ namespace Find_My_Movie {
 
         }
 
+        /// <summary>
+        /// Event for when the search button is clicked
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         private void btnSearch_Click(object sender, RoutedEventArgs e) {
 
             TextBox objTextSearch = txtSearch;
@@ -385,6 +390,7 @@ namespace Find_My_Movie {
 
             if (searchText != "") {
 
+                // This is to help with the sql request
                 searchText = searchText.Replace(" ", "%");
 
                 btnBackSearch.Visibility = Visibility.Visible;
@@ -393,13 +399,14 @@ namespace Find_My_Movie {
 
                 if (movies.Count > 0) {
 
+                    // Hide the side bar that containes the search and filters
                     ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
 
                     List<UIElement> delItems = new List<UIElement>();
 
                     IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
                     foreach (Image child in covers) {
-                        // Get the objects that were added to the display by the search function
+                        // Get the objects that were added to the display by the search or filter function
                         // These elements will be deleted
                         if (child.Tag.ToString() == "search") {
                             delItems.Add(child);
@@ -436,12 +443,19 @@ namespace Find_My_Movie {
             }
         }
 
+        /// <summary>
+        /// Event for when the button to clear a search or filter is clicked
+        /// </summary>
+        /// <param name="sender">object</param>
+        /// <param name="e">event</param>
         private void btnBackSearch_Click(object sender, RoutedEventArgs e) {
 
             List<UIElement> delItems = new List<UIElement>();
 
             IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
             foreach (Image child in covers) {
+                // Get the objects that were added to the display by the search or filter function
+                // These elements will be deleted
                 if (child.Tag.ToString() == "search") {
                     delItems.Add(child);
                 }
@@ -458,6 +472,11 @@ namespace Find_My_Movie {
             btnBackSearch.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Event for when the filter button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFilter_Click(object sender, RoutedEventArgs e) {
 
             bool isYearFromOK = true;
@@ -466,7 +485,7 @@ namespace Find_My_Movie {
             bool isYearToEmpty = false;
             string errorMessage = "";
 
-
+            // Filter for the "from year"
             TextBox objYearFrom = txtYearFrom;
             string yearFrom = objYearFrom.Text.Trim();
 
@@ -484,6 +503,7 @@ namespace Find_My_Movie {
             }
 
 
+            // Filter for the "to year"
             TextBox objYearTo = txtYearTo;
             string yearTo = objYearTo.Text.Trim();
 
@@ -513,6 +533,7 @@ namespace Find_My_Movie {
                 }
             }
 
+            // Filter for the genres
             ListBox objGenreList = lstbGenre;
             List<int> genres = new List<int>();
 
@@ -522,6 +543,7 @@ namespace Find_My_Movie {
                 }
             }
 
+            // Main area of the filter
             if ((isYearFromOK && isYearToOK) || (isYearFromEmpty && isYearToEmpty && genres.Count > 0)) {
                 btnBackSearch.Visibility = Visibility.Visible;
                 MovieRepository movieRepo = new MovieRepository();
@@ -542,6 +564,8 @@ namespace Find_My_Movie {
 
                     IEnumerable<Image> covers = gridMovies.Children.OfType<Image>();
                     foreach (Image child in covers) {
+                        // Get the objects that were added to the display by the search or filter function
+                        // These elements will be deleted
                         if (child.Tag.ToString() == "search") {
                             delItems.Add(child);
                         }
@@ -667,7 +691,7 @@ namespace Find_My_Movie {
             }//foreach
             single.Visibility = Visibility.Visible;
 
-        }//displaySingleMovie
+        }
 
         /// <summary>
         /// Populate DB with movie returned by API

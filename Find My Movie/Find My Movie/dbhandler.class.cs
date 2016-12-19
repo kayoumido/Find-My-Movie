@@ -7,6 +7,9 @@ namespace Find_My_Movie {
 
         private SQLiteConnection connection;
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public dbhandler() {
 
             this.Connect();

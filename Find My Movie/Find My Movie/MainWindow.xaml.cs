@@ -30,7 +30,6 @@ namespace Find_My_Movie {
 
         // ATTRIBUTES
         @interface interfaceClass       = new @interface();
-        MovieRepository movieRepository = new MovieRepository();
         Thread childThread;
         double scrollPositionY          = 0;
         bool internetConected           = true;
@@ -111,13 +110,15 @@ namespace Find_My_Movie {
         /// <param name="e"></param>
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
-            dbhandler FMDb = new dbhandler();
-
             // get movie path in config file
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
             string movie_path = "";
+
+            if (!File.Exists(folder_path)) {
+                Directory.CreateDirectory(folder_path);
+            }
 
             choosedirectory directoryClass = new choosedirectory();
 
@@ -130,6 +131,8 @@ namespace Find_My_Movie {
                 directoryClass.ShowDialog();
                 directoryClass.Close();
             }
+
+            dbhandler FMDb = new dbhandler();
 
         }
 
@@ -192,6 +195,8 @@ namespace Find_My_Movie {
         /// Test if movie is in db or not and display it from DB or API
         /// </summary>
         private void displayMovies() {
+
+            MovieRepository movieRepository = new MovieRepository();
 
             //test internet connected
             if (!CheckConnection()) {
@@ -612,6 +617,8 @@ namespace Find_My_Movie {
         /// <param name="sender">object</param>
         /// <param name="e">event</param>
         void displaySingleMovie (object sender, MouseEventArgs e) {
+
+            MovieRepository movieRepository = new MovieRepository();
 
             //change visibility button
             btnBack.Visibility = Visibility.Visible;

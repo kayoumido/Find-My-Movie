@@ -278,9 +278,9 @@ namespace Find_My_Movie {
 
             }//foreach
 
-            if (zeroMovieFound)
-                MessageBox.Show("No movies found in your folder !", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Information);
-            
+            if (zeroMovieFound) {
+                MessageBox.Show("No movies were foud in the selected folder !", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Information);
+            } 
 
         }
 

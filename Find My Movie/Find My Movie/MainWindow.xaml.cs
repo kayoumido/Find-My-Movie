@@ -16,6 +16,7 @@ using Find_My_Movie.model;
 using Find_My_Movie.model.repository;
 using System.Threading;
 using System.Net;
+using System.Diagnostics;
 
 namespace Find_My_Movie {
     /// <summary>
@@ -111,23 +112,29 @@ namespace Find_My_Movie {
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e) {
 
             // get movie path in config file
-            string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
-            string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
-            string movie_path = "";
+            string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string folderPath = appdataPath + "/" + MainWindow.FOLDER_NAME;
+            string filePath = folderPath + "/" + MainWindow.CONFIG_FILE_NAME;
+            string moviePath = "";
+            string ogFileNamePath = folderPath + "/originalFileName.txt";
 
-            if (!File.Exists(folder_path)) {
-                Directory.CreateDirectory(folder_path);
+            if (!File.Exists(folderPath)) {
+                Directory.CreateDirectory(folderPath);
+            }
+
+            if (!File.Exists(ogFileNamePath)) {
+                var file = File.Create(ogFileNamePath);
+                file.Close();
             }
 
             choosedirectory directoryClass = new choosedirectory();
 
-            if (File.Exists(file_path)) {
-                movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
+            if (File.Exists(filePath)) {
+                moviePath = directoryClass.GetPathConfig(filePath, "/config/path_movies");
             }
 
             // open the second form if it's the first launch
-            if (movie_path == "") {
+            if (moviePath == "") {
                 directoryClass.ShowDialog();
                 directoryClass.Close();
             }
@@ -172,6 +179,24 @@ namespace Find_My_Movie {
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPlay_Click(object sender, RoutedEventArgs e) {
+
+            string moviePath = btnPlay.Tag.ToString();
+            if (File.Exists(moviePath))
+                Process.Start(moviePath);
+            else
+                MessageBox.Show("Path to the file is invalide !\n" + moviePath,
+                                "Find My Movie",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+
+        }
+
+        /// <summary>
         /// Check if internet is connected
         /// </summary>
         /// <returns></returns>
@@ -197,6 +222,7 @@ namespace Find_My_Movie {
         /// </summary>
         private void displayMovies() {
 
+            choosedirectory directoryClass = new choosedirectory();
             MovieRepository movieRepository = new MovieRepository();
 
             //test internet connected
@@ -219,7 +245,7 @@ namespace Find_My_Movie {
                 bool displayMovie = false;
 
                 //get movie name
-                extractfileinfo extract = new extractfileinfo(movie);
+                extractfileinfo extract = new extractfileinfo(Path.GetFileName(movie));
                 string movieName = extract.GetMovieName().Trim();
 
                 //check if in db
@@ -247,7 +273,7 @@ namespace Find_My_Movie {
                     Thread.Sleep(200);
 
                     // init new api object
-                    api api = new api(movie);
+                    api api = new api(Path.GetFileName(movie));
 
                     // check if request to api worked
                     if (api.DidItWork()) {
@@ -385,7 +411,9 @@ namespace Find_My_Movie {
 
             //replace the scroll in the correct position
             containerMovies.ScrollToVerticalOffset(scrollPositionY);
+
             btnBack.Visibility = Visibility.Hidden;
+            btnPlay.Visibility = Visibility.Hidden;
 
             if (searchClicked) {
                 btnBackSearch.Visibility = Visibility.Visible;
@@ -639,6 +667,7 @@ namespace Find_My_Movie {
             //change visibility button
             btnBack.Visibility = Visibility.Visible;
             btnBackSearch.Visibility = Visibility.Hidden;
+            btnPlay.Visibility = Visibility.Visible;
             scrollPositionY = containerMovies.VerticalOffset;
             
             //get the clicked element in grid
@@ -652,6 +681,8 @@ namespace Find_My_Movie {
                 List<fmmCast> casts = movieRepository.GetMovieCasts(Convert.ToInt32(elementName));
                 List<fmmCrew> crews = movieRepository.GetMovieCrews(Convert.ToInt32(elementName));
                 List<fmmGenre> genres = movieRepository.GetMovieGenres(Convert.ToInt32(elementName));
+
+                btnPlay.Tag = infos.filepath;
 
                 //cover
                 if (infos.poster == null || !internetConected) {
@@ -725,8 +756,8 @@ namespace Find_My_Movie {
         /// <param name="infos">Movie information</param>
         /// <param name="credit">Cast and crew linked to movie</param>
         /// <param name="originalName">Orignial Name of the movie</param>
-        /// <param name="originalFileName">Original name of the file</param>
-        private void PopulateDB(Movie infos, Credits credit, string originalName, string originalFileName) {
+        /// <param name="originalFilePath">Original name of the file</param>
+        private void PopulateDB(Movie infos, Credits credit, string originalName, string originalFilePath) {
             MovieRepository      _movieRepo      = new MovieRepository();
             CollectionRepository _collectionRepo = new CollectionRepository();
             CrewRepository       _crewrepo       = new CrewRepository();
@@ -757,7 +788,8 @@ namespace Find_My_Movie {
                 imdbid      = infos.ImdbId,
                 title       = infos.Title,
                 ogtitle     = originalName,
-                filename    = originalFileName,
+                filename    = Path.GetFileName(originalFilePath),
+                filepath    = originalFilePath,
                 adult       = infos.Adult,
                 budget      = infos.Budget,
                 homepage    = infos.Homepage,

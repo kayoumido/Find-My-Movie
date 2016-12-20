@@ -25,23 +25,32 @@ namespace Find_My_Movie{
             string moviePath = directoryClass.GetPathConfig(filePath, "/config/path_movies");
             string ogFileNamePath = folderPath + "/originalFileName.txt";
 
+            if (!File.Exists(ogFileNamePath)) {
+                File.Create(ogFileNamePath);
+            }
+
             //get movie in directory and child directory
-            List<string> fileNames = DirectorySearch(moviePath);
+            List<string> filePaths = DirectorySearch(moviePath);
 
-            DeleteMovies(fileNames, ogFileNamePath);
+            DeleteMovies(filePaths, ogFileNamePath);
 
-            return fileNames.ToArray();
+            return filePaths.ToArray();
 
         }//GetAllFilename
 
         /// <summary>
         /// Delete movies from the database if they are no longer in the folder
         /// </summary>
-        /// <param name="fileNames">Name of the file that have just been scanned</param>
+        /// <param name="filePaths">Name of the file that have just been scanned</param>
         /// <param name="ogFileNamePath">Path to the file with that containes the file names of the previous scan</param>
-        private void DeleteMovies(List<string> fileNames, string ogFileNamePath) {
+        private void DeleteMovies(List<string> filePaths, string ogFileNamePath) {
 
             List<string> originalFileNames = new List<string>(File.ReadAllLines(ogFileNamePath));
+            List<string> fileNames = new List<string>();
+
+            foreach (string filePath in filePaths) {
+                fileNames.Add(Path.GetFileName(filePath));
+            }
 
             foreach (string originalFileName in originalFileNames) {
                 bool inFile = false;
@@ -84,7 +93,7 @@ namespace Find_My_Movie{
                     foreach (string file in Directory.GetFiles(directory)) {
 
                         // Add the file name to the list
-                        fileNames.Add(Path.GetFileName(file));
+                        fileNames.Add(file);
 
                     }// foreach (string file in Directory.GetFiles(directory))
 
@@ -103,13 +112,13 @@ namespace Find_My_Movie{
             foreach (string file in Directory.GetFiles(directoryPath))
             {
 
-                fileNames.Add(Path.GetFileName(file));
+                fileNames.Add(file);
 
             }// foreach (string file in Directory.GetFiles(directoryPath))
 
             return fileNames;
 
-        }// directorySearch
+        }// DirectorySearch
 
         /// <summary>
         /// Get thw with of movie for the display in grid (depending windows width)

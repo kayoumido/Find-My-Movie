@@ -26,6 +26,7 @@ namespace Find_My_Movie {
                   `title` TEXT NULL,
                   `ogtitle` TEXT NULL,
                   `filename` TEXT NULL,
+                  `filepath` TEXT NULL,
                   `adult` INTEGER NULL,
                   `budget` INTEGER NULL,
                   `homepage` TEXT NULL,

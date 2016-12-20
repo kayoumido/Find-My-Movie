@@ -656,6 +656,7 @@ namespace Find_My_Movie {
                 //reset field
                 genresSingle.Text = "";
                 authorSingle.Text = "";
+                directorSingle.Text = "";
 
                 //title
                 titleSingle.Text = infos.title + " (" + infos.releasedate.Substring(6, 4) + ")";
@@ -680,8 +681,10 @@ namespace Find_My_Movie {
                 //director
                 foreach (var crew in crews) {
                     if (crew.job == "Director") {
-                        directorSingle.Text = crew.name;
-                        break;
+                        if (directorSingle.Text != "")
+                            directorSingle.Text += ", ";
+
+                        directorSingle.Text += crew.name;
                     }
 
                 }

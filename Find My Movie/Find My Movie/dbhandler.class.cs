@@ -17,8 +17,8 @@ namespace Find_My_Movie {
             string sql = @"
                 CREATE TABLE IF NOT EXISTS `collection` (
                   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `name` TEXT NOT NULL,
-                  `poster` TEXT NOT NULL)
+                  `name` TEXT NULL,
+                  `poster` TEXT NULL)
                 ;
                 CREATE TABLE IF NOT EXISTS `movie` (
                   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -46,27 +46,27 @@ namespace Find_My_Movie {
 
                 CREATE TABLE IF NOT EXISTS `cast` (
                   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `castid` INTEGER NOT NULL,
-                  `creditid` TEXT NOT NULL,
-                  `name` TEXT NOT NULL,
-                  `image` TEXT NOT NULL)
+                  `castid` INTEGER NULL,
+                  `creditid` TEXT NULL,
+                  `name` TEXT NULL,
+                  `image` TEXT NULL)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `crew` (
                   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `creditid` TEXT NOT NULL,
-                  `name` TEXT NOT NULL,
-                  `image` TEXT NOT NULL)
+                  `creditid` TEXT NULL,
+                  `name` TEXT NULL,
+                  `image` TEXT NULL)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `genre` (
                   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `name` TEXT NOT NULL)
+                  `name` TEXT NULL)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `company` (
                   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                  `name` TEXT NOT NULL)
+                  `name` TEXT NULL)
                 ;
 
                 CREATE TABLE IF NOT EXISTS `country` (
@@ -96,8 +96,8 @@ namespace Find_My_Movie {
                 CREATE TABLE IF NOT EXISTS `movie_has_cast` (
                   `fk_movie` INTEGER NOT NULL,
                   `fk_cast` INTEGER NOT NULL,
-                  `character` TEXT NOT NULL,
-                  `aorder` INTEGER NOT NULL,
+                  `character` TEXT NULL,
+                  `aorder` INTEGER NULL,
                   PRIMARY KEY (`fk_movie`, `fk_cast`),
                   CONSTRAINT `fk_movie_has_cast_movie1`
                     FOREIGN KEY (`fk_movie`)
@@ -114,8 +114,8 @@ namespace Find_My_Movie {
                 CREATE TABLE IF NOT EXISTS `movie_has_crew` (
                   `fk_movie` INTEGER NOT NULL,
                   `fk_crew` INTEGER NOT NULL,
-                  `department` TEXT NOT NULL,
-                  `job` TEXT NOT NULL,
+                  `department` TEXT NULL,
+                  `job` TEXT NULL,
                   PRIMARY KEY (`fk_movie`, `fk_crew`),
                   CONSTRAINT `fk_movie_has_crew_movie1`
                     FOREIGN KEY (`fk_movie`)

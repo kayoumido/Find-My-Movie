@@ -407,11 +407,12 @@ namespace Find_My_Movie {
                 // This is to help with the sql request
                 searchText = searchText.Replace(" ", "%");
 
-                btnBackSearch.Visibility = Visibility.Visible;
                 MovieRepository movieRepo = new MovieRepository();
                 List<fmmMovie> movies = movieRepo.Search(searchText, searchType);
 
                 if (movies.Count > 0) {
+
+                    btnBackSearch.Visibility = Visibility.Visible;
 
                     // Hide the side bar that containes the search and filters
                     ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
@@ -559,7 +560,7 @@ namespace Find_My_Movie {
 
             // Main area of the filter
             if ((isYearFromOK && isYearToOK) || (isYearFromEmpty && isYearToEmpty && genres.Count > 0)) {
-                btnBackSearch.Visibility = Visibility.Visible;
+                
                 MovieRepository movieRepo = new MovieRepository();
                 List<fmmMovie> movies;
                 if (isYearFromOK && isYearToOK) {
@@ -571,6 +572,8 @@ namespace Find_My_Movie {
 
 
                 if (movies.Count > 0) {
+
+                    btnBackSearch.Visibility = Visibility.Visible;
 
                     ShowHideMenu("sbHideLeftMenu", btnLeftMenuHide, btnLeftMenuShow, pnlLeftMenu);
 

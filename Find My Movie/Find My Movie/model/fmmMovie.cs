@@ -5,6 +5,7 @@
         public string imdbid { get; set; }
         public string title { get; set; }
         public string ogtitle { get; set; }
+        public string filename { get; set; }
         public bool adult { get; set; }
         public long budget { get; set; }
         public string homepage { get; set; }

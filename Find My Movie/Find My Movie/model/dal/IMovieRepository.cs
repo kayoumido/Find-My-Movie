@@ -21,6 +21,8 @@ namespace Find_My_Movie.model.dal {
 
         List<fmmGenre> GetMovieGenres(int movieId);
 
+        int MovieExists(string column, string value);
+
         List<fmmMovie> Search(string searchValue, string searchTable);
 
         List<fmmMovie> Filter(List<int> genres, int[] years = null);

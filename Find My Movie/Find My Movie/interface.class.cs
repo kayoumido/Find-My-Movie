@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Find_My_Movie.model.repository;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
@@ -18,17 +19,48 @@ namespace Find_My_Movie{
             choosedirectory directoryClass = new choosedirectory();
 
             //get path movie in config file
-            string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
-            string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
-            string movie_path = directoryClass.GetPathConfig(file_path, "/config/path_movies");
+            string appdataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string folderPath = appdataPath + "/" + MainWindow.FOLDER_NAME;
+            string filePath = folderPath + "/" + MainWindow.CONFIG_FILE_NAME;
+            string moviePath = directoryClass.GetPathConfig(filePath, "/config/path_movies");
+            string ogFileNamePath = folderPath + "/originalFileName.txt";
 
             //get movie in directory and child directory
-            List<string> file_names = DirectorySearch(movie_path);
+            List<string> fileNames = DirectorySearch(moviePath);
 
-            return file_names.ToArray();
+            DeleteMovies(fileNames, ogFileNamePath);
+
+            return fileNames.ToArray();
 
         }//GetAllFilename
+
+        /// <summary>
+        /// Delete movies from the database if they are no longer in the folder
+        /// </summary>
+        /// <param name="fileNames">Name of the file that have just been scanned</param>
+        /// <param name="ogFileNamePath">Path to the file with that containes the file names of the previous scan</param>
+        private void DeleteMovies(List<string> fileNames, string ogFileNamePath) {
+
+            List<string> originalFileNames = new List<string>(File.ReadAllLines(ogFileNamePath));
+
+            foreach (string originalFileName in originalFileNames) {
+                bool inFile = false;
+                foreach (string fileName in fileNames) {
+                    if (originalFileName == fileName) {
+                        inFile = true;
+                    }
+                }
+                if (!inFile) {
+                    MovieRepository movieRepo = new MovieRepository();
+                    int idMovie = movieRepo.MovieExists("filename", originalFileName);
+                    movieRepo.Delete(idMovie);
+                }
+
+            }
+
+            File.WriteAllLines(ogFileNamePath, fileNames);
+
+        }
 
 
         /// <summary>
@@ -39,7 +71,7 @@ namespace Find_My_Movie{
         private List<string> DirectorySearch(string directoryPath)
         {
 
-            List<string> file_names = new List<string>();
+            List<string> fileNames = new List<string>();
 
             // Loop in all the sub-directories
             foreach (string directory in Directory.GetDirectories(directoryPath))
@@ -52,7 +84,7 @@ namespace Find_My_Movie{
                     foreach (string file in Directory.GetFiles(directory)) {
 
                         // Add the file name to the list
-                        file_names.Add(Path.GetFileName(file));
+                        fileNames.Add(Path.GetFileName(file));
 
                     }// foreach (string file in Directory.GetFiles(directory))
 
@@ -71,11 +103,11 @@ namespace Find_My_Movie{
             foreach (string file in Directory.GetFiles(directoryPath))
             {
 
-                file_names.Add(Path.GetFileName(file));
+                fileNames.Add(Path.GetFileName(file));
 
             }// foreach (string file in Directory.GetFiles(directoryPath))
 
-            return file_names;
+            return fileNames;
 
         }// directorySearch
 

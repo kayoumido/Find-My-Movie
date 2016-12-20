@@ -25,6 +25,7 @@ namespace Find_My_Movie.model.repository {
                     imdbid,
                     title,
                     ogtitle,
+                    filename,
                     adult,
                     budget,
                     homepage,
@@ -62,6 +63,7 @@ namespace Find_My_Movie.model.repository {
                     imdbid,
                     title,
                     ogtitle,
+                    filename,
                     adult,
                     budget,
                     homepage,
@@ -99,6 +101,7 @@ namespace Find_My_Movie.model.repository {
                     @imdbid,
                     @title,
                     @ogtitle,
+                    @filename,
                     @adult,
                     @budget,
                     @homepage,
@@ -126,10 +129,19 @@ namespace Find_My_Movie.model.repository {
         /// Remove the movie from the database
         /// </summary>
         /// <param name="id">id of the movie we want to delete</param>
-        /// <notes>We didn't have to use of this method so we didn't implement it</notes>
         /// <returns>A boolean to inform if anything was deleted</returns>
         public bool Delete(int id) {
-            throw new NotImplementedException();
+            int rowsAffected = DBConnection.Execute(@" 
+                DELETE FROM 
+                    movie 
+                WHERE 
+                    id = " + id + ";"
+            );
+
+            if (rowsAffected > 0) {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -235,15 +247,16 @@ namespace Find_My_Movie.model.repository {
         /// <summary>
         /// Check if a movie is in the database
         /// </summary>
-        /// <param name="movieName">Name of the movie after going through the RegEx</param>
+        /// <param name="value">Name of the movie after going through the RegEx</param>
         /// <returns>0 to indicate that there isn't a movie or the id of the movie</returns>
-        public int MovieExists(string movieName) {
+        public int MovieExists(string column, string value) {
             string sql = @"
                 SELECT
                     id,
                     imdbid,
                     title,
                     ogtitle,
+                    filename,
                     adult,
                     budget,
                     homepage,
@@ -259,8 +272,9 @@ namespace Find_My_Movie.model.repository {
                 FROM
                     movie
                 WHERE
-                    ogtitle = '" + movieName + "';"
-            ;
+                    " + column + @" = '" + value + @"'
+            ;";
+
             IEnumerable<fmmMovie> movie = DBConnection.Query<fmmMovie>(sql);
 
             if (movie.Count() == 0) {
@@ -291,6 +305,7 @@ namespace Find_My_Movie.model.repository {
                             m.imdbid,
                             m.title,
                             m.ogtitle,
+                            m.filename,
                             m.adult,
                             m.budget,
                             m.homepage,
@@ -324,6 +339,8 @@ namespace Find_My_Movie.model.repository {
                         WHERE
                             m.title LIKE '%" + searchValue + @"%'
                         OR
+                            m.ogtitle LIKE '%" + searchValue + @"%'
+                        OR
                             ca.name LIKE '%" + searchValue + @"%'
                         OR
                             (cr.name LIKE '%" + searchValue + @"%'
@@ -342,6 +359,7 @@ namespace Find_My_Movie.model.repository {
                             imdbid,
                             title,
                             ogtitle,
+                            filename,
                             adult,
                             budget,
                             homepage,
@@ -358,6 +376,8 @@ namespace Find_My_Movie.model.repository {
                             movie
                         WHERE
                             title LIKE '%" + searchValue + @"%'
+                        OR
+                            ogtitle LIKE '%" + searchValue + @"%'
                         ORDER BY
                             title
                         ASC
@@ -371,6 +391,7 @@ namespace Find_My_Movie.model.repository {
                             m.imdbid,
                             m.title,
                             m.ogtitle,
+                            m.filename,
                             m.adult,
                             m.budget,
                             m.homepage,
@@ -409,6 +430,7 @@ namespace Find_My_Movie.model.repository {
                             m.imdbid,
                             m.title,
                             m.ogtitle,
+                            m.filename,
                             m.adult,
                             m.budget,
                             m.homepage,
@@ -464,6 +486,7 @@ namespace Find_My_Movie.model.repository {
                     m.imdbid,
                     m.title,
                     m.ogtitle,
+                    m.filename,
                     m.adult,
                     m.budget,
                     m.homepage,

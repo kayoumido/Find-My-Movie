@@ -219,7 +219,7 @@ namespace Find_My_Movie {
                 string movieName = extract.GetMovieName().Trim();
 
                 //check if in db
-                int idMovie = movieRepository.MovieExists(movieName);
+                int idMovie = movieRepository.MovieExists("ogtitle", movieName);
 
                 string urlImg = "";
 
@@ -262,7 +262,7 @@ namespace Find_My_Movie {
                         idMovie = infos.Id;
 
                         //add in DB
-                        PopulateDB(infos, credit, movieName);
+                        PopulateDB(infos, credit, movieName, movie);
 
                         displayMovie = true;
 
@@ -721,7 +721,8 @@ namespace Find_My_Movie {
         /// <param name="infos">Movie information</param>
         /// <param name="credit">Cast and crew linked to movie</param>
         /// <param name="originalName">Orignial Name of the movie</param>
-        private void PopulateDB(Movie infos, Credits credit, string originalName) {
+        /// <param name="originalFileName">Original name of the file</param>
+        private void PopulateDB(Movie infos, Credits credit, string originalName, string originalFileName) {
             MovieRepository      _movieRepo      = new MovieRepository();
             CollectionRepository _collectionRepo = new CollectionRepository();
             CrewRepository       _crewrepo       = new CrewRepository();
@@ -752,6 +753,7 @@ namespace Find_My_Movie {
                 imdbid      = infos.ImdbId,
                 title       = infos.Title,
                 ogtitle     = originalName,
+                filename    = originalFileName,
                 adult       = infos.Adult,
                 budget      = infos.Budget,
                 homepage    = infos.Homepage,

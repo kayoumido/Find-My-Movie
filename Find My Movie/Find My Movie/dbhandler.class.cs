@@ -25,6 +25,7 @@ namespace Find_My_Movie {
                   `imdbid` TEXT NULL,
                   `title` TEXT NULL,
                   `ogtitle` TEXT NULL,
+                  `filename` TEXT NULL,
                   `adult` INTEGER NULL,
                   `budget` INTEGER NULL,
                   `homepage` TEXT NULL,

@@ -126,11 +126,22 @@ namespace Find_My_Movie.model.repository {
         }
 
         /// <summary>
+        /// Delete all the movies from the database by dropping it
+        /// </summary>
+        public void DeleteMovies() {
+            DBConnection.Execute(@" 
+                DROP TABLE
+                    movie
+                ;"
+            );
+        }
+
+        /// <summary>
         /// Remove the movie from the database
         /// </summary>
         /// <param name="id">id of the movie we want to delete</param>
         /// <returns>A boolean to inform if anything was deleted</returns>
-        public bool Delete(int id) {
+        public bool DeleteMovie(int id) {
             int rowsAffected = DBConnection.Execute(@" 
                 DELETE FROM 
                     movie 

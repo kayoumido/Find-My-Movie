@@ -53,7 +53,7 @@ namespace Find_My_Movie{
                 if (!inFile) {
                     MovieRepository movieRepo = new MovieRepository();
                     int idMovie = movieRepo.MovieExists("filename", originalFileName);
-                    movieRepo.Delete(idMovie);
+                    movieRepo.DeleteMovie(idMovie);
                 }
 
             }

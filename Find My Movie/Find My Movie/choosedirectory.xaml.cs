@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml;
+using Find_My_Movie.model.repository;
 
 namespace Find_My_Movie
 {
@@ -54,6 +55,11 @@ namespace Find_My_Movie
             string app_data_path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string folder_path = app_data_path + "/" + MainWindow.FOLDER_NAME;
             string file_path = folder_path + "/" + MainWindow.CONFIG_FILE_NAME;
+
+            MovieRepository movieRepo = new MovieRepository();
+            movieRepo.DeleteMovies();
+
+            dbhandler dbH = new dbhandler();
 
             //create directory and file (close the file cause the processus doesn't stop himself)
             Directory.CreateDirectory(folder_path);

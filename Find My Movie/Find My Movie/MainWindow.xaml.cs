@@ -202,7 +202,11 @@ namespace Find_My_Movie {
             //test internet connected
             if (!CheckConnection()) {
                 internetConected = false;
-                MessageBox.Show("No internet connexion, new movie won't be added to the database and images won't be loaded !", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("No internet connexion, new movie won't be added to the database and images won't be loaded !",
+                                "Find My Movie",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning
+                );
             }
 
             var allMovies = interfaceClass.GetAllFilename();
@@ -439,8 +443,8 @@ namespace Find_My_Movie {
 
                     foreach (fmmMovie movie in movies) {
 
-                        string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                        if (movie.poster != null) {
+                        string urlImg = "";
+                        if (movie.poster != null && internetConected) {
                             urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
                         }
 
@@ -599,8 +603,8 @@ namespace Find_My_Movie {
 
                     foreach (fmmMovie movie in movies) {
 
-                        string urlImg = "https://az853139.vo.msecnd.net/static/images/not-found.png";
-                        if (movie.poster != null) {
+                        string urlImg = "";
+                        if (movie.poster != null && internetConected) {
                             urlImg = "https://image.tmdb.org/t/p/w500" + movie.poster;
                         }
 

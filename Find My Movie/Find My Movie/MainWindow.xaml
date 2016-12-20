@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Find_My_Movie"
         mc:Ignorable="d"
-        Title="Find my Movie" 
+        Title="Find My Movie" 
         Height="500" Width="750"
         MinHeight="500" MinWidth="750"
         Icon="favicon.ico"

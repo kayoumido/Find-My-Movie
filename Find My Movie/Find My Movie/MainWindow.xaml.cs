@@ -202,6 +202,7 @@ namespace Find_My_Movie {
             //test internet connected
             if (!CheckConnection()) {
                 internetConected = false;
+                MessageBox.Show("No internet connexion, new movie won't be added to the database and images won't be loaded !", "Find My Movie", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
 
             var allMovies = interfaceClass.GetAllFilename();

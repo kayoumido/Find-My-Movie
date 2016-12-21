@@ -4,15 +4,16 @@ _Technicien ES -  CPNV_
 _Struan Forsyth - Antoine Dessauges - Doran Kayoumi_  
 ## TABLE OF CONTENTS
 1. Conventions
-1. Work environment
+2. Work environment
 3. Take over
-1. Dependencies
-1. Database
-1. API
-1. Interface
-1. Filters
-1. Annexe
+4. Dependencies
+5. Database
+6. API
+7. Interface
 8. Search
+9. Filters
+10. Functionality
+11. References
 
 ## 1. Convention
 
@@ -92,16 +93,18 @@ For the development of the project, we used [Microsoft Visual Studio Entreprise 
 ## 3. Take over
 For a new team to take over the project they will need to have installed the above tools.  
 GitKraken and Bitbucket can be changed out for any other equivalent tool.
-## 3. Dependencies
+
+Ones you have Microsoft Visual Studio Entreprise 2015 launched select "Open a project". In the pop-up navigate to and select the "Find My Movie.sln" file. Ones selected click "Open".
+
+## 4. Dependencies
 As for most projects, we have a few dependencies that need to be installed for the project to work fully. Here's a list of all of them and a short explanation on how to install them.
 
-Ones you have Microsoft Visual Studio Entreprise 2015 launched select "Open a project". In the pop-up navigate to and select the "Find My Movie.sln" file. Ones selected click "Open".   
 Now you are ready to modify the application.
 For the installation of our dependencies, we used the package manager [NuGet]. You can install packages using NuGet GUI (right click on your project, click __Manage NuGet Packages__, select __Online__ and search for the package) or you can use the Package Manager Console:
 
     PM> Install-Package %YOURPACKAGE%
 
-### 3.1 MahApps Metro
+### 4.1 MahApps Metro
 We used the version 1.3.0 of MahApps Metro.
 
 [MahApps Metro] is a UI toolkit for WPF. It allowed us make our application __Shine__ (as the MahApps site says).
@@ -110,34 +113,34 @@ Installation :
 
     PM> Install-Package MahApps.Metro -Version 1.3.0
 
-### 3.2 System.Data.SQLite
+### 4.2 System.Data.SQLite
 We used the version 1.0.103 of System.Data.SQLite
 
 [System.Data.SQLite] is an ADO.NET provider for SQLite.
 
     PM> Install-Package System.Data.SQLite -Version 1.0.103
 
-### 3.3 Dapper
+### 4.3 Dapper
 We used the version 1.50.2 of Dapper
 
 [Dapper] is a simple object mapper for .Net application
 
     PM> Install-Package Dapper -Version 1.50.2
 
-### 3.4 TMDblib
+### 4.4 TMDblib
 We used the version 1.0.0 of TMDblib
 
 [TMDblib] is a C# .Net library for The Movie DB
 
     PM> Install-Package TMDblib -Version 1.0.0
 
-## 4. Database
+## 5. Database
 Initialy the project was using JSON files and not a database, but after a few changes, we had the change and implement a database.
 
 Before implementing a database, we had to choose a database managment system (DBSM). There's a wide array of DBMS to choose from (MySQL, SQL, NoSQL, SQLite, etc..).
 To avoid using an external server to host the database, we decided to use a local database, since Struan and Antoine had some experience with SQLite, we went with it.
 
-### 4.1 Creating the database
+### 5.1 Creating the database
 To keep it as simple as possible, we created tables for the elements that were returned by the API.
 
     movie
@@ -154,10 +157,10 @@ For the sake of simplicity, some of the information stored aren't used. Even tho
 
 The SQL script will be annexed.
 
-## 5. API
+## 6. API
 To get the informations of a movie, we decided to use an external API. At first we used [OMDb] API that returned the necessary information, but after further testing, we discovered that it wasn't able to manage movies with french titles, So we decided to use [The Movie DB].
 
-### 5.1 Get the movie title
+### 6.1 Get the movie title
 The movie title is extracted from the file name. To do so, we used a regex
 
 The regex is located in the "extractfileinfo.class.cs" file. It extracts the suposed movie title from the file name.
@@ -172,11 +175,11 @@ If the name containt a [...] with a web site (e.g. : [www.Cestpasbien.fr])
 * Third group `(dvdrip|byPhilou|TRUEFRENCH|READNFO|avi|\.avi|EDITION|FRENCH|xvid| cd[0-9]|dvdscr|brrip|divx|[\{\(\[]?[0-9]{4})` :  
  The year the movie was released or another special string like "DVDRIP" OR "FRENCH"
 
-### 5.2 How it's used
+### 6.2 How it's used
 To get the movie information, we do 3 requests. The first one, we search for the movie in th DB using its title, then the api will return some basic information about the movie and more importantly its ID. Then we use the ID to get all the information about the movie and the cast and crew the were a part of the making of the movie.
 
 
-## 6. Interface
+## 7. Interface
 The inital project was create in windows form but to simplify the creation of the design we choose to change to a WPF project.
 
 The interface has two window :
@@ -187,10 +190,10 @@ Each file contains XAML code to create the design. It's basicaly like HTML, ever
 
 Each window has a .cs file that contains the code/functions that will be used by the window (e.g. : MainWindow.xaml.cs).
 
-### 6.1 choosedirectory.xaml
+### 7.1 choosedirectory.xaml
 This window is use to selecting the folder which contains the movies. It is opened the first time the user launches the application and when they click on the change folder icon.
 
-### 6.2 MainWindow.xaml
+### 7.2 MainWindow.xaml
 This is the main window of the application. It contains the XAML that displayes the grid of movies and the details of a movie.
 
 The orange bar is an external ressources/library known as [MahApps Metro].
@@ -199,17 +202,17 @@ The filter and search functions are also contained in this file.
 
 To overwrite the default style of the elements, we use `<style>` tag in the top of the file and link it to the wanted elements.
 
-### 6.3 choosedirectory.xaml.cs
+### 7.3 choosedirectory.xaml.cs
 This file manages all the events comming from the window "choosedirectory.xaml", its main purpose is to store the movie folder path in a configuration file.
 
-### 6.4 MainWindow.xaml.cs
+### 7.4 MainWindow.xaml.cs
 This file manages the display of the movies and the display of the details of a movie. It launches the API that collects the movie data and addes the movie to the database. It's also the conenxion point between all the classes and the functionalities of the application.
 
-### 6.5 Internet
+### 7.5 Internet
 The application should work without internet. A pop-up will informe the user if they are not connected, the pictures won't be displayed and the new movies won't have their data collected from the API.
 A "picture not found" image will be display if there is no connexion. This is because the movie covers aren't downloaded and saved on the users machine but are loaded from a url each time.
 
-### 6.6 How movies are display
+### 7.6 How movies are display
 At first we get the file names from the folder. After the file names are put through the regex to get the movie title which is used to test if it's in the database.
 
 * If the movie is found in the database, we get the data and display it.
@@ -217,24 +220,24 @@ At first we get the file names from the folder. After the file names are put thr
 
 All this code is executed in a thread, doing this allows the user to use the application while movies are being loaded.
 
-### 6.7 Responsive
+### 7.7 Responsive
 The application is responsive, it calculates the size of the elements depending on the window size.
 For the display of the details of a movie it is defined in the XAML file. The elements are set with a width of `0.8*`.
 For the movie grid a function was create in "Interface.class.cs" (getWidthMovie) which returns the width of a movie cover.
 
-## 7. Search
+## 8. Search
 The search function allows the user to search for a title, actor or directory of a movie, as well as search all three at the same time. The searched movies are displayed like normal so the usual actions work can be used.
 When the user wants to remove the search they can click the back arrow.
 
 The search function is located in the main file (MainWindow.xaml.cs). This function gets the data from the form, does a check on the data, sends the data to a repository (MovieRepository.cs) which will query the database for the movies. The last thing it does is send the list of movie object to a function that displayes the movies (addMovieGrid).
 
-## 8. Filter
+## 9. Filter
 The filter function allows the user to filter on a year, by inputing two identical year in the input, or on a rang of years. There is also the possibility to filter on the genre. The user can select one genre to all of them. The filter on the genres is cumulative, so if the user selects "Action" and "Fantasy" the movies returned will have both those genres.
 When the user wants to remove the filter they can click the back arrow.
 
 The filter function is located in the main file (MainWindow.xaml.cs). This function gets the data from the form, does a check on the data, sends the data to a repository (MovieRepository.cs) which will query the database for the movies. The last thing it does is send the list of movie object to a function that displayes the movies (addMovieGrid).
 
-## 9. Functionality
+## 10. Functionality
 The application contains the following features :
 * Possibility to select a folder that contains the movies
 * Extract the movie title from the original file name
@@ -247,25 +250,25 @@ The application contains the following features :
 * Search a movie per title, actor or director
 * Filter the movie per year or genre
 
-## 10. State of the project
+## 11. State of the project
 There are some features which need to be improved and some rare bugs that need fixed.
 But we are fairly please with what we have acomplished considering we couoldn't remember much of C#
 
-### 10.1 Bugs
+### 11.1 Bugs
 Here is a lit of bugs which need to be fixed
 
 * If the folder selected is located on a network/external drive (e.g. : K://COMMUN) and the network/external drive is disconnected the application will crash.
 * If the internet connexion is lost after the start of the application, the movies won't be display or the application will crash (depending of the moment internet is lost).
 * If the application is launched for the first time it is not possible to filter on the genres, because they are only loaded when the application is launched. So if a new one is added to the database it won't be loaded.
 
-### 10.2 Improvements
+### 11.2 Improvements
 * Create a thread for the statuts of the internet connexion  (this will fix the bug with the internet).
 * Download the movie's cover to the users machine to allow the application to work without internet after the first launch.
 * Improve the way the details of a movie are displayed.
 * Improve the search and filter functions to that they work together (e.g. : search for a movie containing "war" in the title and then wants to filter for only those that came out in 2016).
 * There are certain bits of code that are repeted and should be moved into functions.
 
-[11. Reference]:
+[12. References]:
 
 [System configuration]:                    img/system-configuration.png                                       "System configuration"  
 [Bitbucket]:                               https://bitbucket.org/                                             "Bitbucket"

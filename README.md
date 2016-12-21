@@ -1,5 +1,5 @@
 # Find My Movie - C# #
-_Décembre 2016_  
+_December 2016_  
 _Technicien ES -  CPNV_  
 _Struan Forsyth - Antoine Dessauges - Doran Kayoumi_  
 ## TABLE OF CONTENTS
@@ -192,27 +192,31 @@ Each file contains XAML code to create the design. It's basically like HTML, eve
 
 Each window has a .cs file that contains the code/functions that will be used by the window (e.g. : MainWindow.xaml.cs).
 
-### 7.1 choosedirectory.xaml
+### 7.1 WPF
+
+WPF (Windows Presentation Foundation) is a graphic specification of Microsoft .NET 3.0. It integrates XAML files which allow the developpers to design the application interface like a HTML page.
+
+### 7.2 choosedirectory.xaml
 This window is used to select the folder which contains the movies. It is opened the first time the user launches the application and when they click on the change folder icon.
 
-### 7.2 MainWindow.xaml
+### 7.3 MainWindow.xaml
 This is the main window of the application, it contains the XAML that displays the grid of movies and the details of a movie.
 
 The filter and search functions are also contained in this file.
 
 To overwrite the default style of the elements, we use `<style>` tag in the top of the file and link it to the wanted elements.
 
-### 7.3 choosedirectory.xaml.cs
+### 7.4 choosedirectory.xaml.cs
 This file manages all the events coming from the window "choosedirectory.xaml", its main purpose is to store the movie folder path in a configuration file.
 
-### 7.4 MainWindow.xaml.cs
+### 7.5 MainWindow.xaml.cs
 This file manages the display of the movies and the display of the details of a movie. It launches the API that collects the movie data and adds the movie to the database. It's also the connexion point between all the classes and the functionalities of the application.
 
-### 7.5 Internet
+### 7.6 Internet
 The application should work without internet, but if the user isn't connected a pop-up will inform him. The pictures won't be displayed and the new movies won't have their data collected from the API.
 A "picture not found" image will be displayed if there is no connexion. This is because the movie covers aren't downloaded and saved on the user's machine, but are loaded from a URL each time.
 
-### 7.6 How movies are display
+### 7.7 How movies are display
 At first we get the file names from the folder. After the file names are put through the regex to get the movie title, which is used to test if it's in the database.
 
 * If the movie is found in the database, we get the data and display it.
@@ -220,7 +224,7 @@ At first we get the file names from the folder. After the file names are put thr
 
 All this code is executed in a thread, doing this allows the user to use the application while movies are being loaded.
 
-### 7.7 Responsive
+### 7.8 Responsive
 The application is responsive, it calculates the size of the elements depending on the window size.
 For the display of the details of a movie, it's defined in the XAML file. The elements are set with a width of `0.8*`.
 For the movie grid a function was created in "Interface.class.cs" (getWidthMovie) which returns the width of a movie cover.

@@ -27,14 +27,14 @@ e.g. :
     string authorName = "Doran Kayoumi";
 
 ### 1.2 Constants
-Constants are declared in uppercase. If the name is composed of multiple words, each word is seperated by an underscore.  
+Constants are declared in uppercase. If the name is composed of multiple words, each word is separated by an underscore.  
 e.g. :  
 
     const string TITLE = "FindMyMovie";
     const string AUTHOR_NAME = "Doran Kayoumi"
 
 ### 1.3 Opening brackets
-Opening brackets are blaced on the same line as the declaration (class, function, loop, condition, etc).  
+Opening brackets are placed on the same line as the declaration (class, function, loop, condition, etc).  
 e.g. :  
 
     Function() { ...
@@ -65,8 +65,8 @@ e.g. :
 Attributes and methods follow the same conventions as for variables and functions.
 
 #### 1.5.2 Models
-Initialy we set that model names and file names were going to be exactly the same as the table it represents, but we had some issues with it. A library we used had exactly the same names as our models, so we decided to change them.
-Now our model names and file names start with the initals of the application "fmm" the the name of the table.  
+Initially we set that model names and file names were going to be exactly the same as the table it represents, but we had some issues with it. A library we used, had exactly the same names as our models, so we decided to change them.
+Now our model names and file names start with the initials of the application "fmm" the name of the table.  
 e.g. :
 
     *Before*
@@ -79,7 +79,7 @@ e.g. :
 
 
 ## 2. Work environment
-This project was realised on computer, provided by the CPNV, with the following characteristics :
+This project was realised on a computer, provided by the CPNV, with the following characteristics :
     * OS : Windows 7 Entreprise - Service pack 1
     * CPU : Intel Core i7-6700 @ 3.40GHZ
     * RAM : 16Gb
@@ -94,7 +94,7 @@ For the development of the project, we used [Microsoft Visual Studio Entreprise 
 For a new team to take over the project they will need to have installed the above tools.  
 GitKraken and Bitbucket can be changed out for any other equivalent tool.
 
-Ones you have Microsoft Visual Studio Entreprise 2015 launched select "Open a project". In the pop-up navigate to and select the "Find My Movie.sln" file. Ones selected click "Open".
+Once you have Microsoft Visual Studio Entreprise 2015 launched select "Open a project". In the pop-up navigate to and select the "Find My Movie.sln" file. Once selected, click "Open".
 
 ## 4. Dependencies
 As for most projects, we have a few dependencies that need to be installed for the project to work fully. Here's a list of all of them and a short explanation on how to install them.
@@ -107,7 +107,7 @@ For the installation of our dependencies, we used the package manager [NuGet]. Y
 ### 4.1 MahApps Metro
 We used the version 1.3.0 of MahApps Metro.
 
-[MahApps Metro] is a UI toolkit for WPF. It allowed us make our application __Shine__ (as the MahApps site says).
+[MahApps Metro] is a UI toolkit for WPF. It allowed us to make our application __Shine__ (as the MahApps site says).
 
 Installation :
 
@@ -135,9 +135,9 @@ We used the version 1.0.0 of TMDblib
     PM> Install-Package TMDblib -Version 1.0.0
 
 ## 5. Database
-Initialy the project was using JSON files and not a database, but after a few changes, we had the change and implement a database.
+Initially the project was using JSON files and not a database, but after a few changes, we had the change and implement a database.
 
-Before implementing a database, we had to choose a database managment system (DBSM). There's a wide array of DBMS to choose from (MySQL, SQL, NoSQL, SQLite, etc..).
+Before implementing a database, we had to choose a database management system (DBSM). There's a wide array of DBMS to choose from (MySQL, SQL, NoSQL, SQLite, etc..).
 To avoid using an external server to host the database, we decided to use a local database, since Struan and Antoine had some experience with SQLite, we went with it.
 
 ### 5.1 Creating the database
@@ -153,67 +153,67 @@ To keep it as simple as possible, we created tables for the elements that were r
     language
 
 
-For the sake of simplicity, some of the information stored aren't used. Even though they aren't used, we found they were still usefull to have and that they could easily be added afterwards in later versions of the appication.
+For the sake of simplicity, some of the information stored aren't used. Even though they aren't used, we found they were still useful to have and that they could easily be added afterwards in later versions of the application.
 
 The SQL script will be annexed.
 
 ## 6. API
-To get the informations of a movie, we decided to use an external API. At first we used [OMDb] API that returned the necessary information, but after further testing, we discovered that it wasn't able to manage movies with french titles, So we decided to use [The Movie DB].
+To get the information of a movie, we decided to use an external API. At first we used [OMDb] API that returned the necessary information, but after further testing, we discovered that it wasn't able to manage movies with french titles, So we decided to use [The Movie DB].
+
+To use the The Movie DB, we had to create an account and generate a key. Which is needed to make requests to the API.
 
 ### 6.1 Get the movie title
 The movie title is extracted from the file name. To do so, we used a regex
 
-The regex is located in the "extractfileinfo.class.cs" file. It extracts the suposed movie title from the file name.
+The regex is located in the "extractfileinfo.class.cs" file. It extracts the supposed movie title from the file name.
 
 Full regex : `(\[.+\]|)(.*?)(dvdrip|byPhilou|TRUEFRENCH|READNFO|avi|\.avi|EDITION|FRENCH|xvid| cd[0-9]|dvdscr|brrip|divx|[\{\(\[]?[0-9]{4}).*`
 
 The regex splits the file name into different groups :
 * First group `(\[.+\]|)`:  
-If the name containt a [...] with a web site (e.g. : [www.Cestpasbien.fr])
+If the name contains a [...] with a web site (e.g. : [www.Cestpasbien.fr])
 * Second group `(.*?)` :  
  The movie title
 * Third group `(dvdrip|byPhilou|TRUEFRENCH|READNFO|avi|\.avi|EDITION|FRENCH|xvid| cd[0-9]|dvdscr|brrip|divx|[\{\(\[]?[0-9]{4})` :  
  The year the movie was released or another special string like "DVDRIP" OR "FRENCH"
 
 ### 6.2 How it's used
-To get the movie information, we do 3 requests. The first one, we search for the movie in th DB using its title, then the api will return some basic information about the movie and more importantly its ID. Then we use the ID to get all the information about the movie and the cast and crew the were a part of the making of the movie.
+To get the movie information, we do 3 requests. The first one, we search for the movie in the database using its title, then the API will return some basic information about the movie and more importantly its ID. Then we use the ID to get all the information about the movie and the cast and crew that were a part of the making of the movie.
 
 
 ## 7. Interface
-The inital project was create in windows form but to simplify the creation of the design we choose to change to a WPF project.
+The initial project was created with Windows forms, but to simplify the creation of the design we choose to change to a WPF project.
 
-The interface has two window :
+The interface has two windows :
 * __choosedirectory.xaml__
 * __MainWindow.xaml__
 
-Each file contains XAML code to create the design. It's basicaly like HTML, every tag may has attributs and you can interact with them in C#.
+Each file contains XAML code to create the design. It's basically like HTML, every tag has attributes that can be interacted with in C#.
 
 Each window has a .cs file that contains the code/functions that will be used by the window (e.g. : MainWindow.xaml.cs).
 
 ### 7.1 choosedirectory.xaml
-This window is use to selecting the folder which contains the movies. It is opened the first time the user launches the application and when they click on the change folder icon.
+This window is used to select the folder which contains the movies. It is opened the first time the user launches the application and when they click on the change folder icon.
 
 ### 7.2 MainWindow.xaml
-This is the main window of the application. It contains the XAML that displayes the grid of movies and the details of a movie.
-
-The orange bar is an external ressources/library known as [MahApps Metro].
+This is the main window of the application, it contains the XAML that displays the grid of movies and the details of a movie.
 
 The filter and search functions are also contained in this file.
 
 To overwrite the default style of the elements, we use `<style>` tag in the top of the file and link it to the wanted elements.
 
 ### 7.3 choosedirectory.xaml.cs
-This file manages all the events comming from the window "choosedirectory.xaml", its main purpose is to store the movie folder path in a configuration file.
+This file manages all the events coming from the window "choosedirectory.xaml", its main purpose is to store the movie folder path in a configuration file.
 
 ### 7.4 MainWindow.xaml.cs
-This file manages the display of the movies and the display of the details of a movie. It launches the API that collects the movie data and addes the movie to the database. It's also the conenxion point between all the classes and the functionalities of the application.
+This file manages the display of the movies and the display of the details of a movie. It launches the API that collects the movie data and adds the movie to the database. It's also the connexion point between all the classes and the functionalities of the application.
 
 ### 7.5 Internet
-The application should work without internet. A pop-up will informe the user if they are not connected, the pictures won't be displayed and the new movies won't have their data collected from the API.
-A "picture not found" image will be display if there is no connexion. This is because the movie covers aren't downloaded and saved on the users machine but are loaded from a url each time.
+The application should work without internet, but if the user isn't connected a pop-up will inform him. The pictures won't be displayed and the new movies won't have their data collected from the API.
+A "picture not found" image will be displayed if there is no connexion. This is because the movie covers aren't downloaded and saved on the user's machine, but are loaded from a URL each time.
 
 ### 7.6 How movies are display
-At first we get the file names from the folder. After the file names are put through the regex to get the movie title which is used to test if it's in the database.
+At first we get the file names from the folder. After the file names are put through the regex to get the movie title, which is used to test if it's in the database.
 
 * If the movie is found in the database, we get the data and display it.
 * If the movie is not found in the database, we use the API to get the data, add it to the display and add it to the database (only if the machine is connected to the internet, the API doesn't work without it).
@@ -222,26 +222,26 @@ All this code is executed in a thread, doing this allows the user to use the app
 
 ### 7.7 Responsive
 The application is responsive, it calculates the size of the elements depending on the window size.
-For the display of the details of a movie it is defined in the XAML file. The elements are set with a width of `0.8*`.
-For the movie grid a function was create in "Interface.class.cs" (getWidthMovie) which returns the width of a movie cover.
+For the display of the details of a movie, it's defined in the XAML file. The elements are set with a width of `0.8*`.
+For the movie grid a function was created in "Interface.class.cs" (getWidthMovie) which returns the width of a movie cover.
 
 ## 8. Search
-The search function allows the user to search for a title, actor or directory of a movie, as well as search all three at the same time. The searched movies are displayed like normal so the usual actions work can be used.
+The search function allows the user to search for a title, actor or director of a movie, as well as search all three at the same time. The searched movies are displayed like normal, so the usual actions work can be used.
 When the user wants to remove the search they can click the back arrow.
 
-The search function is located in the main file (MainWindow.xaml.cs). This function gets the data from the form, does a check on the data, sends the data to a repository (MovieRepository.cs) which will query the database for the movies. The last thing it does is send the list of movie object to a function that displayes the movies (addMovieGrid).
+The search function is located in the main file (MainWindow.xaml.cs). This function gets the data from the form, does a check on the data, sends the data to a repository (MovieRepository.cs) which will query the database for the movies. The last thing it does is send the list of movie object to a function that displays the movies (addMovieGrid).
 
 ## 9. Filter
-The filter function allows the user to filter on a year, by inputing two identical year in the input, or on a rang of years. There is also the possibility to filter on the genre. The user can select one genre to all of them. The filter on the genres is cumulative, so if the user selects "Action" and "Fantasy" the movies returned will have both those genres.
+The filter function allows the user to filter on a year, by inputting two identical year in the input, or on a range of years. There is also the possibility to filter on the genre. The user can select one to all of the genres. The filter on the genres is cumulative, so if the user selects "Action" and "Fantasy" the movies returned will have both those genres. The filtered movies are displayed like normal, so the usual actions work can be used.
 When the user wants to remove the filter they can click the back arrow.
 
-The filter function is located in the main file (MainWindow.xaml.cs). This function gets the data from the form, does a check on the data, sends the data to a repository (MovieRepository.cs) which will query the database for the movies. The last thing it does is send the list of movie object to a function that displayes the movies (addMovieGrid).
+The filter function is located in the main file (MainWindow.xaml.cs). This function gets the data from the form, does a check on the data, sends the data to a repository (MovieRepository.cs) which will query the database for the movies. The last thing it does is send the list of movie object to a function that displays the movies (addMovieGrid).
 
 ## 10. Functionality
 The application contains the following features :
 * Possibility to select a folder that contains the movies
 * Extract the movie title from the original file name
-* Possibility to change the folder where the movie are located
+* Possibility to change the folder where the movies are located
 * Get the movie data (e.g. : Title, Description, Actors, etc...) from FMMDB
 * Save the movie data in a local database
 * Display all the movies
@@ -251,22 +251,24 @@ The application contains the following features :
 * Filter the movie per year or genre
 
 ## 11. State of the project
-There are some features which need to be improved and some rare bugs that need fixed.
-But we are fairly please with what we have acomplished considering we couoldn't remember much of C#
+There are some features which need to be improved and some rare bugs that need fixed.   
+Lots of time was lost backtracking changing technologies and redoing certain functionalities.   
+We are fairly pleased with what we have accomplished, considering we couldn't remember much of C#, we had never coded C# in oriented object and never used WPF.   
 
 ### 11.1 Bugs
-Here is a lit of bugs which need to be fixed
+Here is a list of bugs which need to be fixed
 
 * If the folder selected is located on a network/external drive (e.g. : K://COMMUN) and the network/external drive is disconnected the application will crash.
-* If the internet connexion is lost after the start of the application, the movies won't be display or the application will crash (depending of the moment internet is lost).
-* If the application is launched for the first time it is not possible to filter on the genres, because they are only loaded when the application is launched. So if a new one is added to the database it won't be loaded.
+* If the internet connexion is lost after the start of the application, the movies won't be displayed or the application will crash (depending of the moment internet is lost).
+* If the application is launched for the first time it is not possible to filter on the genres, because they are only loaded when the application is launched. So if a new one is added to the database, it won't be loaded.
 
 ### 11.2 Improvements
-* Create a thread for the statuts of the internet connexion  (this will fix the bug with the internet).
-* Download the movie's cover to the users machine to allow the application to work without internet after the first launch.
+* Create a thread for the status of the internet connexion  (this will fix the bug with the internet).
+* Download the movie's cover to the user's machine to allow the application to work without internet after the first launch.
 * Improve the way the details of a movie are displayed.
 * Improve the search and filter functions to that they work together (e.g. : search for a movie containing "war" in the title and then wants to filter for only those that came out in 2016).
-* There are certain bits of code that are repeted and should be moved into functions.
+* There are certain bits of code that are repeated and should be moved into functions.
+* Currently the API key is stored in the "MainWindow.xaml.cs" file and it should be stored in an .env file (or something of the sort). It should be done for security reason so nobody else can exploit our key.
 
 [12. References]:
 

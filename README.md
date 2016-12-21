@@ -5,7 +5,7 @@ _Struan Forsyth - Antoine Dessauges - Doran Kayoumi_
 ## TABLE OF CONTENTS
 1. Conventions
 2. Work environment
-3. Configuration
+3. Take over
 4. Dependencies
 5. Database
 6. API
@@ -89,9 +89,12 @@ This project was realised on computer, provided by the CPNV, with the following 
 ### 2.1 Tools
 For the development of the project, we used [Microsoft Visual Studio Entreprise 2015]. And for the versioning of the project, git was used with [GitKraken] and the code was hosted on [Bitbucket].
 
+## 3. Take over
+For a new team to take over the project they will need to have installed the above tools.  
+GitKraken and Bitbucket can be changed out for any other equivalent tool.
 
-## 3. Configuration
-
+Ones you have Microsoft Visual Studio Entreprise 2015 launched select "Open a project". In the pop-up navigate to and select the "Find My Movie.sln" file. Ones selected click "Open".   
+Now you are ready to modify the application.
 
 ## 4. Database
 Initialy the project was using JSON files and not a database, but after a few changes, we had the change and implement a database.
@@ -209,6 +212,7 @@ Here is a lit of bugs which need to be fixed
 
 * If the folder selected is located on a network/external drive (e.g. : K://COMMUN) and the network/external drive is disconnected the application will crash.
 * If the internet connexion is lost after the start of the application, the movies won't be display or the application will crash (depending of the moment internet is lost).
+* If the application is launched for the first time it is not possible to filter on the genres, because they are only loaded when the application is launched. So if a new one is added to the database it won't be loaded.
 
 ### 11.2 Improvements
 * Create a thread for the statuts of the internet connexion  (this will fix the bug with the internet).

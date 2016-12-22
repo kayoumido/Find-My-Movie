@@ -266,6 +266,8 @@ Here is a list of bugs which need to be fixed
 * If the internet connexion is lost after the start of the application, the movies won't be displayed or the application will crash (depending of the moment internet is lost).
 * If the application is launched for the first time it is not possible to filter on the genres, because they are only loaded when the application is launched. So if a new one is added to the database, it won't be loaded.
 
+* The help documentation isn't generating correctly.
+
 ### 11.2 Improvements
 * Create a thread for the status of the internet connexion  (this will fix the bug with the internet).
 * Download the movie's cover to the user's machine to allow the application to work without internet after the first launch.
@@ -273,6 +275,7 @@ Here is a list of bugs which need to be fixed
 * Improve the search and filter functions to that they work together (e.g. : search for a movie containing "war" in the title and then wants to filter for only those that came out in 2016).
 * There are certain bits of code that are repeated and should be moved into functions.
 * Currently the API key is stored in the "MainWindow.xaml.cs" file and it should be stored in an .env file (or something of the sort). It should be done for security reason so nobody else can exploit our key.
+* Generate the help documentation throughout the whole project.
 
 [12. References]:
 
